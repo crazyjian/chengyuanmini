@@ -198,9 +198,15 @@ Page({
     wx.scanCode({
       onlyFromCamera: true,
       success(res) {
-        console.log(res);
-        wx.navigateTo({
-          url: "../scanPiece/scanPiece?qrCode=" + res.result
+        var qrcode = res.result;
+        var delta = getCurrentPages().length - 1;// 获取当前页面栈
+        wx.navigateBack({
+          delta: delta,
+          success(res) {
+            wx.navigateTo({
+              url: "../scanPiece/scanPiece?qrCode=" + qrcode
+            })
+          }
         })
       },
       fail(res) {

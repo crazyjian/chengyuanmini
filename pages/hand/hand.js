@@ -225,8 +225,15 @@ Page({
       isHide: true,
       qrCode: ''
     })
-    wx.navigateTo({
-      url: "../hand/hand?qrCode=" + qrCode
+    var delta = getCurrentPages().length-1;// 获取当前页面栈
+    wx.navigateBack({
+      delta: delta,
+      success(res) {
+        wx.navigateTo({
+          url: "../hand/hand?qrCode=" + qrCode
+        })
+      }
     })
+    
   }
 })
