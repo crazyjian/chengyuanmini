@@ -133,9 +133,15 @@ Page({
     wx.scanCode({
       onlyFromCamera: true,
       success(res) {
-        console.log(res);
-        wx.navigateTo({
-          url: "../inspection/inspection?qrCode=" + res.result
+        var qrcode = res.result;
+        var delta = getCurrentPages().length - 1;// 获取当前页面栈
+        wx.navigateBack({
+          delta: delta,
+          success(res) {
+            wx.navigateTo({
+              url: "../sampleinspection/sampleinspection?qrCode=" + qrcode
+            })
+          }
         })
       },
       fail(res) {
