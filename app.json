@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/person/person",
+    "pages/scanPiece/scanPiece",
+    "pages/hand/hand",
+    "pages/dispatch/dispatch",
+    "pages/inspection/inspection",
+    "pages/sampleinspection/sampleinspection",
+    "pages/summary/summary",
+    "pages/dayPieceWork/dayPieceWork",
+    "pages/monthPieceWork/monthPieceWork",
+    "pages/dispatchDetail/dispatchDetail",
+    "pages/inspectionDetail/inspectionDetail",
+    "pages/sampleinspectionDetail/sampleinspectionDetail",
+    "pages/password/password",
+    "pages/employee/employee",
+    "pages/procedureDetail/procedureDetail",
+    "pages/pieceWorkSearch/pieceWorkSearch"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#6495ED",
+    "navigationBarTitleText": "裁衣计件",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#6495ED",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "static/img/operate.png",
+        "iconPath": "static/img/operate.png",
+        "pagePath": "pages/index/index",
+        "text": "操作"
+      },
+      {
+        "selectedIconPath": "static/img/total.png",
+        "iconPath": "static/img/total.png",
+        "pagePath": "pages/summary/summary",
+        "text": "统计"
+      },
+      {
+        "selectedIconPath": "static/img/people-bottom.png",
+        "iconPath": "static/img/people-bottom.png",
+        "pagePath": "pages/person/person",
+        "text": "我的"
+      }
+    ]
+  }
+  
+}

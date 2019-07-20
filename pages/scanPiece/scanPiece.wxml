@@ -1,0 +1,30 @@
+<view class="container" style="padding:50rpx;align-items:left;background-color:rgb(242, 242, 242)">
+  计件信息
+  <view class="section">
+    <view class="flex-wrp" style="flex-direction:row;margin-top:15px;">
+      <label>订单号：{{orderName}}</label>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;">
+      <label>床号：{{bedNumber}}</label>
+      <label>扎号：{{packageNumber}}扎</label>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;">
+      <label>颜色：{{colorName}}</label>
+      <label>件数：{{layerCount}}件</label>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;">
+      <label>尺码：{{sizeName}}</label>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;">
+      <label>工序：{{producerName}}</label>
+    </view>
+    <view class='title'>
+      <text wx:if="{{isShow}}">{{pieceInfo}}</text>
+    </view>
+    
+
+    <view class='button'>
+      <button class='btn' bindtap='scanCode'>继续扫描</button>
+    </view>
+  </view>
+</view>
