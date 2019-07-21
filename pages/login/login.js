@@ -10,10 +10,37 @@ Page({
     // placeholder:'请扫描工厂二维码',
     placeholder:'请输入工厂编码',
     isShow:false,
-    qrCode:'',
+    urlCode:'',
+    employeeNumber:'',
+    passWord:''
   },
   onLoad: function (option) {
+    var that = this;
     wx.hideTabBar();
+    wx.getStorage({
+      key: 'urlCode',
+      success(res) {
+        that.setData({
+          urlCode: res.data
+        })
+      }
+    });
+    wx.getStorage({
+      key: 'employeeNumber',
+      success(res) {
+        that.setData({
+          employeeNumber: res.data
+        })
+      }
+    });
+    wx.getStorage({
+      key: 'passWord',
+      success(res) {
+        that.setData({
+          passWord: res.data
+        })
+      }
+    });
   },
   onShareAppMessage: function (res) {
     var that = this;
@@ -44,7 +71,7 @@ Page({
       app.globalData.backUrl = "https://xiangsheng.jingyiclothing.com";
       app.globalData.factoryName = "中山翔胜制衣";
     } else {
-      app.globalData.backUrl = "http://127.0.0.1:8080";
+      app.globalData.backUrl = "http://192.168.0.101:8080";
       app.globalData.factoryName = "";
     }
     var employeeNumber = e.detail.value.employeeNumber; // 获取当前表单元素输入框内容
@@ -88,6 +115,18 @@ Page({
           } else {
             app.globalData.employee = res.data.employee;
             app.globalData.employeeNumber = employeeNumber;
+            wx.setStorage({
+              key: "urlCode",
+              data: qrCode
+            });
+            wx.setStorage({
+              key: "employeeNumber",
+              data: employeeNumber
+            });
+            wx.setStorage({
+              key: "passWord",
+              data: passWord
+            });
             wx.showToast({
               title: "登录成功",
               icon: 'success',

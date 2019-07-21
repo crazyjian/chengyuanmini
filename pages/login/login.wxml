@@ -5,7 +5,7 @@
       <view class='searchItemImg'>
         <image src='../../static/img/num.png' style='display:inline;' mode="aspectFit"></image>
       </view>
-      <input class='searchItemInput' placeholder='{{placeholder}}' name='qrCode'></input>
+      <input class='searchItemInput' placeholder='{{placeholder}}' name='qrCode' value="{{urlCode}}"></input>
       <!-- <view class='searchItemImg'>
         <image src='../../static/img/success.png' style='display:inline;' mode="aspectFit" wx:if="{{isShow}}"></image>
       </view> -->
@@ -15,14 +15,14 @@
       <view class='searchItemImg'>
         <image src='../../static/img/people.png' style='display:inline' mode="aspectFit"></image>
       </view>
-      <input class='searchItemInput' name='employeeNumber' placeholder='请输入工号' style='width:80%' type='number'></input>     
+      <input class='searchItemInput' name='employeeNumber' placeholder='请输入工号' style='width:80%' type='number' value='{{employeeNumber}}'></input>     
     </view>
     <text>密码</text>
     <view class='searchItem'>
       <view class='searchItemImg'>
         <image src='../../static/img/password.png' style='display:inline' mode="aspectFit"></image>
       </view>
-      <input class='searchItemInput' name='passWord' placeholder='请输入密码' style='width:80%' password='true'></input>   
+      <input class='searchItemInput' name='passWord' placeholder='请输入密码' style='width:80%' password='true' value='{{passWord}}'></input>   
     </view>
     <view class='button'>
       <button class='btn' form-type='submit'>登录</button>
