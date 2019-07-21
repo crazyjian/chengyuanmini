@@ -19,7 +19,7 @@ Page({
       wx.scanCode({
         onlyFromCamera: true,
         success(res) {
-          console.log(res);
+          // console.log(res);
           wx.navigateTo({
             url: "../scanPiece/scanPiece?qrCode=" + res.result
           })
@@ -59,7 +59,7 @@ Page({
       wx.scanCode({
         onlyFromCamera: true,
         success(res) {
-          console.log(res);
+          // console.log(res);
           wx.navigateTo({
             url: "../inspection/inspection?qrCode=" + res.result
           })
@@ -86,7 +86,7 @@ Page({
       wx.scanCode({
         onlyFromCamera: true,
         success(res) {
-          console.log(res);
+          // console.log(res);
           wx.navigateTo({
             url: "../sampleinspection/sampleinspection?qrCode=" + res.result
           })

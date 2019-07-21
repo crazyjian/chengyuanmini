@@ -103,7 +103,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.statusCode == 200) {
           //访问正常
           if (!res.data.flag) {
@@ -156,7 +156,7 @@ Page({
     wx.scanCode({
       onlyFromCamera: true,
       success(res) {
-        console.log(res);
+        // console.log(res);
         var result = res.result;
         var qrCode = "";
         // if(result == "1") {

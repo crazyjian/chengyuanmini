@@ -25,7 +25,7 @@ Page({
       success: function (res) {
         // console.log(res.data);
         if (res.statusCode == 200 && res.data) {
-          console.log(res.data.groupEmployeeList)
+          // console.log(res.data.groupEmployeeList)
           let recordsNew = [];
           for (let i=0;i<res.data.groupEmployeeList.length;i++) {
             recordsNew.push({
