@@ -45,6 +45,9 @@ Page({
           inpsectionJson.bedNumber = obj.data.bedNumber;
           inpsectionJson.packageNumber = obj.data.packageNumber;
           inpsectionJson.layerCount = obj.data.layerCount;
+          inpsectionJson.sizeName = array[5];
+          inpsectionJson.colorName = array[4];
+          inpsectionJson.tailorQcodeID = option.qrCode;
           inpsectionJson.employeeNumber = app.globalData.employeeNumber;
           obj.setData({
             inpsectionJson: inpsectionJson
@@ -188,8 +191,10 @@ Page({
       return false;
     }
     wx.request({
-      url: app.globalData.backUrl + '/erp/miniaddinspection',
-      data: obj.data.inpsectionJson,
+      url: app.globalData.backUrl + '/erp/miniaddinspectionnew',
+      data: {
+        inspectionJson: JSON.stringify(obj.data.inpsectionJson)
+        },
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
