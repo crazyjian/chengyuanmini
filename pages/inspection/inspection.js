@@ -190,50 +190,130 @@ Page({
       });
       return false;
     }
+    var pieceWorkJson = {};
+    pieceWorkJson.orderName = obj.data.orderName;
+    pieceWorkJson.bedNumber = obj.data.bedNumber;
+    pieceWorkJson.packageNumber = obj.data.packageNumber;
+    pieceWorkJson.employeeNumber = app.globalData.employeeNumber;
     wx.request({
-      url: app.globalData.backUrl + '/erp/miniaddinspectionnew',
+      url: app.globalData.backUrl + '/erp/minicheckpieceworknew',
       data: {
-        inspectionJson: JSON.stringify(obj.data.inpsectionJson)
-        },
+        pieceWorkJson: JSON.stringify(pieceWorkJson)
+      },
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
         // console.log(res.data);
-        if (res.statusCode == 200 && res.data==0) {
-          obj.setData({
-            btnText: '继续扫描',
-            btnFunction: 'scanCode',
-            orderName: '',
-            bedNumber: '',
-            packageNumber: '',
-            colorName: '',
-            layerCount: '',
-            wrongQuantity: '',
-            index: 0,
-            wrong: []
+        if (res.data == 0) {
+          wx.request({
+            url: app.globalData.backUrl + '/erp/miniaddinspectionnew',
+            data: {
+              inspectionJson: JSON.stringify(obj.data.inpsectionJson)
+            },
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded' // 默认值
+            },
+            success: function (res) {
+              // console.log(res.data);
+              if (res.statusCode == 200 && res.data == 0) {
+                obj.setData({
+                  btnText: '继续扫描',
+                  btnFunction: 'scanCode',
+                  orderName: '',
+                  bedNumber: '',
+                  packageNumber: '',
+                  colorName: '',
+                  layerCount: '',
+                  wrongQuantity: '',
+                  index: 0,
+                  wrong: []
+                });
+                wx.showToast({
+                  title: "提交成功",
+                  icon: 'success',
+                  duration: 1000
+                })
+              } else {
+                wx.showToast({
+                  title: "提交失败",
+                  image: '../../static/img/error.png',
+                  duration: 1000,
+                })
+              }
+            },
+            fail: function (res) {
+              wx.showToast({
+                title: "提交失败",
+                image: '../../static/img/error.png',
+                duration: 1000,
+              })
+            }
           });
+        } else if (res.data == 1) {
           wx.showToast({
-            title: "提交成功",
-            icon: 'success',
-            duration: 1000
-          })
-        }else {
-          wx.showToast({
-            title: "提交失败",
+            title: "重复计件",
             image: '../../static/img/error.png',
             duration: 1000,
           })
+        } else {
+          wx.request({
+            url: app.globalData.backUrl + '/erp/miniaddinspectionnew',
+            data: {
+              inspectionJson: JSON.stringify(obj.data.inpsectionJson)
+            },
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded' // 默认值
+            },
+            success: function (res) {
+              // console.log(res.data);
+              if (res.statusCode == 200 && res.data == 0) {
+                obj.setData({
+                  btnText: '继续扫描',
+                  btnFunction: 'scanCode',
+                  orderName: '',
+                  bedNumber: '',
+                  packageNumber: '',
+                  colorName: '',
+                  layerCount: '',
+                  wrongQuantity: '',
+                  index: 0,
+                  wrong: []
+                });
+                wx.showToast({
+                  title: "提交成功,部分已计件",
+                  icon: 'none',
+                  duration: 1000
+                })
+              } else {
+                wx.showToast({
+                  title: "提交失败",
+                  image: '../../static/img/error.png',
+                  duration: 1000,
+                })
+              }
+            },
+            fail: function (res) {
+              wx.showToast({
+                title: "提交失败",
+                image: '../../static/img/error.png',
+                duration: 1000,
+              })
+            }
+          });
         }
       },
       fail: function (res) {
         wx.showToast({
-          title: "提交失败",
+          title: "服务器错误",
           image: '../../static/img/error.png',
           duration: 1000,
         })
       }
     });
+    
   }
 })
