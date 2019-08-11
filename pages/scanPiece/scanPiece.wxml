@@ -22,9 +22,25 @@
       <text wx:if="{{isShow}}">{{pieceInfo}}</text>
     </view>
     
-
     <view class='button'>
       <button class='btn' bindtap='scanCode'>继续扫描</button>
+    </view>
+
+    <view class="table">
+      <view class="tr bg-w">
+        <view class="th" style='width:50%'>工序</view>
+        <view class="th" style='width:50%'>员工</view>
+      </view>
+      <block wx:for="{{records}}" wx:key="{{procedureCode}}">
+        <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+          <view class="td" style='width:50%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:50%'>{{item.employeeName}}</view>
+        </view>
+        <view class="tr" wx:else>
+          <view class="td" style='width:50%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:50%'>{{item.employeeName}}</view>
+        </view>
+      </block>
     </view>
   </view>
 </view>

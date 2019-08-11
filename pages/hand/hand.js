@@ -172,7 +172,36 @@ Page({
                 
               }
             }
-          })
+          });
+
+          wx.request({
+            url: app.globalData.backUrl + '/erp/minigetpieceworkempinfo',
+            data: {
+              'orderName': obj.data.orderName,
+              'bedNumber': obj.data.bedNumber,
+              'packageNumber': obj.data.packageNumber,
+              'tailorQcodeID': option.qrCode
+            },
+            method: 'GET',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded' // 默认值
+            },
+            success: function (res) {
+              // console.log(res.data);
+              if (res.statusCode == 200 && res.data) {
+                obj.setData({
+                  records: res.data.pieceWorkEmpList,
+                });
+              }
+            },
+            fail: function (res) {
+              wx.showToast({
+                title: "获取员工信息失败",
+                image: '../../static/img/error.png',
+                duration: 1000,
+              })
+            }
+          });
         }else {
           wx.showToast({
             title: '二维码信息不存在',

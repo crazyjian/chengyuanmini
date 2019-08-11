@@ -102,7 +102,7 @@ label{
   width:70%;
   margin-left:140rpx;
   position: absolute;
-  top: 120rpx;
+  top: 215rpx;
   z-index:1000;
 }
 
