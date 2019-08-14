@@ -218,25 +218,19 @@ Page({
       }
     })
   },
-  onUnload: function () {
-    wx.switchTab({
-      url: '../index/index'
-    })
-  },
+  // onUnload: function () {
+  //   wx.switchTab({
+  //     url: '../index/index'
+  //   })
+  // },
   scanCode: function (e) {
     var obj = this;
     wx.scanCode({
       onlyFromCamera: true,
       success(res) {
         var qrcode = res.result;
-        var delta = getCurrentPages().length - 1;// 获取当前页面栈
-        wx.navigateBack({
-          delta: delta,
-          success(res) {
-            wx.navigateTo({
-              url: "../scanPiece/scanPiece?qrCode=" + qrcode
-            })
-          }
+        wx.redirectTo({
+          url: "../scanPiece/scanPiece?qrCode=" + qrcode
         })
       },
       fail(res) {

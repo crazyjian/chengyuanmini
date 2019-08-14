@@ -130,13 +130,13 @@ Page({
             wx.showToast({
               title: "登录成功",
               icon: 'success',
-              duration: 1000,
+              duration: 500,
               success: function () {
                 setTimeout(function () {
                   wx.switchTab({ 
                     url: "../index/index"
                     })
-                }, 1000)
+                }, 500)
               }
             })
           }

@@ -20,7 +20,7 @@ Page({
         onlyFromCamera: true,
         success(res) {
           // console.log(res);
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../scanPiece/scanPiece?qrCode=" + res.result
           })
         },
@@ -60,7 +60,7 @@ Page({
         onlyFromCamera: true,
         success(res) {
           // console.log(res);
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../inspection/inspection?qrCode=" + res.result
           })
         },
@@ -87,7 +87,7 @@ Page({
         onlyFromCamera: true,
         success(res) {
           // console.log(res);
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../sampleinspection/sampleinspection?qrCode=" + res.result
           })
         },
@@ -145,7 +145,7 @@ Page({
       isHide: true,
       qrCode: ''
     })
-    wx.navigateTo({
+    wx.redirectTo({
       url: "../hand/hand?qrCode=" + qrCode
     })
   }

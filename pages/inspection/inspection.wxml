@@ -1,3 +1,4 @@
+<navigate-title title="质检" />
 <view class="container" style="padding:25rpx 50rpx 25rpx 50rpx;align-items:left;background-color:rgb(242, 242, 242)">
   质检信息
   <view class="section">

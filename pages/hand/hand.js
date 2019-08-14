@@ -219,11 +219,11 @@ Page({
       }
     })
   },
-  onUnload: function () {
-    wx.switchTab({
-      url: '../index/index'
-    })
-  },
+  // onUnload: function () {
+  //   wx.switchTab({
+  //     url: '../index/index'
+  //   })
+  // },
   hand: function (e) {
     this.setData({
       isHide: false
@@ -254,15 +254,8 @@ Page({
       isHide: true,
       qrCode: ''
     })
-    var delta = getCurrentPages().length-1;// 获取当前页面栈
-    wx.navigateBack({
-      delta: delta,
-      success(res) {
-        wx.navigateTo({
-          url: "../hand/hand?qrCode=" + qrCode
-        })
-      }
+    wx.redirectTo({
+      url: "../hand/hand?qrCode=" + qrCode
     })
-    
   }
 })
