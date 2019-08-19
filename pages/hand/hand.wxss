@@ -16,11 +16,10 @@ label {
 
 .flex-wrp {
   display: flex;
-  margin-bottom:25px;
+  margin-bottom:25rpx;
 }
 
 .button{
-  margin-top: 25rpx;
   margin-bottom: 25rpx;
   text-align: center;
 }
@@ -35,7 +34,7 @@ label {
 
 .title {
   text-align:center;
-  margin-top:60rpx;
+  margin-top:15rpx;
   font-size:60rpx;
   color:rgb(19, 91, 224);
 }
