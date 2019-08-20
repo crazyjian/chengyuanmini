@@ -27,23 +27,27 @@
     <view class='button'>
       <button class='btn' bindtap='hand'>继续输入</button>
     </view>
-
+    <scroll-view scroll-x="true">
     <view class="table">
       <view class="tr bg-w">
-        <view class="th" style='width:50%'>工序</view>
-        <view class="th" style='width:50%'>员工</view>
+        <view class="th" style='width:40%'>工序</view>
+        <view class="th" style='width:30%'>员工</view>
+        <view class="th" style='width:40%'>时间</view>
       </view>
       <block wx:for="{{records}}" wx:key="{{procedureCode}}">
         <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-          <view class="td" style='width:50%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
-          <view class="td" style='width:50%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:30%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.pieceTime}}</view>
         </view>
         <view class="tr" wx:else>
-          <view class="td" style='width:50%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
-          <view class="td" style='width:50%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:30%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.pieceTime}}</view>
         </view>
       </block>
     </view>
+    </scroll-view>
   </view>
   <view class='toast-box' hidden='{{isHide}}'>
       <view class='toastbg'></view>

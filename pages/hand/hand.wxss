@@ -128,6 +128,8 @@ label {
   border-top: 1px solid darkgray;
   border-right: 1px solid darkgray;
   border-bottom: 1px solid darkgray;
+  width: 1100rpx;
+  overflow-x: auto;
 }
 .tr {
   display: flex;
