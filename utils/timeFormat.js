@@ -32,6 +32,6 @@ function tsFormatTime(timestamp, format) {
 
 module.exports = {
   // 获取用户信息
-  formatNumber: formatNumber,
-  tsFormatTime: tsFormatTime
+  tsFormatTime: tsFormatTime,
+  formatNumber: formatNumber
 }

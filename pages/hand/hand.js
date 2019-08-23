@@ -190,7 +190,7 @@ Page({
               // console.log(res.data);
               if (res.statusCode == 200 && res.data) {
                 for (var i = 0; i < res.data.pieceWorkEmpList.length; i++) {
-                  res.data.pieceWorkEmpList[i]["pieceTime"] = timeFormat.tsFormatTime(res.data.pieceWorkEmpList[i]["pieceTime"], 'Y-M-D h:m:s');
+                  res.data.pieceWorkEmpList[i]["pieceTime"] = timeFormat.tsFormatTime(res.data.pieceWorkEmpList[i]["pieceTime"], 'Y/M/D h:m:s');
                 }
                 obj.setData({
                   records: res.data.pieceWorkEmpList,
