@@ -5,6 +5,8 @@ Page({
     orderName:'',
     zIndex:-1,
     groupName:'',
+    e_index: 0,
+    employeeNames: ["全部"],
     isShow:true,
     bindSource: []
   },
@@ -58,6 +60,56 @@ Page({
     }
   },
   itemtap: function (e) {
+    var obj = this;
+    if (app.globalData.employee.role == 'root'){
+      wx.request({
+        url: app.globalData.backUrl + '/erp/minigetdispatchemployeenames',
+        data: {
+          orderName: e.target.id,
+          groupName: "全部"
+        },
+        method: 'GET',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: function (res) {
+          var employeeNames = ["全部"];
+          if (res.statusCode == 200 && res.data) {
+            for (var i = 0; i < res.data.employeeNameList.length; i++) {
+              employeeNames.push(res.data.employeeNameList[i]);
+            }
+          }
+          obj.setData({
+            employeeNames: employeeNames,
+            e_index: 0
+          });
+        }
+      })
+    }else{
+      wx.request({
+        url: app.globalData.backUrl + '/erp/minigetdispatchemployeenames',
+        data: {
+          orderName: e.target.id,
+          groupName: app.globalData.employee.groupName
+        },
+        method: 'GET',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: function (res) {
+          var employeeNames = ["全部"];
+          if (res.statusCode == 200 && res.data) {
+            for (var i = 0; i < res.data.employeeNameList.length; i++) {
+              employeeNames.push(res.data.employeeNameList[i]);
+            }
+          }
+          obj.setData({
+            employeeNames: employeeNames,
+            e_index: 0
+          });
+        }
+      })
+    }
     this.setData({
       orderName: e.target.id,
       zIndex: -1
@@ -70,9 +122,11 @@ Page({
         isShow: false
       })
       wx.request({
-        url: app.globalData.backUrl + '/erp/minigetdispatchbyorder',
+        url: app.globalData.backUrl + '/erp/minigetdispatchbyordergroupemp',
         data: {
-          orderName: obj.data.orderName
+          orderName: obj.data.orderName,
+          groupName: "全部",
+          employeeName: obj.data.employeeNames[obj.data.e_index],
         },
         method: 'GET',
         header: {
@@ -81,11 +135,11 @@ Page({
         success: function (res) {
           if (res.statusCode == 200 && res.data) {
             let recordsNew = [];
-            for (let i = 0; i < res.data.dispatchListOrderName.length; i++) {
+            for (let i = 0; i < res.data.dispatchList.length; i++) {
               recordsNew.push({
-                employee: res.data.dispatchListOrderName[i].employeeNumber+'-'+res.data.dispatchListOrderName[i].employeeName,
-                procedureName: res.data.dispatchListOrderName[i].procedureName,
-                dispatchID: res.data.dispatchListOrderName[i].dispatchID
+                employee: res.data.dispatchList[i].employeeNumber + '-' + res.data.dispatchList[i].employeeName,
+                procedureName: res.data.dispatchList[i].procedureName,
+                dispatchID: res.data.dispatchList[i].dispatchID
               });
             }
             obj.setData({
@@ -106,10 +160,11 @@ Page({
         isShow: true
       })
       wx.request({
-        url: app.globalData.backUrl + '/erp/minigetdispatchbyordergroup',
+        url: app.globalData.backUrl + '/erp/minigetdispatchbyordergroupemp',
         data: {
           orderName: obj.data.orderName,
-          groupName:obj.data.groupName
+          groupName:obj.data.groupName,
+          employeeName: obj.data.employeeNames[obj.data.e_index]
         },
         method: 'GET',
         header: {
@@ -118,11 +173,11 @@ Page({
         success: function (res) {
           if (res.statusCode == 200 && res.data) {
             let recordsNew = [];
-            for (let i = 0; i < res.data.dispatchListOrderGroup.length; i++) {
+            for (let i = 0; i < res.data.dispatchList.length; i++) {
               recordsNew.push({
-                employee: res.data.dispatchListOrderGroup[i].employeeNumber + '-' + res.data.dispatchListOrderGroup[i].employeeName,
-                procedureName: res.data.dispatchListOrderGroup[i].procedureName,
-                dispatchID: res.data.dispatchListOrderGroup[i].dispatchID
+                employee: res.data.dispatchList[i].employeeNumber + '-' + res.data.dispatchList[i].employeeName,
+                procedureName: res.data.dispatchList[i].procedureName,
+                dispatchID: res.data.dispatchList[i].dispatchID
               });
             }
             obj.setData({
@@ -144,6 +199,11 @@ Page({
     var groupName = e.detail.value;
     this.setData({
       groupName: groupName
+    })
+  },
+  bindEmpChange: function (e) {
+    this.setData({
+      e_index: e.detail.value
     })
   },
   delDisPatch: function (e) {

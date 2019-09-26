@@ -120,7 +120,7 @@ Page({
             procedures.push('请选择您的工序号');
           for (let i=0; i<res.data.procedureInfoList.length;i++) {
             var info = res.data.procedureInfoList[i];
-            procedures.push(info.procedureCode + "-" + info.procedureNumber + "-" + info.procedureName);
+            procedures.push(info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName);
           }
           obj.setData({
             procedures: procedures,
@@ -152,7 +152,6 @@ Page({
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: function (res) {
-          // console.log(res.data);
           if (res.statusCode == 200 && res.data) {
             for (var i = 0; i < res.data.orderNameList.length;i++) {
               newSource.push(res.data.orderNameList[i].orderName);

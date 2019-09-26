@@ -1,5 +1,4 @@
 const util = require('../../utils/util.js')
-const timeFormat = require('../../utils/timeFormat.js')
 const app = getApp()
 Page({
   data: {
@@ -93,10 +92,6 @@ Page({
             success: function (res) {
               // console.log(res.data);
               if (res.statusCode == 200 && res.data) {
-                for (var i = 0; i < res.data.pieceWorkEmpList.length; i++) {
-                  console.log(res.data.pieceWorkEmpList[i]["pieceTime"]);
-                  res.data.pieceWorkEmpList[i]["pieceTime"] = timeFormat.tsFormatTime(res.data.pieceWorkEmpList[i]["pieceTime"],'Y/M/D h:m:s');
-                }
                 obj.setData({
                   records: res.data.pieceWorkEmpList,
                 });

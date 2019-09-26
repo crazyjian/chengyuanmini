@@ -14,6 +14,15 @@
       <text>组名</text>
       <input class='searchItemInput' name='groupName' placeholder='请输入您的组名' value="{{groupName}}" bindinput='getGroupName' style='margin-left:60rpx'></input>
     </view>
+
+    <div class='searchItem'>
+      <text>员工</text>
+      <picker class='searchItemInput' bindchange="bindEmpChange" value="{{e_index}}" range="{{employeeNames}}" style='margin-left:60rpx'>
+        <view class="picker" style="margin-right:20rpx;display:flex;flex-direction:row;padding: 15rpx 10rpx 10rpx 10rpx;">
+            {{employeeNames[e_index]}}
+        </view>
+      </picker>
+    </div>
     <view class='button'>
       <button class='btn' bindtap='search'>查询</button>
     </view>
