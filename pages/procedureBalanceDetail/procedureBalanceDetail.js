@@ -13,14 +13,19 @@ Page({
       procedureNumber: option.procedureNumber,
       procedureName: option.procedureName
     })
+    var url = "/erp/minigetproductionprogressdetailbyordertimegroup";
+    if (option.procedureNumber == "0") {
+      url = "/erp/minigetotherproductionprogressdetailbyordertime";
+    }
     wx.request({
-      url: app.globalData.backUrl + '/erp/minigetproductionprogressdetailbyordertimegroup',
+      url: app.globalData.backUrl + url,
       data: {
         orderName: option.orderName,
         groupName: option.groupName,
         from: option.from,
         to: option.to,
-        procedureNumber:option.procedureNumber
+        procedureNumber:option.procedureNumber,
+        procedureName:option.procedureName
       },
       method: 'GET',
       header: {

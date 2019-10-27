@@ -25,15 +25,6 @@ Page({
           for (var i = 0; i < res.data.groupList.length; i++) {
             groupNames.push(res.data.groupList[i]);
           }
-          if (app.globalData.employee.role == 'role2') {
-            for (var i = 0; i < groupNames.length; i++) {
-              if (groupNames[i] == app.globalData.employee.groupName) {
-                obj.setData({
-                  g_index: i
-                })
-              }
-            }
-          }
           obj.setData({
             groupNames: groupNames
           });
