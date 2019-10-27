@@ -85,6 +85,15 @@ Page({
   },
   search:function() {
     var obj = this;
+    var orderName = obj.data.orderName;
+    if (!orderName) {
+      wx.showToast({
+        title: '请输入订单号',
+        image: '../../static/img/error.png',
+        duration: 1000
+      });
+      return false;
+    }
     var groupName = obj.data.groupNames[obj.data.g_index];
     if (obj.data.g_index == 0) {
       groupName = "";
@@ -100,7 +109,7 @@ Page({
     wx.request({
       url: app.globalData.backUrl + '/erp/minigetproductionprogressbyordertimegroup', 
       data: {
-        orderName: obj.data.orderName,
+        orderName: orderName,
         groupName: groupName,
         from:from,
         to:to

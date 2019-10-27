@@ -10,26 +10,26 @@
       <view class="tr bg-w">
         <view class="th" style='width:40%'>颜色</view>
         <view class="th" style='width:40%'>尺码</view>
+        <view class="th" style='width:40%'>已做</view>
         <view class="th" style='width:40%'>订单量</view>
         <view class="th" style='width:40%'>好片数</view>
-        <view class="th" style='width:40%'>已做</view>
         <view class="th" style='width:40%'>差异</view>
       </view>
       <block wx:for="{{records}}">
         <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
           <view class="td" style='width:40%'>{{item.color}}</view>
           <view class="td" style='width:40%'>{{item.size}}</view>
+          <view class="td" style='width:40%'>{{item.productionCount}}</view>
           <view class="td" style='width:40%'>{{item.orderCount}}</view>
           <view class="td" style='width:40%'>{{item.cutCount}}</view>
-          <view class="td" style='width:40%'>{{item.productionCount}}</view>
           <view class="td" style='width:40%'>{{item.leakCount}}</view>
         </view>
         <view class="tr" wx:else>
           <view class="td" style='width:40%'>{{item.color}}</view>
           <view class="td" style='width:40%'>{{item.size}}</view>
+          <view class="td" style='width:40%'>{{item.productionCount}}</view>
           <view class="td" style='width:40%'>{{item.orderCount}}</view>
           <view class="td" style='width:40%'>{{item.cutCount}}</view>
-          <view class="td" style='width:40%'>{{item.productionCount}}</view>
           <view class="td" style='width:40%'>{{item.leakCount}}</view>
         </view>
       </block>
