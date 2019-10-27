@@ -1,5 +1,4 @@
 const util = require('../../utils/util.js')
-
 const app = getApp()
 Page({
   data: {
@@ -36,6 +35,7 @@ Page({
           pieceWorkJson.orderName = array[0];
           pieceWorkJson.bedNumber = array[2];
           pieceWorkJson.packageNumber = array[7];
+          pieceWorkJson.partName = array[8];
           pieceWorkJson.colorName = array[4];
           pieceWorkJson.sizeName = array[5];
           pieceWorkJson.layerCount = array[6];
@@ -45,6 +45,7 @@ Page({
             orderName: array[0],
             bedNumber: array[2],
             packageNumber: array[7],
+            partName: array[8],
             colorName: array[4],
             layerCount: array[6],
             sizeName: array[5],
@@ -71,7 +72,7 @@ Page({
               }else {
                 var producerName = '';
                 for (var i = 0; i < res.data.procedureInfoEmpList.length; i++) {
-                  producerName += res.data.procedureInfoEmpList[i].procedureCode + '-' + res.data.procedureInfoEmpList[i].procedureNumber + '-' + res.data.procedureInfoEmpList[i].procedureName + ' ';
+                  producerName += res.data.procedureInfoEmpList[i].procedureNumber + '-' + res.data.procedureInfoEmpList[i].procedureName + ' ';
                 }
                 obj.setData({
                   producerName: producerName
@@ -89,9 +90,10 @@ Page({
                     // console.log(res.data);
                     if (res.data == 0) {
                       wx.request({
-                        url: app.globalData.backUrl + '/erp/miniaddpieceworkbatch',
+                        url: app.globalData.backUrl + '/erp/miniaddpieceworkbatchnew',
                         data: {
-                          pieceWorkJson: obj.data.pieceWorkJson
+                          pieceWorkJson: obj.data.pieceWorkJson,
+                          pieceType: 0
                         },
                         method: 'POST',
                         header: {
@@ -103,6 +105,11 @@ Page({
                             obj.setData({
                               isShow: true,
                               pieceInfo: '计件成功'
+                            })
+                          } else if (res.data == 3) {
+                            obj.setData({
+                              isShow: true,
+                              pieceInfo: '扫描部位不正确'
                             })
                           } else {
                             obj.setData({
@@ -125,9 +132,10 @@ Page({
                       })
                     } else {
                       wx.request({
-                        url: app.globalData.backUrl + '/erp/miniaddpieceworkbatch',
+                        url: app.globalData.backUrl + '/erp/miniaddpieceworkbatchnew',
                         data: {
-                          pieceWorkJson: obj.data.pieceWorkJson
+                          pieceWorkJson: obj.data.pieceWorkJson,
+                          pieceType: 1
                         },
                         method: 'POST',
                         header: {
@@ -138,7 +146,12 @@ Page({
                           if (res.statusCode == 200 && res.data == 0) {
                             obj.setData({
                               isShow: true,
-                              pieceInfo: '计件成功'
+                              pieceInfo: '部分计件成功'
+                            })
+                          } else if (res.data == 3) {
+                            obj.setData({
+                              isShow: true,
+                              pieceInfo: '扫描部位不正确'
                             })
                           } else {
                             obj.setData({
@@ -154,9 +167,9 @@ Page({
                         }
                       });
                       wx.showToast({
-                        title: "部分已计件",
+                        title: "本扎您分配的工序部分已计件,请确认或联系主管",
                         icon: 'none',
-                        duration: 1000,
+                        duration: 2000,
                       })
                     }
                   },

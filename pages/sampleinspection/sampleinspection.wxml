@@ -1,4 +1,4 @@
-<navigate-title title="抽检" />
+<navigate-title title="QC" />
 <view class="container" style="padding:25rpx 50rpx 25rpx 50rpx;align-items:left;background-color:rgb(242, 242, 242)">
   抽检信息
   <view class="section">
@@ -28,21 +28,26 @@
     <view class='button'>
       <button class='btn' bindtap='{{btnFunction}}'>{{btnText}}</button>
     </view>
+    <scroll-view scroll-x="true"> 
     <view class="table">
       <view class="tr bg-w">
-        <view class="th" style='width:50%'>工序</view>
-        <view class="th" style='width:50%'>员工</view>
+        <view class="th" style='width:40%'>工序</view>
+        <view class="th" style='width:30%'>员工</view>
+        <view class="th" style='width:40%'>时间</view>
       </view>
       <block wx:for="{{records}}" wx:key="{{procedureCode}}">
         <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-          <view class="td" style='width:50%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
-          <view class="td" style='width:50%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:30%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.pieceTime}}</view>
         </view>
         <view class="tr" wx:else>
-          <view class="td" style='width:50%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
-          <view class="td" style='width:50%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:30%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.pieceTime}}</view>
         </view>
       </block>
     </view>
+    </scroll-view>
   </view>
 </view>

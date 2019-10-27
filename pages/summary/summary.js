@@ -39,7 +39,7 @@ Page({
           obj.setData({
             dayPackageCount: res.data.packageCount+'扎',
             dayPieceCount: res.data.pieceCount+'件',
-            daySumSalary: res.data.sumSalary+'元'
+            daySumSalary: res.data.sumSalary.toFixed(2)+'元'
           })
         }else {
           wx.showToast({

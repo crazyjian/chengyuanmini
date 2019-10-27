@@ -1,5 +1,4 @@
 const util = require('../../utils/util.js')
-
 const app = getApp()
 Page({
   data: {
@@ -37,6 +36,7 @@ Page({
             orderName:array[0],
             bedNumber: array[2],
             packageNumber: array[7],
+            partName: array[8],
             colorName: array[4],
             layerCount: array[6]
           });
@@ -47,6 +47,7 @@ Page({
           inpsectionJson.layerCount = obj.data.layerCount;
           inpsectionJson.sizeName = array[5];
           inpsectionJson.colorName = array[4];
+          inpsectionJson.partName = array[8];
           inpsectionJson.tailorQcodeID = option.qrCode;
           inpsectionJson.employeeNumber = app.globalData.employeeNumber;
           obj.setData({
@@ -202,9 +203,10 @@ Page({
         // console.log(res.data);
         if (res.data == 0) {
           wx.request({
-            url: app.globalData.backUrl + '/erp/miniaddinspectionnew',
+            url: app.globalData.backUrl + '/erp/miniaddinspection',
             data: {
-              inspectionJson: JSON.stringify(obj.data.inpsectionJson)
+              inspectionJson: JSON.stringify(obj.data.inpsectionJson),
+              pieceType: 0
             },
             method: 'POST',
             header: {
@@ -230,6 +232,12 @@ Page({
                   icon: 'success',
                   duration: 1000
                 })
+              } else if (res.data == 3) {
+                wx.showToast({
+                  title: "扫描部位不正确",
+                  image: '../../static/img/error.png',
+                  duration: 1000,
+                })
               } else {
                 wx.showToast({
                   title: "提交失败",
@@ -254,16 +262,17 @@ Page({
           })
         } else {
           wx.request({
-            url: app.globalData.backUrl + '/erp/miniaddinspectionnew',
+            url: app.globalData.backUrl + '/erp/miniaddinspection',
             data: {
-              inspectionJson: JSON.stringify(obj.data.inpsectionJson)
+              inspectionJson: JSON.stringify(obj.data.inpsectionJson),
+              pieceType: 1
             },
             method: 'POST',
             header: {
               'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
             success: function (res) {
-              // console.log(res.data);
+              console.log(res.data);
               if (res.statusCode == 200 && res.data == 0) {
                 obj.setData({
                   btnText: '继续扫描',
@@ -281,6 +290,12 @@ Page({
                   title: "提交成功,部分已计件",
                   icon: 'none',
                   duration: 1000
+                })
+              } else if (res.data == 3) {
+                wx.showToast({
+                  title: "扫描部位不正确",
+                  image: '../../static/img/error.png',
+                  duration: 1000,
                 })
               } else {
                 wx.showToast({
