@@ -3,17 +3,43 @@ Page({
   data: {
     records:[],
     orderName:'',
-    groupName: '',
     zIndex:-1,
-    bindSource: []
+    bindSource: [],
+    dateFrom: '开始日期',
+    dateTo: '结束日期',
+    g_index:0,
+    groupNames:["请选择分组"]
   },
   onLoad: function (option) {
     var obj = this;
-    if (app.globalData.employee.role == 'role2') {
-      obj.setData({
-        groupName: app.globalData.employee.groupName
-      })
-    }
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetbiggroupname',
+      data: {},
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        var groupNames = obj.data.groupNames;
+        if (res.statusCode == 200 && res.data) {
+          for (var i = 0; i < res.data.groupList.length; i++) {
+            groupNames.push(res.data.groupList[i]);
+          }
+          if (app.globalData.employee.role == 'role2') {
+            for (var i = 0; i < groupNames.length; i++) {
+              if (groupNames[i] == app.globalData.employee.groupName) {
+                obj.setData({
+                  g_index: i
+                })
+              }
+            }
+          }
+          obj.setData({
+            groupNames: groupNames
+          });
+        }
+      }
+    });
   },
   getOrderName: function (e) {
 
@@ -59,11 +85,25 @@ Page({
   },
   search:function() {
     var obj = this;
+    var groupName = obj.data.groupNames[obj.data.g_index];
+    if (obj.data.g_index == 0) {
+      groupName = "";
+    }
+    var from = obj.data.dateFrom;
+    if (from == "开始日期") {
+      from = "";
+    }
+    var to = obj.data.dateTo;
+    if (to == "结束日期") {
+      to = "";
+    }
     wx.request({
-      url: app.globalData.backUrl + '/erp/minigetproductionprogressbyordergroup',
+      url: app.globalData.backUrl + '/erp/minigetproductionprogressbyordertimegroup', 
       data: {
         orderName: obj.data.orderName,
-        groupName: obj.data.groupName
+        groupName: groupName,
+        from:from,
+        to:to
       },
       method: 'GET',
       header: {
@@ -72,7 +112,7 @@ Page({
       success: function (res) {
         if (res.statusCode == 200 && res.data) {
           obj.setData({
-            records: res.data.miniProductionList
+            records: res.data.productionProgressList
           });
         }else {
           obj.setData({
@@ -94,6 +134,40 @@ Page({
     this.setData({
       groupName: groupName
     })
+  },
+  bindFromChange: function (e) {
+    this.setData({
+      dateFrom: e.detail.value
+    })
+  },
+  bindToChange: function (e) {
+    this.setData({
+      dateTo: e.detail.value
+    })
+  },
+  bindGroupNameChange: function (e) {
+    this.setData({
+      g_index: e.detail.value
+    })
+  },
+  detail:function(e) {
+    var procedureNumber = e.currentTarget.dataset.procedurenumber;
+    var procedureName = e.currentTarget.dataset.procedurename;
+    var groupName = this.data.groupNames[this.data.g_index];
+    if (this.data.g_index == 0) {
+      groupName = "";
+    }
+    var from = this.data.dateFrom;
+    if (from == "开始日期") {
+      from = "";
+    }
+    var to = this.data.dateTo;
+    if (to == "结束日期") {
+      to = "";
+    }
+    var orderName = this.data.orderName;
+    wx.navigateTo({
+      url: "../procedureBalanceDetail/procedureBalanceDetail?procedureNumber=" + procedureNumber + "&orderName=" + orderName + "&groupName=" + groupName + "&from=" + from + "&to=" + to + "&procedureName=" + procedureName
+    })
   }
-
 })

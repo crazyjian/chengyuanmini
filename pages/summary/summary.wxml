@@ -57,7 +57,7 @@
       抽检明细
     </view>
     <view class="textView largeTitle" bindtap='getProcedureDetail'>
-      工序明细
+      工序平衡
     </view>
   </view>
   </view>

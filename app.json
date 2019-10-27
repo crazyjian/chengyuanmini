@@ -17,7 +17,8 @@
     "pages/password/password",
     "pages/employee/employee",
     "pages/procedureDetail/procedureDetail",
-    "pages/pieceWorkSearch/pieceWorkSearch"
+    "pages/pieceWorkSearch/pieceWorkSearch",
+    "pages/procedureBalanceDetail/procedureBalanceDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
