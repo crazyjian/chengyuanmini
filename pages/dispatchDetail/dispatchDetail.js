@@ -133,7 +133,7 @@ Page({
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: function (res) {
-          if (res.statusCode == 200 && res.data && res.data.dispatchList) {
+          if (res.statusCode == 200 && res.data) {
             let recordsNew = [];
             for (let i = 0; i < res.data.dispatchList.length; i++) {
               recordsNew.push({

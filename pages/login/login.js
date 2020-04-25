@@ -70,8 +70,11 @@ Page({
     } else if (qrCode == '1') {
       app.globalData.backUrl = "https://xiangsheng.jingyiclothing.com";
       app.globalData.factoryName = "中山翔胜制衣";
+    } else if (qrCode == '3') {
+      app.globalData.backUrl = "https://dy.jingyiclothing.com";
+      app.globalData.factoryName = "中山德悦服饰";
     } else {
-      app.globalData.backUrl = "http://192.168.0.101:8080";
+      app.globalData.backUrl = "http://192.168.2.124:8080";
       app.globalData.factoryName = "";
     }
     var employeeNumber = e.detail.value.employeeNumber; // 获取当前表单元素输入框内容
