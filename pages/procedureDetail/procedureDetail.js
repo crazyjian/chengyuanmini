@@ -152,7 +152,7 @@ Page({
   },
   detail:function(e) {
     var procedureNumber = e.currentTarget.dataset.procedurenumber;
-    var procedureName = e.currentTarget.dataset.procedurename;
+    var procedureName = encodeURIComponent(e.currentTarget.dataset.procedurename);
     var groupName = this.data.groupNames[this.data.g_index];
     if (this.data.g_index == 0) {
       groupName = "";
@@ -165,7 +165,7 @@ Page({
     if (to == "结束日期") {
       to = "";
     }
-    var orderName = this.data.orderName;
+    var orderName = encodeURIComponent(this.data.orderName);
     wx.navigateTo({
       url: "../procedureBalanceDetail/procedureBalanceDetail?procedureNumber=" + procedureNumber + "&orderName=" + orderName + "&groupName=" + groupName + "&from=" + from + "&to=" + to + "&procedureName=" + procedureName
     })

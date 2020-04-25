@@ -11,7 +11,7 @@ Page({
     var obj = this;
     this.setData({
       procedureNumber: option.procedureNumber,
-      procedureName: option.procedureName
+      procedureName: decodeURIComponent(option.procedureName)
     })
     var url = "/erp/minigetproductionprogressdetailbyordertimegroup";
     if (option.procedureNumber == "0") {
@@ -20,12 +20,12 @@ Page({
     wx.request({
       url: app.globalData.backUrl + url,
       data: {
-        orderName: option.orderName,
+        orderName: decodeURIComponent(option.orderName),
         groupName: option.groupName,
         from: option.from,
         to: option.to,
         procedureNumber:option.procedureNumber,
-        procedureName:option.procedureName
+        procedureName:decodeURIComponent(option.procedureName)
       },
       method: 'GET',
       header: {
