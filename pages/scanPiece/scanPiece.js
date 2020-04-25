@@ -142,7 +142,7 @@ Page({
                           'content-type': 'application/x-www-form-urlencoded' // 默认值
                         },
                         success: function (res) {
-                          // console.log(res.data);
+                          console.log(res.data);
                           if (res.statusCode == 200 && res.data == 0) {
                             obj.setData({
                               isShow: true,

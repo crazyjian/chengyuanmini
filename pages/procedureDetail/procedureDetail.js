@@ -152,7 +152,7 @@ Page({
   },
   detail:function(e) {
     var procedureNumber = e.currentTarget.dataset.procedurenumber;
-    var procedureName = encodeURIComponent(e.currentTarget.dataset.procedurename);
+    var procedureName = e.currentTarget.dataset.procedurename;
     var groupName = this.data.groupNames[this.data.g_index];
     if (this.data.g_index == 0) {
       groupName = "";

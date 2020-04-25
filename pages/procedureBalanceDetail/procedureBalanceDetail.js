@@ -11,7 +11,7 @@ Page({
     var obj = this;
     this.setData({
       procedureNumber: option.procedureNumber,
-      procedureName: decodeURIComponent(option.procedureName)
+      procedureName: option.procedureName
     })
     var url = "/erp/minigetproductionprogressdetailbyordertimegroup";
     if (option.procedureNumber == "0") {
