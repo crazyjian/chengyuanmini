@@ -9,11 +9,7 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-<<<<<<< Updated upstream
 		"nodeModules": false,
-=======
-		"coverView": true,
->>>>>>> Stashed changes
 		"autoAudits": false,
 		"uglifyFileName": true,
 		"checkInvalidKey": true,

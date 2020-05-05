@@ -57,7 +57,8 @@ Page({
             url: app.globalData.backUrl + '/erp/minigetprocedureinfobyorderemp',
             data: {
               orderName: obj.data.orderName,
-              employeeNumber: app.globalData.employeeNumber
+              employeeNumber: app.globalData.employeeNumber,
+              partName:obj.data.partName
             },
             method: 'GET',
             header: {
