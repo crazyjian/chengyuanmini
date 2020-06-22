@@ -161,4 +161,9 @@ Page({
         url: "../procedureDetail/procedureDetail"
       })
   },
+  getCheckDetail: function () {
+    wx.navigateTo({
+      url: "../checkDetail/checkDetail"
+    })
+},
 })

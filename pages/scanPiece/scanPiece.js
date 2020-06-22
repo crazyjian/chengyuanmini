@@ -68,7 +68,7 @@ Page({
               if (res.data.procedureInfoEmpList.length == 0) {
                 obj.setData({
                   isShow: true,
-                  pieceInfo: '无工序信息，请联系生产主管'
+                  pieceInfo: '无工序信息，或扫描部位不正确'
                 })
               }else {
                 var producerName = '';

@@ -1,0 +1,57 @@
+<wxs module="we">
+ var toFixed = function (value) {
+ return value.toFixed(2);
+}
+module.exports = {
+  toFixed :toFixed
+}
+</wxs>
+<view class="container" style="padding-top:40rpx;align-items:center;background-color:rgb(242, 242, 242)">
+  <view class="section">
+    <view class="flex-wrp" style="display: flex;flex-direction:row;">
+      <div class='inputItem' style="margin-right:20rpx;display:flex;flex-direction:row;">
+        <view>从：</view>
+        <picker mode="date" style="width:70%" value="{{dateFrom}}" bindchange="bindFromChange">
+          <view class="picker">
+            {{dateFrom}}
+          </view>
+        </picker>
+      </div>
+      <div class='inputItem' style="display:flex;flex-direction:row;">
+        <view>到：</view>
+        <picker mode="date" style="width:70%" value="{{dateTo}}"  bindchange="bindToChange">
+          <view class="picker">
+          {{dateTo}}
+          </view>
+        </picker>
+      </div>
+    </view>
+    <view class='button'>
+      <button class='btn' bindtap='search'>查询</button>
+    </view>
+    <view>  
+      <view wx:if="{{records[0] == '无记录'}}">
+        <view>无记录</view>
+      </view>
+      <view wx:else>
+        <block wx:for="{{records}}">
+          <view style="padding-top:40rpx;padding-bottom:20rpx;">
+            {{item.signDate}}{{item.notes}}
+            <view class="table">
+              <view class="tr">
+                <view class="td" style='width:33%'>{{item.in1}}</view>
+                <view class="td" style='width:33%'>{{item.in2}}</view>
+                <view class="td" style='width:33%'>{{item.in3}}</view>
+              </view>
+              <view class="tr">
+                <view class="td" style='width:33%'>{{item.out1}}</view>
+                <view class="td" style='width:33%'>{{item.out2}}</view>
+                <view class="td" style='width:33%'>{{item.out3}}</view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view> 
+  </view>
+</view>

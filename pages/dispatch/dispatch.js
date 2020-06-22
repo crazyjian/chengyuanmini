@@ -16,7 +16,8 @@ Page({
     wx.request({
       url: app.globalData.backUrl + '/erp/minigetemployeebygroup',
       data: {
-        groupName: app.globalData.employee.groupName
+        groupName: app.globalData.employee.groupName,
+        employeeNumber: app.globalData.employee.employeeNumber
       },
       method: 'GET',
       header: {

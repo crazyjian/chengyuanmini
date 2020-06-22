@@ -15,7 +15,7 @@ Page({
   },
   scanCode: function (e) {
     var obj = this;
-    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role1' || app.globalData.employee.role == 'role3') {
+    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role1' || app.globalData.employee.role == 'role2' || app.globalData.employee.role == 'role6' || app.globalData.employee.role == 'role3') {
       wx.scanCode({
         onlyFromCamera: true,
         success(res) {
@@ -41,7 +41,7 @@ Page({
     }
   },
   dispatch: function (e) {
-    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role2') {
+    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role2'|| app.globalData.employee.role == 'role6') {
       wx.navigateTo({
         url: "../dispatch/dispatch"
       })
@@ -55,7 +55,7 @@ Page({
   },
   inspection: function (e) {
     var obj = this;
-    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role2' || app.globalData.employee.role == 'role3') {
+    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role6' || app.globalData.employee.role == 'role2' || app.globalData.employee.role == 'role3') {
       wx.scanCode({
         onlyFromCamera: true,
         success(res) {
@@ -82,7 +82,7 @@ Page({
   },
   sampleinspection: function (e) {
     var obj = this;
-    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role4') {
+    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role6' || app.globalData.employee.role == 'role4') {
       wx.scanCode({
         onlyFromCamera: true,
         success(res) {
@@ -108,7 +108,7 @@ Page({
     }
   },
   hand:function(e) {
-    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role1' || app.globalData.employee.role == 'role3') {
+    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role6' || app.globalData.employee.role == 'role1' || app.globalData.employee.role == 'role3') {
       this.setData({
         isHide:false
       })
