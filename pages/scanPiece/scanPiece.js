@@ -17,7 +17,7 @@ Page({
   onLoad: function (option) {
     var obj = this;
     wx.request({
-      url: app.globalData.backUrl +'/erp/minigetonetailorqcodebytailorqcodeid',
+      url: app.globalData.backUrl +'/erp/minigetonetailorbytailorqcodeid',
       data: {
         tailorQcodeID: option.qrCode,
       },
@@ -26,29 +26,30 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
-        // console.log(res.data);
-        if (res.statusCode == 200 && res.data) {
-          var array = res.data.split('-');
+        if (res.statusCode == 200 && res.data.tailor) {
           //访问正常
-          
           var pieceWorkJson = {};
-          pieceWorkJson.orderName = array[0];
-          pieceWorkJson.bedNumber = array[2];
-          pieceWorkJson.packageNumber = array[7];
-          pieceWorkJson.partName = array[8];
-          pieceWorkJson.colorName = array[4];
-          pieceWorkJson.sizeName = array[5];
-          pieceWorkJson.layerCount = array[6];
+          pieceWorkJson.orderName = res.data.tailor.orderName;
+          pieceWorkJson.clothesVersionNumber = res.data.tailor.clothesVersionNumber;
+          pieceWorkJson.bedNumber = res.data.tailor.bedNumber;
+          pieceWorkJson.packageNumber = res.data.tailor.packageNumber;
+          pieceWorkJson.partName = res.data.tailor.partName;
+          pieceWorkJson.colorName = res.data.tailor.colorName;
+          pieceWorkJson.sizeName = res.data.tailor.sizeName;
+          pieceWorkJson.layerCount = res.data.tailor.layerCount;
           pieceWorkJson.employeeNumber = app.globalData.employeeNumber;
+          pieceWorkJson.employeeName = app.globalData.employee.employeeName;
+          pieceWorkJson.groupName = app.globalData.employee.groupName;
           pieceWorkJson.tailorQcodeID = option.qrCode;
           obj.setData({
-            orderName: array[0],
-            bedNumber: array[2],
-            packageNumber: array[7],
-            partName: array[8],
-            colorName: array[4],
-            layerCount: array[6],
-            sizeName: array[5],
+            orderName: res.data.tailor.orderName,
+            clothesVersionNumber: res.data.tailor.clothesVersionNumber,
+            bedNumber: res.data.tailor.bedNumber,
+            packageNumber: res.data.tailor.packageNumber,
+            partName: res.data.tailor.partName,
+            colorName: res.data.tailor.colorName,
+            layerCount: res.data.tailor.layerCount,
+            sizeName: res.data.tailor.sizeName,
             pieceWorkJson: JSON.stringify(pieceWorkJson)
           });
           
@@ -79,7 +80,7 @@ Page({
                   producerName: producerName
                 });
                 wx.request({
-                  url: app.globalData.backUrl + '/erp/minicheckpieceworknew',
+                  url: app.globalData.backUrl + '/erp/minicheckpieceworknewram',
                   data: {
                     pieceWorkJson: obj.data.pieceWorkJson
                   },
@@ -91,7 +92,7 @@ Page({
                     // console.log(res.data);
                     if (res.data == 0) {
                       wx.request({
-                        url: app.globalData.backUrl + '/erp/miniaddpieceworkbatchnew',
+                        url: app.globalData.backUrl + '/erp/miniaddpieceworkbatchnewram',
                         data: {
                           pieceWorkJson: obj.data.pieceWorkJson,
                           pieceType: 0
@@ -131,9 +132,15 @@ Page({
                         image: '../../static/img/error.png',
                         duration: 1000,
                       })
+                    } else if (res.data == 3) {
+                      wx.showToast({
+                        title: "计件工序为特殊工序，该颜色或尺码不需要计件",
+                        icon: 'none',
+                        duration: 1000,
+                      })
                     } else {
                       wx.request({
-                        url: app.globalData.backUrl + '/erp/miniaddpieceworkbatchnew',
+                        url: app.globalData.backUrl + '/erp/miniaddpieceworkbatchnewram',
                         data: {
                           pieceWorkJson: obj.data.pieceWorkJson,
                           pieceType: 1

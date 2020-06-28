@@ -27,7 +27,8 @@ text{
 }
 
 .button{
-  margin-top: 220rpx;
+  margin-top: 50rpx;
+  margin-bottom: 50rpx;
   text-align: center;
 }
 
