@@ -54,7 +54,7 @@ label{
   border-top: 1px solid darkgray;
   border-right: 1px solid darkgray;
   border-bottom: 1px solid darkgray;
-  width: 1600rpx;
+  width: 2600rpx;
   overflow-x: auto;
 }
 .tr {

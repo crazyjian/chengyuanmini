@@ -26,6 +26,10 @@
         <image class='itemImg' src='../../static/img/hand.png' mode="aspectFit" bindtap='hand'></image>
         <text>手输</text>
       </view>
+      <view class="flex-item">
+        <image class='itemImg' src='../../static/img/task.png' mode="aspectFit" bindtap='multiTask'></image>
+        <text>多任务</text>
+      </view>
     </view>
   </view>
   <view class='toast-box' hidden='{{isHide}}'>

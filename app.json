@@ -18,12 +18,13 @@
     "pages/employee/employee",
     "pages/procedureDetail/procedureDetail",
     "pages/pieceWorkSearch/pieceWorkSearch",
-    "pages/procedureBalanceDetail/procedureBalanceDetail"
+    "pages/procedureBalanceDetail/procedureBalanceDetail",
+    "pages/multiTask/multiTask"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#6495ED",
-    "navigationBarTitleText": "裁衣计件",
+    "navigationBarTitleText": "恒达精益管理",
     "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",

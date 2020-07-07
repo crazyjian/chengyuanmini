@@ -1,0 +1,65 @@
+<navigate-title title="多任务计件" />
+<view class="container" style="padding:50rpx;align-items:left;background-color:rgb(242, 242, 242)">
+  <view class="section">
+    <view class='searchItem' style="margin-top:20rpx;">
+      <text>单号：</text>
+      <input class='searchItemInput' name='versionNumber' placeholder='请输入单号' value="{{versionNumber}}" bindinput='getClothesVersionNumber'></input>
+      <scroll-view scroll-y="true" class="scrollview" style='z-index:{{zIndex}}'>
+        <view wx:for="{{bindSource}}">
+          <view id="{{item}}" bindtap="itemtap" class="itemview">{{item}}</view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class='searchItem' style="margin-top:20rpx;">
+      <text>款号：</text>
+      <picker style="margin-left:20rpx;width:70%" bindchange="bindOrderChange" value="{{o_index}}" range="{{orderNames}}">
+          <view class="picker">
+            {{orderNames[o_index]}}
+          </view>
+        </picker>
+    </view>
+    <view class='searchItem'>
+    <text>工序：</text>
+      <picker style="margin-left:20rpx;width:70%" bindchange="bindProcedureChange" value="{{index}}" range="{{procedures}}">
+        <view class="picker">
+          {{procedures[p_index]}}
+        </view>
+      </picker>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;">
+      <label>床号：{{bedNumber}}</label>
+      <label>扎号：{{packageNumber}}扎</label>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;">
+      <label>颜色：{{colorName}}</label>
+      <label>件数：{{layerCount}}件</label>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;">
+      <label>尺码：{{sizeName}}</label>
+    </view>    
+    <view class='button'>
+      <button class='btn' bindtap='scanCode'>扫描计件</button>
+    </view>
+    <scroll-view scroll-x="true"> 
+    <view class="table">
+      <view class="tr bg-w">
+        <view class="th" style='width:40%'>工序</view>
+        <view class="th" style='width:30%'>员工</view>
+        <view class="th" style='width:40%'>时间</view>
+      </view>
+      <block wx:for="{{records}}" wx:key="{{procedureCode}}">
+        <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+          <view class="td" style='width:40%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:30%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.pieceTime}}</view>
+        </view>
+        <view class="tr" wx:else>
+          <view class="td" style='width:40%'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:30%'>{{item.employeeName}}</view>
+          <view class="td" style='width:40%'>{{item.pieceTime}}</view>
+        </view>
+      </block>
+    </view>
+    </scroll-view>
+  </view>
+</view>
