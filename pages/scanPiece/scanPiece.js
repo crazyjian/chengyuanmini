@@ -105,6 +105,14 @@ Page({
                     pieceInfo: res.data.error,
                     records: res.data.pieceWorkEmpList
                   });
+                }else if (res.data.procedureEmpty){
+                  var producerName = '';
+                  obj.setData({
+                    isShow: true,
+                    producerName: producerName,
+                    pieceInfo: res.data.procedureEmpty,
+                    records: res.data.pieceWorkEmpList
+                  });
                 }
                 
               }
