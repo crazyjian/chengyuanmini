@@ -16,7 +16,7 @@
           <view class="picker">
             {{orderNames[o_index]}}
           </view>
-        </picker>
+      </picker>
     </view>
     <view class='searchItem'>
     <text>工序：</text>

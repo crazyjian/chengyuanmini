@@ -19,7 +19,8 @@
     "pages/procedureDetail/procedureDetail",
     "pages/pieceWorkSearch/pieceWorkSearch",
     "pages/procedureBalanceDetail/procedureBalanceDetail",
-    "pages/multiTask/multiTask"
+    "pages/multiTask/multiTask",
+    "pages/part/part"
   ],
   "window": {
     "backgroundTextStyle": "light",

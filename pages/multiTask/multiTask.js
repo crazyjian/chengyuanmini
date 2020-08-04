@@ -105,10 +105,6 @@ Page({
       versionNumber: e.target.id,
       zIndex: -1
     })
-    wx.setStorage({
-      key: "versionNumber",
-      data: e.target.id
-    });
     wx.request({
       url: app.globalData.backUrl + '/erp/minigetorderbyversion',
       data: {
@@ -128,14 +124,6 @@ Page({
         obj.setData({
           orderNames: orderNames,
           o_index: 0
-        });
-        wx.setStorage({
-          key: "orderNames",
-          data: orderNames
-        });
-        wx.setStorage({
-          key: "o_index",
-          data: 0
         });
       }
     })

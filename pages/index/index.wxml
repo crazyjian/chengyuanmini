@@ -17,8 +17,8 @@
         <text>中查</text>
       </view>
       <view class="flex-item">
-        <image class='itemImg' src='../../static/img/spot.png' mode="aspectFit" bindtap='sampleinspection'></image>
-        <text>QC</text>
+        <image class='itemImg' src='../../static/img/part.png' mode="aspectFit" bindtap='part'></image>
+        <text>部位</text>
       </view>
     </view>
     <view class="flex-wrp" style="flex-direction:row;margin-top:100rpx">
