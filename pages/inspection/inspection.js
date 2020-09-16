@@ -3,9 +3,12 @@ const app = getApp()
 Page({
   data: {
     orderName:'',
+    clothesVersionNumber:'',
     bedNumber:'',
     packageNumber:'',
     colorName:'',
+    sizeName:'',
+    partName:'',
     layerCount:'',
     isShow:false,
     wrongQuantity:'',
@@ -19,7 +22,7 @@ Page({
   onLoad: function (option) {
     var obj = this;
     wx.request({
-      url: app.globalData.backUrl +'/erp/minigetonetailorqcodebytailorqcodeid',
+      url: app.globalData.backUrl +'/erp/minigetonetailorbytailorqcodeid',
       data: {
         tailorQcodeID: option.qrCode,
       },
@@ -29,34 +32,48 @@ Page({
       },
       success: function (res) {
         // console.log(res.data);
-        if (res.statusCode == 200 && res.data) {
+        if (res.statusCode == 200 && res.data.tailor) {
           var array = res.data.split('-');
           //访问正常
+          var orderName = res.data.tailor.orderName;
+          var clothesVersionNumber = res.data.tailor.clothesVersionNumber;
+          var bedNumber = res.data.tailor.bedNumber;
+          var packageNumber = res.data.tailor.packageNumber;
+          var partName = res.data.tailor.partName;
+          var colorName = res.data.tailor.colorName;
+          var sizeName = res.data.tailor.sizeName;
+          var layerCount = res.data.tailor.layerCount;
+          var employeeNumber = app.globalData.employeeNumber;
+          var employeeName = app.globalData.employee.employeeName;
+          var groupName = app.globalData.employee.groupName;
+          var tailorQcodeID = option.qrCode;
           obj.setData({
-            orderName:array[0],
-            bedNumber: array[2],
-            packageNumber: array[7],
-            partName: array[8],
-            colorName: array[4],
-            layerCount: array[6]
+            orderName: res.data.tailor.orderName,
+            clothesVersionNumber: res.data.tailor.clothesVersionNumber,
+            bedNumber: res.data.tailor.bedNumber,
+            packageNumber: res.data.tailor.packageNumber,
+            partName: res.data.tailor.partName,
+            colorName: res.data.tailor.colorName,
+            layerCount: res.data.tailor.layerCount,
+            sizeName: res.data.tailor.sizeName
           });
           var inpsectionJson = {};
-          inpsectionJson.orderName = obj.data.orderName;
-          inpsectionJson.bedNumber = obj.data.bedNumber;
-          inpsectionJson.packageNumber = obj.data.packageNumber;
-          inpsectionJson.layerCount = obj.data.layerCount;
-          inpsectionJson.sizeName = array[5];
-          inpsectionJson.colorName = array[4];
-          inpsectionJson.partName = array[8];
-          inpsectionJson.tailorQcodeID = option.qrCode;
-          inpsectionJson.employeeNumber = app.globalData.employeeNumber;
+          inpsectionJson.orderName = orderName;
+          inpsectionJson.bedNumber = bedNumber;
+          inpsectionJson.packageNumber = packageNumber;
+          inpsectionJson.layerCount = layerCount;
+          inpsectionJson.sizeName = sizeName;
+          inpsectionJson.colorName = colorName;
+          inpsectionJson.partName = partName;
+          inpsectionJson.tailorQcodeID = tailorQcodeID;
+          inpsectionJson.employeeNumber = employeeNumber;
           obj.setData({
             inpsectionJson: inpsectionJson
           })
           wx.request({
             url: app.globalData.backUrl + '/erp/minigetwrongbyordername',
             data: {
-              orderName: array[0]
+              orderName: orderName
             },
             method: 'GET',
             header: {

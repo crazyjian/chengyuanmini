@@ -25,7 +25,7 @@
       <input class='searchItemInput' name='passWord' placeholder='请输入密码' style='width:80%' password='true' value='{{passWord}}'></input>   
     </view>
     <view class='button'>
-      <button class='btn' form-type='submit'>登录</button>
+      <button class='btn' disabled="{{isDisabled}}" form-type='submit'>登录</button>
     </view>
     <text style="display:flex;align-items:center;justify-content:center;padding-top:40rpx;">恒达服装生产计件小程序\n</text>
     <text style="display:flex;align-items:center;justify-content:center;">员工请使用工号和密码登录\n</text>

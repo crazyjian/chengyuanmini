@@ -1,9 +1,13 @@
 <wxs module="we">
- var toFixed = function (value) {
+ var toFixedFour = function (value) {
+ return value.toFixed(4);
+}
+var toFixedTwo = function (value) {
  return value.toFixed(2);
 }
 module.exports = {
-  toFixed :toFixed
+  toFixedTwo :toFixedTwo,
+  toFixedFour:toFixedFour
 }
 </wxs>
 <view class="container" style="padding-top:40rpx;align-items:center;background-color:rgb(242, 242, 242)">
@@ -45,16 +49,16 @@ module.exports = {
       </picker>
     </view>
     <view class="flex-wrp" style="display: flex;flex-direction:row;">
-      <div class='inputItem' style="margin-right:20rpx;display:flex;flex-direction:row;">
-        <view>颜色：</view>
+      <div class='searchItem' style="margin-right:20rpx;display:flex;flex-direction:row;">
+        <text>颜色：</text>
         <picker style="width:60%" bindchange="bindColorChange" value="{{c_index}}" range="{{colorNames}}">
           <view class="picker">
             {{colorNames[c_index]}}
           </view>
         </picker>
       </div>
-      <div class='inputItem' style="display:flex;flex-direction:row;">
-        <view>尺码：</view>
+      <div class='searchItem' style="display:flex;flex-direction:row;">
+        <text>尺码：</text>
         <picker style="width:60%" bindchange="bindSizeChange" value="{{s_index}}" range="{{sizeNames}}">
           <view class="picker">
             {{sizeNames[s_index]}}
@@ -62,56 +66,139 @@ module.exports = {
         </picker>
       </div>
     </view>
+    <view class='searchItem'>
+      <text>类型:</text>
+      <picker bindchange="bindOptionChange" value="{{t_index}}" range="{{typeOptions}}">
+        <view class="picker">
+          {{typeOptions[t_index]}}
+        </view>
+      </picker>
+    </view>
     <view class='button'>
-      <button class='btn' bindtap='search'>查询</button>
+      <button class='btn' disabled="{{isDisabled}}" bindtap='search'>查询</button>
     </view>
     <scroll-view scroll-x="true">  
-    <view class="table">
-      <view class="tr bg-w">
-        <view class="th" style='width:28%'>订单</view>
-        <view class="th" style='width:13%'>工序号</view>
-        <view class="th" style='width:30%'>工序名</view>
-        <view class="th" style='width:14%'>颜色</view>
-        <view class="th" style='width:14%'>尺码</view>
-        <view class="th" style='width:13%'>数量</view>
-        <view class="th" style='width:13%'>单价</view>
-        <view class="th" style='width:13%'>工资</view>
-        <view class="th" style='width:13%'>单价2</view>
-        <view class="th" style='width:13%'>工资2</view>
-        <view class="th" style='width:18%'>日期</view>
+      <view class="table" hidden="{{oneHide}}">
+        <view class="tr bg-w">
+          <view class="th" style='width:25%'>款号</view>
+          <view class="th" style='width:13%'>工序号</view>
+          <view class="th" style='width:20%'>工序名</view>
+          <view class="th" style='width:13%'>数量</view>
+          <view class="th" style='width:13%'>单价</view>
+          <view class="th" style='width:13%'>工资</view>
+          <view class="th" style='width:13%'>单价2</view>
+          <view class="th" style='width:13%'>工资2</view>
+        </view>
+        <block wx:for="{{records}}" wx:key="{{procedureNumber}}">
+          <view class="tr bg-g" wx:if="{{index % 2 == 0}}" data-value="{{item}}">
+            <view class="td" style='width:25%'>{{item.orderName}}</view>
+            <view class="td" style='width:13%'>{{item.procedureNumber}}</view>
+            <view class="td" style='width:20%'>{{item.procedureName}}</view>
+            <view class="td" style='width:13%'>{{item.pieceCount}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.price)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salary)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.priceTwo)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salaryTwo)}}</view>
+          </view>
+          <view class="tr" wx:else data-value="{{item}}">
+            <view class="td" style='width:25%'>{{item.orderName}}</view>
+            <view class="td" style='width:13%'>{{item.procedureNumber}}</view>
+            <view class="td" style='width:20%'>{{item.procedureName}}</view>
+            <view class="td" style='width:13%'>{{item.pieceCount}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.price)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salary)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.priceTwo)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salaryTwo)}}</view>
+          </view>
+        </block>
       </view>
-      <block wx:for="{{records}}" wx:key="{{procedureNumber}}">
-        <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-          <view class="td" style='width:28%'>{{item.orderName}}</view>
-          <view class="td" style='width:13%'>{{item.procedureNumber}}</view>
-          <view class="td" style='width:30%'>{{item.procedureName}}</view>
-          <view class="td" style='width:14%'>{{item.colorName}}</view>
-          <view class="td" style='width:14%'>{{item.sizeName}}</view>
-          <view class="td" style='width:13%'>{{item.pieceCount}}</view>
-          <view class="td" style='width:13%'>{{we.toFixed(item.price)}}</view>
-          <view class="td" style='width:13%'>{{we.toFixed(item.salary)}}</view>
-          <view class="td" style='width:13%'>{{we.toFixed(item.priceTwo)}}</view>
-          <view class="td" style='width:13%'>{{we.toFixed(item.salaryTwo)}}</view>
-          <view class="td" style='width:18%'>{{item.stringGeneralDate}}</view>
+
+      <view class="table" hidden="{{twoHide}}">
+        <view class="tr bg-w">
+          <view class="th" style='width:25%'>款号</view>
+          <view class="th" style='width:13%'>工序号</view>
+          <view class="th" style='width:20%'>工序名</view>
+          <view class="th" style='width:13%'>数量</view>
+          <view class="th" style='width:13%'>单价</view>
+          <view class="th" style='width:13%'>工资</view>
+          <view class="th" style='width:13%'>单价2</view>
+          <view class="th" style='width:13%'>工资2</view>
+          <view class="th" style='width:18%'>日期</view>
         </view>
-        <view class="tr" wx:else>
-          <view class="td" style='width:28%'>{{item.orderName}}</view>
-          <view class="td" style='width:13%'>{{item.procedureNumber}}</view>
-          <view class="td" style='width:30%'>{{item.procedureName}}</view>
-          <view class="td" style='width:14%'>{{item.colorName}}</view>
-          <view class="td" style='width:14%'>{{item.sizeName}}</view>
-          <view class="td" style='width:13%'>{{item.pieceCount}}</view>
-          <view class="td" style='width:13%'>{{we.toFixed(item.price)}}</view>
-          <view class="td" style='width:13%'>{{we.toFixed(item.salary)}}</view>
-          <view class="td" style='width:13%'>{{we.toFixed(item.priceTwo)}}</view>
-          <view class="td" style='width:13%'>{{we.toFixed(item.salaryTwo)}}</view>
-          <view class="td" style='width:18%'>{{item.stringGeneralDate}}</view>
+        <block wx:for="{{records}}" wx:key="{{procedureNumber}}">
+          <view class="tr bg-g" wx:if="{{index % 2 == 0}}" data-value="{{item}}">
+            <view class="td" style='width:25%'>{{item.orderName}}</view>
+            <view class="td" style='width:13%'>{{item.procedureNumber}}</view>
+            <view class="td" style='width:20%'>{{item.procedureName}}</view>
+            <view class="td" style='width:13%'>{{item.pieceCount}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.price)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salary)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.priceTwo)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salaryTwo)}}</view>
+            <view class="td" style='width:18%'>{{item.stringGeneralDate}}</view>
+          </view>
+          <view class="tr" wx:else data-value="{{item}}">
+            <view class="td" style='width:25%'>{{item.orderName}}</view>
+            <view class="td" style='width:13%'>{{item.procedureNumber}}</view>
+            <view class="td" style='width:20%'>{{item.procedureName}}</view>
+            <view class="td" style='width:13%'>{{item.pieceCount}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.price)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salary)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.priceTwo)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salaryTwo)}}</view>
+            <view class="td" style='width:18%'>{{item.stringGeneralDate}}</view>
+          </view>
+        </block>
+      </view>
+
+
+      <view class="table" hidden="{{threeHide}}">
+        <view class="tr bg-w">
+          <view class="th" style='width:25%'>款号</view>
+          <view class="th" style='width:13%'>工序号</view>
+          <view class="th" style='width:20%'>工序名</view>
+          <view class="th" style='width:13%'>数量</view>
+          <view class="th" style='width:13%'>单价</view>
+          <view class="th" style='width:13%'>工资</view>
+          <view class="th" style='width:13%'>单价2</view>
+          <view class="th" style='width:13%'>工资2</view>
+          <view class="th" style='width:18%'>日期</view>
+          <view class="th" style='width:18%'>颜色</view>
+          <view class="th" style='width:18%'>尺码</view>
         </view>
-      </block>
-    </view>
+        <block wx:for="{{records}}" wx:key="{{procedureNumber}}">
+          <view class="tr bg-g" wx:if="{{index % 2 == 0}}" data-value="{{item}}">
+            <view class="td" style='width:25%'>{{item.orderName}}</view>
+            <view class="td" style='width:13%'>{{item.procedureNumber}}</view>
+            <view class="td" style='width:20%'>{{item.procedureName}}</view>
+            <view class="td" style='width:13%'>{{item.pieceCount}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.price)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salary)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.priceTwo)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salaryTwo)}}</view>
+            <view class="td" style='width:18%'>{{item.stringGeneralDate}}</view>
+            <view class="td" style='width:18%'>{{item.colorName}}</view>
+            <view class="td" style='width:18%'>{{item.sizeName}}</view>
+          </view>
+          <view class="tr" wx:else data-value="{{item}}">
+            <view class="td" style='width:25%'>{{item.orderName}}</view>
+            <view class="td" style='width:13%'>{{item.procedureNumber}}</view>
+            <view class="td" style='width:20%'>{{item.procedureName}}</view>
+            <view class="td" style='width:13%'>{{item.pieceCount}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.price)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salary)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedFour(item.priceTwo)}}</view>
+            <view class="td" style='width:13%'>{{we.toFixedTwo(item.salaryTwo)}}</view>
+            <view class="td" style='width:18%'>{{item.stringGeneralDate}}</view>
+            <view class="td" style='width:18%'>{{item.colorName}}</view>
+            <view class="td" style='width:18%'>{{item.sizeName}}</view>
+          </view>
+        </block>
+      </view>
     </scroll-view>  
     <view>
-      总计  件数:{{pieceCountTotal}}件   工资:{{we.toFixed(salaryTotal)}}元  补贴:{{we.toFixed(salaryTotal2)}}元   总工资:{{we.toFixed(salaryTotalSum)}}元
+      总计  件数:{{pieceCountTotal}}件   工资:{{we.toFixedTwo(salaryTotal)}}元  补贴:{{we.toFixedTwo(salaryTotal2)}}元   总工资:{{we.toFixedTwo(salaryTotalSum)}}元
     </view>
   </view>
+
 </view>

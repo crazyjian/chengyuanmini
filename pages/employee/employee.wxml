@@ -10,14 +10,5 @@
     <view class='searchItem'>
       <text>部门：{{employee.groupName}}</text>
     </view>
-    <view class='searchItem'>
-      <text>身份证号：{{employee.identifyCard}}</text>
-    </view>
-    <view class='searchItem'>
-      <text>银行卡号：{{employee.bankCard}}</text>
-    </view>
-    <view class='searchItem'>
-      <text>电话：{{employee.phoneNumber}}</text>
-    </view>
   </view>
 </view>

@@ -11,10 +11,18 @@
     </scroll-view>
     </view>
     <view class='searchItem'>
-    <text>工序号</text>
+      <text>工序号</text>
       <picker style="margin-left:20rpx;width:70%" bindchange="bindPickerChange" value="{{index}}" range="{{procedures}}">
         <view class="picker">
           {{procedures[index]}}
+        </view>
+      </picker>
+    </view>
+    <view class='searchItem'>
+      <text>组名</text>
+      <picker style="margin-left:60rpx;width:70%" bindchange="groupBindPickerChange" value="{{groupIndex}}" range="{{groupNames}}">
+        <view class="picker">
+          {{groupNames[groupIndex]}}
         </view>
       </picker>
     </view>

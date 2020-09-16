@@ -5,8 +5,10 @@ Page({
     records:[],
     isCheckAll:false,
     selectRecords:[],
+    groupNames:[],
     procedures: ['请选择您的工序号'],
     index:0,
+    groupIndex:0,
     orderName:'',
     zIndex: -1,
     bindSource: []//绑定到页面的数据，根据用户输入动态变化
@@ -42,6 +44,34 @@ Page({
         }
       }
     });
+
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetallgroupnamelist',
+      data: {},
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        // console.log(res.data);
+        if (res.statusCode == 200 && res.data) {
+          let groupNew = [];
+          let tmpIndex = 0;
+          for (let i=0;i<res.data.groupList.length;i++) {
+            groupNew.push(res.data.groupList[i]);
+            if (res.data.groupList[i] == app.globalData.employee.groupName){
+              tmpIndex = i;
+            }
+          }
+          obj.setData({
+            groupNames: groupNew,
+            groupIndex: tmpIndex
+          });
+        }
+      }
+    });
+
+
   },
   checkAll:function(e) {
     var selected = e.target.dataset.checks?false:true;
@@ -97,6 +127,39 @@ Page({
     this.setData({
       index: e.detail.value
     })
+  },
+  groupBindPickerChange: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    var obj = this;
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetemployeebygroup',
+      data: {
+        groupName: obj.data.groupNames[e.detail.value]
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        // console.log(res.data);
+        if (res.statusCode == 200 && res.data) {
+          // console.log(res.data.groupEmployeeList)
+          let recordsNew = [];
+          for (let i=0;i<res.data.groupEmployeeList.length;i++) {
+            recordsNew.push({
+              isSelect: false, // 每条记录默认没有选中
+              employeeName: res.data.groupEmployeeList[i].employeeName,
+              employeeNumber: res.data.groupEmployeeList[i].employeeNumber
+            });
+          }
+          obj.setData({
+            listData: res.data.groupEmployeeList,
+            records: recordsNew,
+            groupIndex: e.detail.value
+          });
+        }
+      }
+    });
   },
   getProcedures:function(e) {
     var obj = this;

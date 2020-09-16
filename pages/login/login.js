@@ -12,7 +12,8 @@ Page({
     isShow:false,
     urlCode:'',
     employeeNumber:'',
-    passWord:''
+    passWord:'',
+    isDisabled:false
   },
   onLoad: function (option) {
     var that = this;
@@ -58,7 +59,7 @@ Page({
     }
   },
   formSubmit: function (e) {
-    // console.log(e.detail.value);
+    var obj = this;
     var qrCode = e.detail.value.qrCode; // 获取当前表单元素输入框内容
     if (!qrCode) {
       wx.showToast({
@@ -73,8 +74,14 @@ Page({
     } else if (qrCode == '3') {
       app.globalData.backUrl = "https://dy.jingyiclothing.com";
       app.globalData.factoryName = "中山德悦服饰";
+    } else if (qrCode.toLowerCase() == 'zzcy') {
+      app.globalData.backUrl = "https://zzcy.jingyiclothing.com";
+      app.globalData.factoryName = "枣庄超越制衣";
+    } else if (qrCode.toLowerCase() == 'zszd') {
+      app.globalData.backUrl = "https://zszd.jingyiclothing.com";
+      app.globalData.factoryName = "中山筑帝制衣";
     } else {
-      app.globalData.backUrl = "http://192.168.2.153:8080";
+      app.globalData.backUrl = "http://192.168.2.237:8080";
       app.globalData.factoryName = "";
     }
     var employeeNumber = e.detail.value.employeeNumber; // 获取当前表单元素输入框内容
@@ -95,6 +102,9 @@ Page({
       })
       return false;
     }
+    obj.setData({  
+      isDisabled: true
+    })
     wx.request({
       url: app.globalData.backUrl + "/erp/miniemployeelogin",
       data: {
@@ -106,6 +116,9 @@ Page({
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
+        obj.setData({  
+          isDisabled: false
+        })
         // console.log(res.data);
         if (res.statusCode == 200) {
           //访问正常
@@ -150,6 +163,9 @@ Page({
           title: "服务连接失败",
           image: '../../static/img/error.png',
           duration: 1000,
+        })
+        obj.setData({  
+          isDisabled: false
         })
       }
     })

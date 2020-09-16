@@ -8,6 +8,8 @@ Page({
     e_index: 0,
     employeeNames: ["全部"],
     isShow:true,
+    groupNames:[],
+    groupIndex:0,
     bindSource: []
   },
   onLoad: function (option) {
@@ -22,9 +24,43 @@ Page({
         groupName: app.globalData.employee.groupName
       })
     }
+    
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetallgroupnamelist',
+      data: {},
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        // console.log(res.data);
+        if (res.statusCode == 200 && res.data) {
+          let groupNew = [];
+          let tmpIndex = 0;
+          for (let i=0;i<res.data.groupList.length;i++) {
+            groupNew.push(res.data.groupList[i]);
+            if (res.data.groupList[i] == app.globalData.employee.groupName){
+              tmpIndex = i;
+            }
+          }
+          obj.setData({
+            groupNames: groupNew,
+            groupIndex: tmpIndex
+          });
+        }
+      }
+    });
   },
-  getOrderName: function (e) {
 
+  groupBindPickerChange: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    var obj = this;
+    obj.setData({
+      groupIndex: e.detail.value
+    });
+  },
+
+  getOrderName: function (e) {
     var obj = this;
     var orderName = e.detail.value//用户实时输入值
     var newSource = []//匹配的结果
@@ -126,7 +162,7 @@ Page({
         data: {
           orderName: obj.data.orderName,
           groupName: "全部",
-          employeeName: obj.data.employeeNames[obj.data.e_index],
+          employeeName: "全部",
         },
         method: 'GET',
         header: {
@@ -163,8 +199,8 @@ Page({
         url: app.globalData.backUrl + '/erp/minigetdispatchbyordergroupemp',
         data: {
           orderName: obj.data.orderName,
-          groupName:obj.data.groupName,
-          employeeName: obj.data.employeeNames[obj.data.e_index]
+          groupName: obj.data.groupNames[obj.data.groupIndex],
+          employeeName: "全部"
         },
         method: 'GET',
         header: {
