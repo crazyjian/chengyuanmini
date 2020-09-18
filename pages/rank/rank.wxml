@@ -1,0 +1,55 @@
+<view class='topTabSwiper'>
+    <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>通知</view>
+    <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>本组</view>
+    <view class='tab  {{currentData == 2 ? "tabBorer" : ""}}'  data-current = "2" bindtap='checkCurrent'>本厂</view>
+</view>
+<swiper current="{{currentData}}" class='swiper' duration="300" bindchange="bindchange">
+  <swiper-item>
+    <scroll-view class="scrollView" scroll-y="true">
+      <view class="weui-panel">
+        <view class="weui-panel__hd">国庆节放假通知</view>
+        <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text">
+            <!-- <h4 class="weui-media-box__title">标题一</h4> -->
+            <view class="weui-media-box__desc">全体员工放假8天！</view>
+            <view class="weui-media-box__info">
+              <view class="weui-media-box__info__meta">创建</view>
+              <view class="weui-media-box__info__meta">行政部</view>
+              <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">通知</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <view class="weui-panel">
+			<view class="weui-panel__hd">姓名: 李想 工号：123</view>
+			<view class="weui-panel__bd">
+				<view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box__desc">款号:20140520201405 工序:上袖上袖 数量: 1000</view>
+          <view class="weui-media-box__desc">款号:20140520201405 工序:上袖上袖 数量: 1000</view>
+					<view class="weui-media-box__info">
+						<view class="weui-media-box__info__meta">组名</view>
+						<view class="weui-media-box__info__meta">车缝A组</view>
+					</view>
+				</view>
+			</view>
+		</view>
+  </swiper-item>
+  <swiper-item>
+    <!-- <view class='swiper_con'>本厂排行</view> -->
+    <view class="weui-panel">
+			<view class="weui-panel__hd">第1名 效率值 100%</view>
+			<view class="weui-panel__bd">
+				<view class="weui-media-box weui-media-box_text">
+					<h5 class="weui-media-box__title">姓名:狗蛋 工号: 234 组名: 车缝A组</h5>
+					<view class="weui-media-box__info">
+						<view class="weui-media-box__info__meta">时间</view>
+						<view class="weui-media-box__info__meta">今天</view>
+					</view>
+				</view>
+			</view>
+		</view>
+  </swiper-item> 
+</swiper>

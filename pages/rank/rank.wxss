@@ -1,0 +1,147 @@
+/**index.wxss**/
+page {
+  width:100%;
+  height:100%;
+}
+
+.section {
+  width:100%;
+  height:100%;
+}
+
+text {
+  color: white
+}
+
+.itemImg {
+  height: 150rpx;
+  width: 150rpx;
+}
+
+.flex-item {
+  width:50%; 
+  height: 50%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+}
+
+.page-section{
+  margin-bottom: 20rpx;
+}
+.flex-wrp {
+  display: flex;
+}
+
+.flex-bottom {
+  bottom:0;
+  position: fixed;
+  background-color:rgb(226, 218, 218);
+}
+
+.scrollView{
+  width: 100%;
+  height: 600rpx;
+}
+
+.tab {
+  float: left;
+  width: 33.3333%;
+  text-align: center;
+  padding: 10rpx 0;
+}
+ 
+.topTabSwiper {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  zoom: 1;
+  line-height: 80rpx;
+  display: flex;
+  justify-content: space-around;
+}
+ 
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+ 
+.tabBorer {
+  border-bottom: 1px solid #6495ED;
+  color: #6495ED;
+}
+ 
+.swiper {
+  width: 100%;
+}
+
+
+.table {
+  border-top: 1px solid darkgray;
+  border-right: 1px solid darkgray;
+  border-bottom: 1px solid darkgray;
+  width: 100%;
+  /* overflow-x: auto; */
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 3rem;
+  align-items: center;
+}
+.td {
+    width:40%;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid darkgray;
+    border-left: 1px solid darkgray;
+}
+.bg-w{
+  background: white;
+}
+.bg-g{
+  background: #f9f9f9;
+}
+.th {
+  width: 40%;
+  justify-content: center;
+  display: flex;
+  height: 3rem;
+  align-items: center;
+  font-weight: bold;
+  border-left: 1px solid darkgray;
+}
+
+.card {
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 4px 1px 1px #cccccc;
+  margin: 8px;
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+  background-color: #eeeeee;
+}
+
+.time {
+  float: right;
+  margin-top: 170px;
+  color: #ffffff;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  font-size: 12px;
+}
+
+.weui-media-box__desc{
+  height: auto;
+}

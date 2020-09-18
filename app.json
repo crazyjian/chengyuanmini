@@ -20,7 +20,8 @@
     "pages/pieceWorkSearch/pieceWorkSearch",
     "pages/procedureBalanceDetail/procedureBalanceDetail",
     "pages/multiTask/multiTask",
-    "pages/part/part"
+    "pages/part/part",
+    "pages/rank/rank"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -35,6 +36,11 @@
     "borderStyle": "white",
     "list": [
       {
+        "selectedIconPath": "static/img/rank.png",
+        "iconPath": "static/img/rank.png",
+        "pagePath": "pages/rank/rank",
+        "text": "排行"
+      },{
         "selectedIconPath": "static/img/operate.png",
         "iconPath": "static/img/operate.png",
         "pagePath": "pages/index/index",
