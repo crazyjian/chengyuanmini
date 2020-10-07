@@ -40,7 +40,8 @@
         "iconPath": "static/img/rank.png",
         "pagePath": "pages/rank/rank",
         "text": "排行"
-      },{
+      },
+      {
         "selectedIconPath": "static/img/operate.png",
         "iconPath": "static/img/operate.png",
         "pagePath": "pages/index/index",

@@ -10,7 +10,9 @@ Page({
     index:0,
     groupIndex:0,
     orderName:'',
-    zIndex: -1,
+    versionNumber:'',
+    zIndex1:-1,
+    zIndex2: -1,
     bindSource: []//绑定到页面的数据，根据用户输入动态变化
   },
   onLoad: function (option) {
@@ -122,12 +124,6 @@ Page({
       records: this.data.records
     })
   },
-  bindPickerChange: function (e) {
-    // console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      index: e.detail.value
-    })
-  },
   groupBindPickerChange: function (e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     var obj = this;
@@ -160,6 +156,12 @@ Page({
         }
       }
     });
+  },
+  bindPickerChange: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
+    })
   },
   getProcedures:function(e) {
     var obj = this;
@@ -201,13 +203,51 @@ Page({
       }
     })
   },
+  getClothesVersionNumber: function (e) {
+    this.setData({
+      zIndex2: -1
+    })
+    var obj = this;
+    var versionNumber = e.detail.value//用户实时输入值
+    var newSource = []//匹配的结果
+    if (versionNumber != "") {
+      wx.request({
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysubversion',
+        data: {
+          subVersion: versionNumber
+        },
+        method: 'GET',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: function (res) {
+          // console.log(res.data);
+          if (res.statusCode == 200 && res.data) {
+            obj.setData({
+              bindSource: res.data.data,
+              // versionNumber: versionNumber,
+              zIndex1:1000
+            });
+          }
+        }
+      })
+    }else {
+      obj.setData({
+        bindSource: newSource,
+        versionNumber: versionNumber
+      });
+    }
+  },
   getOrderName: function (e) {
+    this.setData({
+      zIndex1: -1
+    })
     var obj = this;
     var orderName = e.detail.value//用户实时输入值
     var newSource = []//匹配的结果
     if (orderName != "") {
       wx.request({
-        url: app.globalData.backUrl + '/erp/minigetorderhint',
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysuborder',
         data: {
           subOrderName: orderName
         },
@@ -216,33 +256,30 @@ Page({
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: function (res) {
+          // console.log(res.data);
           if (res.statusCode == 200 && res.data) {
-            for (var i = 0; i < res.data.orderNameList.length;i++) {
-              newSource.push(res.data.orderNameList[i].orderName);
-            }
             obj.setData({
-              bindSource: newSource,
-              orderName: orderName,
-              zIndex: 1000
+              bindSource: res.data.data,
+              // orderName: orderName,
+              zIndex2: 1000
             });
-            obj.getProcedures();
           }
         }
       })
-    }else {
+    } else {
       obj.setData({
         bindSource: newSource,
         orderName: orderName
       });
-      obj.getProcedures();
     }
   },
   itemtap: function (e) {
     this.setData({
-      orderName: e.target.id,
-      bindSource: [],
-      zIndex: -1
-    })
+      versionNumber: e.currentTarget.dataset.version,
+      orderName: e.currentTarget.dataset.order,
+      zIndex1: -1,
+      zIndex2: -1
+    });
     this.getProcedures();
   },
   addDispatch:function(e) {
@@ -300,6 +337,7 @@ Page({
           }
           obj.setData({
             orderName:'',
+            versionNumber:'',
             procedures: ['请选择您的工序号'],
             index: 0,
             isCheckAll: false,

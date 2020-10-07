@@ -7,11 +7,11 @@
   <swiper-item>
     <scroll-view class="scrollView" scroll-y="true">
       <view class="weui-panel">
-        <view class="weui-panel__hd">国庆节放假通知</view>
+        <view class="weui-panel__hd">还没想好干啥!</view>
         <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
             <!-- <h4 class="weui-media-box__title">标题一</h4> -->
-            <view class="weui-media-box__desc">全体员工放假8天！</view>
+            <view class="weui-media-box__desc">还没想好干啥!</view>
             <view class="weui-media-box__info">
               <view class="weui-media-box__info__meta">创建</view>
               <view class="weui-media-box__info__meta">行政部</view>
@@ -23,19 +23,22 @@
     </scroll-view>
   </swiper-item>
   <swiper-item>
-    <view class="weui-panel">
-			<view class="weui-panel__hd">姓名: 李想 工号：123</view>
-			<view class="weui-panel__bd">
-				<view class="weui-media-box weui-media-box_text">
-          <view class="weui-media-box__desc">款号:20140520201405 工序:上袖上袖 数量: 1000</view>
-          <view class="weui-media-box__desc">款号:20140520201405 工序:上袖上袖 数量: 1000</view>
-					<view class="weui-media-box__info">
-						<view class="weui-media-box__info__meta">组名</view>
-						<view class="weui-media-box__info__meta">车缝A组</view>
-					</view>
-				</view>
-			</view>
-		</view>
+    <block wx:for='{{rankData}}' wx:for-index='index1' wx:for-item='item'>
+      <view class="weui-panel">
+        <view class="weui-panel__hd">姓名: {{item.employeeName}} 工号：{{item.employeeNumber}}</view>
+        <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text">
+            <block wx:for='{{item.pieceData}}' wx:for-index='index2' wx:for-item='itemSub'>
+              <view class="weui-media-box__desc">款号:{{itemSub.orderName}} 工序:{{itemSub.procedureName}} 数量: {{itemSub.pieceCount}}件</view>
+            </block>
+            <view class="weui-media-box__info">
+              <view class="weui-media-box__info__meta">组名</view>
+              <view class="weui-media-box__info__meta">{{item.groupName}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
   </swiper-item>
   <swiper-item>
     <!-- <view class='swiper_con'>本厂排行</view> -->

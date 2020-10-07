@@ -3,7 +3,9 @@ Page({
   data: {
     records:[],
     orderName:'',
-    zIndex:-1,
+    versionNumber:'',
+    zIndex1:-1,
+    zIndex2: -1,
     groupName:'',
     e_index: 0,
     employeeNames: ["全部"],
@@ -60,13 +62,51 @@ Page({
     });
   },
 
+  getClothesVersionNumber: function (e) {
+    this.setData({
+      zIndex2: -1
+    })
+    var obj = this;
+    var versionNumber = e.detail.value//用户实时输入值
+    var newSource = []//匹配的结果
+    if (versionNumber != "") {
+      wx.request({
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysubversion',
+        data: {
+          subVersion: versionNumber
+        },
+        method: 'GET',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: function (res) {
+          // console.log(res.data);
+          if (res.statusCode == 200 && res.data) {
+            obj.setData({
+              bindSource: res.data.data,
+              // versionNumber: versionNumber,
+              zIndex1:1000
+            });
+          }
+        }
+      })
+    }else {
+      obj.setData({
+        bindSource: newSource,
+        versionNumber: versionNumber
+      });
+    }
+  },
   getOrderName: function (e) {
+    this.setData({
+      zIndex1: -1
+    })
     var obj = this;
     var orderName = e.detail.value//用户实时输入值
     var newSource = []//匹配的结果
     if (orderName != "") {
       wx.request({
-        url: app.globalData.backUrl + '/erp/minigetorderhint',
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysuborder',
         data: {
           subOrderName: orderName
         },
@@ -77,18 +117,15 @@ Page({
         success: function (res) {
           // console.log(res.data);
           if (res.statusCode == 200 && res.data) {
-            for (var i = 0; i < res.data.orderNameList.length;i++) {
-              newSource.push(res.data.orderNameList[i].orderName);
-            }
             obj.setData({
-              bindSource: newSource,
-              orderName: orderName,
-              zIndex:1000
+              bindSource: res.data.data,
+              // orderName: orderName,
+              zIndex2: 1000
             });
           }
         }
       })
-    }else {
+    } else {
       obj.setData({
         bindSource: newSource,
         orderName: orderName
@@ -101,7 +138,7 @@ Page({
       wx.request({
         url: app.globalData.backUrl + '/erp/minigetdispatchemployeenames',
         data: {
-          orderName: e.target.id,
+          orderName: e.currentTarget.dataset.order,
           groupName: "全部"
         },
         method: 'GET',
@@ -125,7 +162,7 @@ Page({
       wx.request({
         url: app.globalData.backUrl + '/erp/minigetdispatchemployeenames',
         data: {
-          orderName: e.target.id,
+          orderName: e.currentTarget.dataset.order,
           groupName: app.globalData.employee.groupName
         },
         method: 'GET',
@@ -147,8 +184,10 @@ Page({
       })
     }
     this.setData({
-      orderName: e.target.id,
-      zIndex: -1
+      versionNumber: e.currentTarget.dataset.version,
+      orderName: e.currentTarget.dataset.order,
+      zIndex1: -1,
+      zIndex2: -1
     })
   },
   search:function() {

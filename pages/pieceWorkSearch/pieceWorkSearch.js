@@ -6,7 +6,8 @@ Page({
     records:[],
     orderName:'',
     versionNumber:'',
-    zIndex:-1,
+    zIndex1:-1,
+    zIndex2: -1,
     bindSource: [],
     c_index:0,
     colorNames: ["全部"],
@@ -20,8 +21,6 @@ Page({
     salaryTotal:0,
     salaryTotal2:0,
     salaryTotalSum:0,
-    orderNames: ["请选择款号"],
-    o_index: 0,
     t_index: 1,
     oneHide: true,
     twoHide: true,
@@ -44,29 +43,30 @@ Page({
       dateTo: Y + '-' + M + '-' + D
     })
   },
-  getClothesVersionNumber:function (e) {
+  getClothesVersionNumber: function (e) {
+    this.setData({
+      zIndex2: -1
+    })
     var obj = this;
     var versionNumber = e.detail.value//用户实时输入值
     var newSource = []//匹配的结果
     if (versionNumber != "") {
       wx.request({
-        url: app.globalData.backUrl + '/erp/minigetversionhint',
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysubversion',
         data: {
-          versionNumber: versionNumber
+          subVersion: versionNumber
         },
         method: 'GET',
         header: {
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: function (res) {
+          // console.log(res.data);
           if (res.statusCode == 200 && res.data) {
-            for (var i = 0; i < res.data.versionList.length;i++) {
-              newSource.push(res.data.versionList[i]);
-            }
             obj.setData({
-              bindSource: newSource,
-              versionNumber: versionNumber,
-              zIndex:1000
+              bindSource: res.data.data,
+              // versionNumber: versionNumber,
+              zIndex1:1000
             });
           }
         }
@@ -78,99 +78,97 @@ Page({
       });
     }
   },
+  getOrderName: function (e) {
+    this.setData({
+      zIndex1: -1
+    })
+    var obj = this;
+    var orderName = e.detail.value//用户实时输入值
+    var newSource = []//匹配的结果
+    if (orderName != "") {
+      wx.request({
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysuborder',
+        data: {
+          subOrderName: orderName
+        },
+        method: 'GET',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: function (res) {
+          // console.log(res.data);
+          if (res.statusCode == 200 && res.data) {
+            obj.setData({
+              bindSource: res.data.data,
+              // orderName: orderName,
+              zIndex2: 1000
+            });
+          }
+        }
+      })
+    } else {
+      obj.setData({
+        bindSource: newSource,
+        orderName: orderName
+      });
+    }
+  },
   itemtap: function (e) {
     var obj = this;
     this.setData({
-      versionNumber: e.target.id,
-      zIndex: -1
+      versionNumber: e.currentTarget.dataset.version,
+      orderName: e.currentTarget.dataset.order,
+      zIndex1: -1,
+      zIndex2: -1,
+      c_index:0,
+      colorNames: ["全部"],
+      s_index: 0,
+      sizeNames: ["全部"]
     })
     wx.request({
-      url: app.globalData.backUrl + '/erp/minigetorderbyversion',
+      url: app.globalData.backUrl + '/erp/minigetordercolornamesbyorder',
       data: {
-        clothesVersionNumber: e.target.id
+        orderName: obj.data.orderName,
       },
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
-        var orderNames = ["请选择款号"];
+        var colorNames = ["全部"];
         if (res.statusCode == 200 && res.data) {
-          for (var i = 0; i < res.data.orderList.length; i++) {
-            orderNames.push(res.data.orderList[i]);
+          for (var i = 0; i<res.data.colorNameList.length;i++) {
+            colorNames.push(res.data.colorNameList[i]);
           }
         }
         obj.setData({
-          orderNames: orderNames,
-          o_index: 0
+          colorNames: colorNames,
+          c_index:0
         });
       }
     })
-  },
-  bindOrderChange: function (e) {
-    var obj = this;
-    obj.setData({
-      o_index: e.detail.value
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetordersizenamesbyorder',
+      data: {
+        orderName: obj.data.orderName
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        var sizeNames = ["全部"];
+        if (res.statusCode == 200 && res.data) {
+          for (var i = 0; i < res.data.sizeNameList.length; i++) {
+            sizeNames.push(res.data.sizeNameList[i]);
+          }
+        }
+        obj.setData({
+          sizeNames: sizeNames,
+          s_index: 0
+        });
+      }
     })
-    if (e.detail.value == 0) {
-      var colorNames = ["全部"];
-      var sizeNames = ["全部"];
-      obj.setData({
-        colorNames: colorNames,
-        sizeNames: sizeNames,
-        c_index: 0,
-        s_index: 0
-      });
-    }else{
-      wx.request({
-        url: app.globalData.backUrl + '/erp/minigetordercolornamesbyorder',
-        data: {
-          orderName: obj.data.orderNames[obj.data.o_index],
-        },
-        method: 'GET',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success: function (res) {
-          var colorNames = ["全部"];
-          if (res.statusCode == 200 && res.data) {
-            for (var i = 0; i<res.data.colorNameList.length;i++) {
-              colorNames.push(res.data.colorNameList[i]);
-            }
-          }
-          obj.setData({
-            colorNames: colorNames,
-            c_index:0
-          });
-        }
-      })
-      wx.request({
-        url: app.globalData.backUrl + '/erp/minigetordersizenamesbyorder',
-        data: {
-          orderName: obj.data.orderNames[obj.data.o_index]
-        },
-        method: 'GET',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success: function (res) {
-          var sizeNames = ["全部"];
-          if (res.statusCode == 200 && res.data) {
-            for (var i = 0; i < res.data.sizeNameList.length; i++) {
-              sizeNames.push(res.data.sizeNameList[i]);
-            }
-          }
-          obj.setData({
-            sizeNames: sizeNames,
-            s_index: 0
-          });
-        }
-      })
-      this.setData({
-        orderName: obj.data.orderNames[obj.data.o_index],
-        zIndex: -1
-      })
-    }
   },
   search:function() {
     var obj = this;
@@ -180,7 +178,7 @@ Page({
     wx.request({
       url: app.globalData.backUrl + '/erp/minigetdetailproductionbyinfo',
       data: {
-        orderName: obj.data.orderNames[obj.data.o_index],
+        orderName: obj.data.orderName,
         employeeNumber: app.globalData.employeeNumber,
         from:obj.data.dateFrom,
         to: obj.data.dateTo,

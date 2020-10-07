@@ -10,11 +10,10 @@ Page({
     index:0,
     orderName:'',
     versionNumber:'',
-    orderNames: ["请选择款号"],
-    o_index: 0,
-    zIndex: -1,
+    zIndex1:-1,
+    zIndex2: -1,
     bindSource: [],
-    partNames: [{value: '主身', name: '主身', checked: 'false'}],
+    partNames: [{value: '主身', name: '主身', checked: 'false'},{value: '成品', name: '成品', checked: 'false'}],
     isHide:true
   },
   radioChange(e) {
@@ -32,28 +31,29 @@ Page({
 
 
   getClothesVersionNumber: function (e) {
+    this.setData({
+      zIndex2: -1
+    })
     var obj = this;
-    var versionNumber = e.detail.value;//用户实时输入值
-    var newSource = [];//匹配的结果
+    var versionNumber = e.detail.value//用户实时输入值
+    var newSource = []//匹配的结果
     if (versionNumber != "") {
       wx.request({
-        url: app.globalData.backUrl + '/erp/minigetversionhint',
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysubversion',
         data: {
-          versionNumber: versionNumber
+          subVersion: versionNumber
         },
         method: 'GET',
         header: {
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: function (res) {
+          // console.log(res.data);
           if (res.statusCode == 200 && res.data) {
-            for (var i = 0; i < res.data.versionList.length;i++) {
-              newSource.push(res.data.versionList[i]);
-            }
             obj.setData({
-              bindSource: newSource,
-              versionNumber: versionNumber,
-              zIndex:1000
+              bindSource: res.data.data,
+              // versionNumber: versionNumber,
+              zIndex1:1000
             });
           }
         }
@@ -65,126 +65,123 @@ Page({
       });
     }
   },
+  getOrderName: function (e) {
+    this.setData({
+      zIndex1: -1
+    })
+    var obj = this;
+    var orderName = e.detail.value//用户实时输入值
+    var newSource = []//匹配的结果
+    if (orderName != "") {
+      wx.request({
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysuborder',
+        data: {
+          subOrderName: orderName
+        },
+        method: 'GET',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: function (res) {
+          // console.log(res.data);
+          if (res.statusCode == 200 && res.data) {
+            obj.setData({
+              bindSource: res.data.data,
+              // orderName: orderName,
+              zIndex2: 1000
+            });
+          }
+        }
+      })
+    } else {
+      obj.setData({
+        bindSource: newSource,
+        orderName: orderName
+      });
+    }
+  },
 
   itemtap: function (e) {
     var obj = this;
     this.setData({
-      versionNumber: e.target.id,
-      zIndex: -1
-    })
+      versionNumber: e.currentTarget.dataset.version,
+      orderName: e.currentTarget.dataset.order,
+      zIndex1: -1,
+      zIndex2: -1,
+      partNames: [{value: '主身', name: '主身', checked: 'false'},{value: '成品', name: '成品', checked: 'false'}],
+      procedures: [{procedureInfo:'请选择工序', procedureNumber:'-1'}],
+      index:0
+    });
     wx.request({
-      url: app.globalData.backUrl + '/erp/minigetorderbyversion',
+      url: app.globalData.backUrl + '/erp/minigetprocedureinfobyorder',
       data: {
-        clothesVersionNumber: e.target.id
+        orderName: obj.data.orderName,
       },
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function (res) {
-        var orderNames = ["请选择款号"];
         if (res.statusCode == 200 && res.data) {
-          for (var i = 0; i < res.data.orderList.length; i++) {
-            orderNames.push(res.data.orderList[i]);
+          var procedures = [];
+          if (res.data.procedureInfoList.length == 0) {
+            procedures.push({procedureInfo:'查无工序号', procedureNumber:'-2'});
+          }else{
+            procedures.push({procedureInfo:'请选择工序', procedureNumber:'-1'});
+            for (let i=0; i<res.data.procedureInfoList.length;i++) {
+              var info = res.data.procedureInfoList[i];
+              var infoValue = info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName;
+              procedures.push({procedureInfo: infoValue, procedureNumber: info.procedureNumber});
+            }
           }
+          obj.setData({
+            procedures: procedures,
+            orderName: obj.data.orderName,
+            index:0
+          })
         }
-        obj.setData({
-          orderNames: orderNames,
-          o_index: 0
-        });
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: "获取工序失败",
+          image: '../../static/img/error.png',
+          duration: 1000,
+        })
+      }
+    });
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetotherprintpartnamesbyorder',
+      data: {
+        orderName: obj.data.orderName,
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        var partNames = obj.data.partNames
+        if (res.statusCode == 200 && res.data) {
+          for (var i=0; i<res.data.printPartNameList.length;i++) {
+            var tmpPartName = {};
+            tmpPartName.value = res.data.printPartNameList[i];
+            tmpPartName.name = res.data.printPartNameList[i];
+            tmpPartName.checked = false;
+            partNames.push(tmpPartName);
+          }
+          obj.setData({
+            partNames: partNames,
+            isHide:false
+          })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: "获取部位失败",
+          image: '../../static/img/error.png',
+          duration: 1000,
+        })
       }
     })
-  },
-
-  bindOrderChange: function (e) {
-    var obj = this;
-    obj.setData({
-      o_index: e.detail.value      
-    })
-    if (e.detail.value == 0) {
-      var procedures = [{procedureInfo:'请选择工序', procedureNumber:'-1'}];
-      obj.setData({
-        procedures: procedures,
-        partNames:[{value: '主身', name: '主身', checked: 'false'}],
-        isHide:true,
-        index: 0,
-        orderName:''
-      });
-    } else {
-      obj.setData({
-        orderName: obj.data.orderNames[obj.data.o_index]
-      })
-      wx.request({
-        url: app.globalData.backUrl + '/erp/minigetprocedureinfobyorder',
-        data: {
-          orderName: obj.data.orderNames[obj.data.o_index],
-        },
-        method: 'GET',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success: function (res) {
-          if (res.statusCode == 200 && res.data) {
-            var procedures = [];
-            if (res.data.procedureInfoList.length == 0) {
-              procedures.push({procedureInfo:'查无工序号', procedureNumber:'-2'});
-            }else{
-              procedures.push({procedureInfo:'请选择工序', procedureNumber:'-1'});
-              for (let i=0; i<res.data.procedureInfoList.length;i++) {
-                var info = res.data.procedureInfoList[i];
-                var infoValue = info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName;
-                procedures.push({procedureInfo: infoValue, procedureNumber: info.procedureNumber});
-              }
-            }
-            obj.setData({
-              procedures: procedures,
-              orderName: obj.data.orderNames[obj.data.o_index],
-              index:0
-            })
-          }
-        },
-        fail: function (res) {
-          wx.showToast({
-            title: "获取工序失败",
-            image: '../../static/img/error.png',
-            duration: 1000,
-          })
-        }
-      });
-      wx.request({
-        url: app.globalData.backUrl + '/erp/minigetotherprintpartnamesbyorder',
-        data: {
-          orderName: obj.data.orderNames[obj.data.o_index],
-        },
-        method: 'GET',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success: function (res) {
-          var partNames = obj.data.partNames
-          if (res.statusCode == 200 && res.data) {
-            for (var i=0; i<res.data.printPartNameList.length;i++) {
-              var tmpPartName = {};
-              tmpPartName.value = res.data.printPartNameList[i];
-              tmpPartName.name = res.data.printPartNameList[i];
-              tmpPartName.checked = false;
-              partNames.push(tmpPartName);
-            }
-            obj.setData({
-              partNames: partNames,
-              isHide:false
-            })
-          }
-        },
-        fail: function (res) {
-          wx.showToast({
-            title: "获取部位失败",
-            image: '../../static/img/error.png',
-            duration: 1000,
-          })
-        }
-      })
-    }
   },
 
   bindPickerChange: function (e) {
@@ -384,7 +381,7 @@ Page({
             orderNames: ["请选择款号"],
             orderName:'',
             versionNumber:'',
-            partNames: [{value: '主身', name: '主身', checked: 'false'}]
+            partNames: [{value: '主身', name: '主身', checked: 'false'},{value: '成品', name: '成品', checked: 'false'}]
           })
         }else {
           wx.showToast({

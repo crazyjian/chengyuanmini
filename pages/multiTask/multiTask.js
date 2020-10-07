@@ -2,10 +2,10 @@ const util = require('../../utils/util.js')
 const app = getApp()
 Page({
   data: {
-    orderName:'',
     versionNumber:'',
-    orderNames: ["请选择款号"],
-    o_index: 0,
+    orderName:'',
+    zIndex1:-1,
+    zIndex2: -1,
     bedNumber:'',
     packageNumber:'',
     colorName:'',
@@ -64,14 +64,17 @@ Page({
     
   },
   getClothesVersionNumber: function (e) {
+    this.setData({
+      zIndex2: -1
+    })
     var obj = this;
     var versionNumber = e.detail.value//用户实时输入值
     var newSource = []//匹配的结果
     if (versionNumber != "") {
       wx.request({
-        url: app.globalData.backUrl + '/erp/minigetversionhint',
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysubversion',
         data: {
-          versionNumber: versionNumber
+          subVersion: versionNumber
         },
         method: 'GET',
         header: {
@@ -80,13 +83,10 @@ Page({
         success: function (res) {
           // console.log(res.data);
           if (res.statusCode == 200 && res.data) {
-            for (var i = 0; i < res.data.versionList.length;i++) {
-              newSource.push(res.data.versionList[i]);
-            }
             obj.setData({
-              bindSource: newSource,
-              versionNumber: versionNumber,
-              zIndex:1000
+              bindSource: res.data.data,
+              // versionNumber: versionNumber,
+              zIndex1:1000
             });
           }
         }
@@ -98,91 +98,89 @@ Page({
       });
     }
   },
-
-  itemtap: function (e) {
-    var obj = this;
+  getOrderName: function (e) {
     this.setData({
-      versionNumber: e.target.id,
-      zIndex: -1
+      zIndex1: -1
     })
-    wx.request({
-      url: app.globalData.backUrl + '/erp/minigetorderbyversion',
-      data: {
-        clothesVersionNumber: e.target.id
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: function (res) {
-        var orderNames = ["请选择款号"];
-        if (res.statusCode == 200 && res.data) {
-          for (var i = 0; i < res.data.orderList.length; i++) {
-            orderNames.push(res.data.orderList[i]);
-          }
-        }
-        obj.setData({
-          orderNames: orderNames,
-          o_index: 0
-        });
-      }
-    })
-  },
-
-  bindOrderChange: function (e) {
     var obj = this;
-    obj.setData({
-      o_index: e.detail.value
-    })
-    wx.setStorage({
-      key: "o_index",
-      data: e.detail.value
-    });
-    if (e.detail.value == 0) {
-      var procedures = ["请选择工序"];
-      obj.setData({
-        procedures: procedures,
-        p_index: 0
-      });
-    } else {
+    var orderName = e.detail.value//用户实时输入值
+    var newSource = []//匹配的结果
+    if (orderName != "") {
       wx.request({
-        url: app.globalData.backUrl + '/erp/minigetdispatchbyorderemployeenumber',
+        url: app.globalData.backUrl + '/erp/minigetorderandversionbysuborder',
         data: {
-          orderName: obj.data.orderNames[obj.data.o_index],
-          employeeNumber: app.globalData.employee.employeeNumber
+          subOrderName: orderName
         },
         method: 'GET',
         header: {
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         success: function (res) {
+          // console.log(res.data);
           if (res.statusCode == 200 && res.data) {
-            console.log(res.data.dispatchList);
-            var procedures = [];
-            if (res.data.dispatchList.length == 0) {
-              procedures.push('查无工序号');
-            }else
-              procedures.push('请选择您的工序号');
-            for (let i=0; i<res.data.dispatchList.length;i++) {
-              var info = res.data.dispatchList[i];
-              procedures.push(info.procedureNumber + "-" + info.procedureName);
-            }
             obj.setData({
-              procedures: procedures,
-              p_index:0
-            });
-            wx.setStorage({
-              key: "procedures",
-              data: procedures
-            });
-            wx.setStorage({
-              key: "p_index",
-              data: 0
+              bindSource: res.data.data,
+              // orderName: orderName,
+              zIndex2: 1000
             });
           }
         }
       })
+    } else {
+      obj.setData({
+        bindSource: newSource,
+        orderName: orderName
+      });
     }
+  },
+
+  itemtap: function (e) {
+    var obj = this;
+    this.setData({
+      versionNumber: e.currentTarget.dataset.version,
+      orderName: e.currentTarget.dataset.order,
+      zIndex1: -1,
+      zIndex2: -1,
+      procedures:["请选择工序"],
+      p_index: 0
+    })
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetdispatchbyorderemployeenumber',
+      data: {
+        orderName: obj.data.orderName,
+        employeeNumber: app.globalData.employee.employeeNumber
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        if (res.statusCode == 200 && res.data) {
+          console.log(res.data.dispatchList);
+          var procedures = [];
+          if (res.data.dispatchList.length == 0) {
+            procedures.push('查无工序号');
+          }else
+            procedures.push('请选择您的工序号');
+          for (let i=0; i<res.data.dispatchList.length;i++) {
+            var info = res.data.dispatchList[i];
+            procedures.push(info.procedureNumber + "-" + info.procedureName);
+          }
+          obj.setData({
+            procedures: procedures,
+            p_index:0
+          });
+          wx.setStorage({
+            key: "procedures",
+            data: procedures
+          });
+          wx.setStorage({
+            key: "p_index",
+            data: 0
+          });
+        }
+      }
+    })
   },
   bindProcedureChange:function(e){
     this.setData({
@@ -230,7 +228,7 @@ Page({
               var employeeNumber = app.globalData.employeeNumber;
               var employeeName = app.globalData.employee.employeeName;
               var groupName = app.globalData.employee.groupName;
-              if (orderName != obj.data.orderNames[obj.data.o_index]){
+              if (orderName != obj.data.orderName){
                 wx.showToast({
                   title: '选择款号和扫描款号不对应',
                   icon: 'none',
