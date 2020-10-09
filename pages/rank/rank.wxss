@@ -145,3 +145,7 @@ text {
 .weui-media-box__desc{
   height: auto;
 }
+
+.swiper-item{
+  display: flex;
+}
