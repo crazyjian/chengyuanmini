@@ -1,4 +1,4 @@
-<view class="container" style="background-image:url({{backImg}});background-size:100% 100%;">
+<view class="container" style="padding: 80rpx 0;background-image:url({{backImg}});background-size:100% 100%;">
     <!-- <image src='../../static/img/scan_index.png' mode="aspectFit"></image> -->
   <view class="section">
     <view class="flex-wrp" style="flex-direction:row;">
@@ -11,7 +11,7 @@
         <text>派工</text>
       </view>
     </view>
-    <view class="flex-wrp" style="flex-direction:row;margin-top:100rpx">
+    <view class="flex-wrp" style="flex-direction:row;margin-top:80rpx">
       <view class="flex-item">
         <image class='itemImg' src='../../static/img/check.png' mode="aspectFit" bindtap='inspection'></image>
         <text>中查</text>
@@ -21,7 +21,17 @@
         <text>部位</text>
       </view>
     </view>
-    <view class="flex-wrp" style="flex-direction:row;margin-top:100rpx">
+    <view class="flex-wrp" style="flex-direction:row;margin-top:80rpx">
+      <view class="flex-item">
+        <image class='itemImg' src='../../static/img/hand.png' mode="aspectFit" bindtap='hand'></image>
+        <text>手输</text>
+      </view>
+      <view class="flex-item">
+        <image class='itemImg' src='../../static/img/task.png' mode="aspectFit" bindtap='multiTask'></image>
+        <text>多任务</text>
+      </view>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;margin-top:80rpx">
       <view class="flex-item">
         <image class='itemImg' src='../../static/img/hand.png' mode="aspectFit" bindtap='hand'></image>
         <text>手输</text>

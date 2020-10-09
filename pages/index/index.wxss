@@ -14,8 +14,8 @@ text {
 }
 
 .itemImg {
-  height: 150rpx;
-  width: 150rpx;
+  height: 120rpx;
+  width: 120rpx;
 }
 
 .flex-item {
