@@ -3,7 +3,7 @@
     <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>本组</view>
     <view class='tab  {{currentData == 2 ? "tabBorer" : ""}}'  data-current = "2" bindtap='checkCurrent'>本厂</view>
 </view>
-<swiper current="{{currentData}}" class='swiper' duration="300" bindchange="bindchange">
+<swiper current="{{currentData}}" class='swiper' duration="300" bindchange="bindchange" style='height:{{widHeight}}'>
   <swiper-item>
     <scroll-view class="scrollView" scroll-y="true">
       <view class="weui-panel">

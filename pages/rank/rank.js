@@ -4,7 +4,8 @@ const app = getApp()
 Page({
   data: {
       currentData : 0,
-      rankData : []
+      rankData : [],
+      widHeight: '100%'
   },
   /**
    * 生命周期函数--监听页面加载
@@ -53,7 +54,8 @@ Page({
             }
           }
           that.setData({
-            rankData: rankData
+            rankData: rankData,
+            widHeight: 202*rankData.length+'px'
           })
         }, fail:function() {
           wx.showToast({
