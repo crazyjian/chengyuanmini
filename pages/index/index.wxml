@@ -10,18 +10,16 @@
         <image class='itemImg' src='../../static/img/paigong.png' mode="aspectFit" bindtap='dispatch'></image>
         <text>派工</text>
       </view>
-    </view>
-    <view class="flex-wrp" style="flex-direction:row;margin-top:80rpx">
       <view class="flex-item">
         <image class='itemImg' src='../../static/img/check.png' mode="aspectFit" bindtap='inspection'></image>
         <text>中查</text>
       </view>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;margin-top:80rpx">
       <view class="flex-item">
         <image class='itemImg' src='../../static/img/part.png' mode="aspectFit" bindtap='part'></image>
         <text>部位</text>
       </view>
-    </view>
-    <view class="flex-wrp" style="flex-direction:row;margin-top:80rpx">
       <view class="flex-item">
         <image class='itemImg' src='../../static/img/hand.png' mode="aspectFit" bindtap='hand'></image>
         <text>手输</text>
@@ -33,12 +31,8 @@
     </view>
     <view class="flex-wrp" style="flex-direction:row;margin-top:80rpx">
       <view class="flex-item">
-        <image class='itemImg' src='../../static/img/hand.png' mode="aspectFit" bindtap='hand'></image>
-        <text>手输</text>
-      </view>
-      <view class="flex-item">
-        <image class='itemImg' src='../../static/img/task.png' mode="aspectFit" bindtap='multiTask'></image>
-        <text>多任务</text>
+        <image class='itemImg' src='../../static/img/manual.png' mode="aspectFit" bindtap='multiTask'></image>
+        <text>单工序</text>
       </view>
     </view>
   </view>
