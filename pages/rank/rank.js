@@ -32,7 +32,6 @@ Page({
         success: function(res){
           var rankData = [];
           if (res.statusCode == 200 && res.data) {
-            console.log(res.data);
             for (var i = 0; i < res.data.employee.length; i++) {
               var tmpData = {};
               tmpData.employeeNumber = res.data.employee[i];

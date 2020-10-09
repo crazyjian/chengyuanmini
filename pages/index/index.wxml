@@ -31,7 +31,7 @@
     </view>
     <view class="flex-wrp" style="flex-direction:row;margin-top:80rpx">
       <view class="flex-item">
-        <image class='itemImg' src='../../static/img/manual.png' mode="aspectFit" bindtap='multiTask'></image>
+        <image class='itemImg' src='../../static/img/manual.png' mode="aspectFit" bindtap='manual'></image>
         <text>单工序</text>
       </view>
     </view>
