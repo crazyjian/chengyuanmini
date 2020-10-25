@@ -174,5 +174,18 @@ Page({
         duration: 1000
       })
     }
+  },
+  manual: function(e){
+    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role6' || app.globalData.employee.role == 'role2' || app.globalData.employee.role == 'role7') {
+      wx.navigateTo({
+        url: "../manual/manual"
+      })
+    }else {
+      wx.showToast({
+        title: '对不起，您没有该操作权限',
+        icon: 'none',
+        duration: 1000
+      })
+    }
   }
 })

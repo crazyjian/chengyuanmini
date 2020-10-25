@@ -21,7 +21,8 @@
     "pages/procedureBalanceDetail/procedureBalanceDetail",
     "pages/multiTask/multiTask",
     "pages/part/part",
-    "pages/rank/rank"
+    "pages/rank/rank",
+    "pages/manual/manual"
   ],
   "window": {
     "backgroundTextStyle": "light",
