@@ -36,15 +36,21 @@
       </scroll-view>
     </view>
     <view class='searchItem'>
-      <text>工序号</text>
-      <picker style="margin-left:20rpx;width:70%" bindchange="bindPickerChange" value="{{index}}" range="{{procedures}}">
+      <text>工序号：</text>
+      <right-picker id='rightPicker'
+        bind:chooseEvent='choose'
+        chooseList='{{ procedures }}'
+        multiple='true'
+        labelName='{{procedureLabelName}}'
+      ></right-picker>
+      <!-- <picker style="margin-left:20rpx;width:70%" bindchange="bindPickerChange" value="{{index}}" range="{{procedures}}">
         <view class="picker">
           {{procedures[index]}}
         </view>
-      </picker>
+      </picker> -->
     </view>
     <view class='searchItem'>
-      <text>组名</text>
+      <text>组名：</text>
       <picker style="margin-left:60rpx;width:70%" bindchange="groupBindPickerChange" value="{{groupIndex}}" range="{{groupNames}}">
         <view class="picker">
           {{groupNames[groupIndex]}}
