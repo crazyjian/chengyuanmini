@@ -36,7 +36,7 @@ module.exports = {
       <view wx:else>
         <block wx:for="{{records}}">
           <view style="padding-top:40rpx;padding-bottom:20rpx;">
-            {{item.signDate}}{{item.notes}}
+            {{item.signDate}}
             <view class="table">
               <view class="tr">
                 <view class="td" style='width:33%'>{{item.in1}}</view>

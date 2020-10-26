@@ -205,9 +205,7 @@ Page({
               for (var j = 0; j<res.data.orderProcedureList.length;j++){
                 if (res.data.miniDetailQueryList[i].orderName == res.data.orderProcedureList[j].orderName && res.data.miniDetailQueryList[i].procedureNumber == res.data.orderProcedureList[j].procedureNumber){
                   miniPrice = res.data.orderProcedureList[j].piecePrice;
-                  if (res.data.orderProcedureList[j].procedureSection == "车缝"){
-                    miniPriceTwo = res.data.orderProcedureList[j].piecePriceTwo + (res.data.orderProcedureList[j].piecePrice + res.data.orderProcedureList[j].piecePriceTwo)*res.data.orderProcedureList[j].subsidy;
-                  }
+                  miniPriceTwo = res.data.orderProcedureList[j].piecePriceTwo + (res.data.orderProcedureList[j].piecePrice + res.data.orderProcedureList[j].piecePriceTwo)*res.data.orderProcedureList[j].subsidy;
                 }
               }
             }
