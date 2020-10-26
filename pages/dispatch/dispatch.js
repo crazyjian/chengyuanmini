@@ -6,14 +6,20 @@ Page({
     isCheckAll:false,
     selectRecords:[],
     groupNames:[],
-    procedures: ['请选择您的工序号'],
-    index:0,
+    procedureLabelName:'请选择您的工序号',
+    procedures: [],
+    chooseProcedures:[],
+    // index:0,
     groupIndex:0,
     orderName:'',
     versionNumber:'',
     zIndex1:-1,
     zIndex2: -1,
     bindSource: []//绑定到页面的数据，根据用户输入动态变化
+  },
+  onReady: function () {
+    //  页面初次渲染完成后，使用选择器选择组件实例节点，返回匹配到组件实例对象  
+    this.rightPicker = this.selectComponent('#rightPicker')
   },
   onLoad: function (option) {
     var obj = this;
@@ -157,12 +163,12 @@ Page({
       }
     });
   },
-  bindPickerChange: function (e) {
-    // console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      index: e.detail.value
-    })
-  },
+  // bindPickerChange: function (e) {
+  //   // console.log('picker发送选择改变，携带值为', e.detail.value)
+  //   this.setData({
+  //     index: e.detail.value
+  //   })
+  // },
   getProcedures:function(e) {
     var obj = this;
     var orderName = this.data.orderName;
@@ -180,17 +186,15 @@ Page({
         // console.log(res.data);
         if (res.statusCode == 200 && res.data) {
           var procedures = [];
-          if (res.data.procedureInfoList.length == 0) {
-            procedures.push('查无工序号');
-          }else
-            procedures.push('请选择您的工序号');
           for (let i=0; i<res.data.procedureInfoList.length;i++) {
             var info = res.data.procedureInfoList[i];
-            procedures.push(info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName);
+            procedures.push({ 'name': info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName, 'value': info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName});
           }
+          obj.rightPicker.clear();  // 调用自定义组件中的方法
           obj.setData({
+            procedureLabelName: '请选择您的工序号',
             procedures: procedures,
-            index:0
+            chooseProcedures:[]
           })
         }
       },
@@ -292,7 +296,7 @@ Page({
       });
       return false;
     }
-    if (this.data.index == 0) {
+    if (this.data.chooseProcedures.length ==0) {
       wx.showToast({
         title: '请选择工序号',
         image: '../../static/img/error.png',
@@ -313,7 +317,7 @@ Page({
     dispatchJson.emp = this.data.selectRecords;
     dispatchJson.groupName = app.globalData.employee.groupName;
     // dispatchJson.groupName = '质检';
-    dispatchJson.procedureInfo = this.data.procedures[this.data.index];
+    dispatchJson.procedureInfo = this.data.chooseProcedures;
     wx.request({
       url: app.globalData.backUrl + '/erp/miniadddispatchbatch',
       data: {
@@ -338,12 +342,14 @@ Page({
           obj.setData({
             orderName:'',
             versionNumber:'',
-            procedures: ['请选择您的工序号'],
-            index: 0,
+            procedureLabelName: '请选择您的工序号',
+            chooseProcedures:[],
+            procedures: [],
             isCheckAll: false,
             selectRecords: selectRecords,
             records: obj.data.records
           })
+          obj.rightPicker.clear(); 
         }else {
           wx.showToast({
             title: "提交失败",
@@ -360,6 +366,13 @@ Page({
         })
       }
     })
+  },
+  // 点击确定事件
+  choose(e) {
+    this.setData({
+      chooseProcedures: e.detail.chooseArray
+    })
+    console.log(this.data.chooseProcedures);
   }
 
 })
