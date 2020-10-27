@@ -11,12 +11,16 @@ Page({
     eIndex:0,
     index:0,
     orderName:'',
+    inputHidden:false,
     versionNumber:'',
     zIndex1:-1,
     zIndex2: -1,
     bindSource: [],
-    partNames: [{value: '主身', name: '主身', checked: 'false'},{value: '成品', name: '成品', checked: 'false'}],
-    isHide:true
+    c_index:0,
+    colorNames: ["全部"],
+    s_index: 0,
+    sizeNames: ["全部"],
+    layerCount:''
   },
   onLoad: function (option) {
     var obj = this;
@@ -131,10 +135,57 @@ Page({
       orderName: e.currentTarget.dataset.order,
       zIndex1: -1,
       zIndex2: -1,
-      partNames: [{value: '主身', name: '主身', checked: 'false'},{value: '成品', name: '成品', checked: 'false'}],
       procedures: [{procedureInfo:'请选择工序', procedureNumber:'-1'}],
-      index:0
+      index:0,
+      c_index:0,
+      colorNames: ["全部"],
+      s_index: 0,
+      sizeNames: ["全部"]
     });
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetordercolornamesbyorder',
+      data: {
+        orderName: obj.data.orderName,
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        var colorNames = ["全部"];
+        if (res.statusCode == 200 && res.data) {
+          for (var i = 0; i<res.data.colorNameList.length;i++) {
+            colorNames.push(res.data.colorNameList[i]);
+          }
+        }
+        obj.setData({
+          colorNames: colorNames,
+          c_index:0
+        });
+      }
+    })
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetordersizenamesbyorder',
+      data: {
+        orderName: obj.data.orderName
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        var sizeNames = ["全部"];
+        if (res.statusCode == 200 && res.data) {
+          for (var i = 0; i < res.data.sizeNameList.length; i++) {
+            sizeNames.push(res.data.sizeNameList[i]);
+          }
+        }
+        obj.setData({
+          sizeNames: sizeNames,
+          s_index: 0
+        });
+      }
+    })
     wx.request({
       url: app.globalData.backUrl + '/erp/minigetprocedureinfobyorder',
       data: {
@@ -172,45 +223,32 @@ Page({
         })
       }
     });
-    wx.request({
-      url: app.globalData.backUrl + '/erp/minigetotherprintpartnamesbyorder',
-      data: {
-        orderName: obj.data.orderName,
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: function (res) {
-        var partNames = obj.data.partNames
-        if (res.statusCode == 200 && res.data) {
-          for (var i=0; i<res.data.printPartNameList.length;i++) {
-            var tmpPartName = {};
-            tmpPartName.value = res.data.printPartNameList[i];
-            tmpPartName.name = res.data.printPartNameList[i];
-            tmpPartName.checked = false;
-            partNames.push(tmpPartName);
-          }
-          obj.setData({
-            partNames: partNames,
-            isHide:false
-          })
-        }
-      },
-      fail: function (res) {
-        wx.showToast({
-          title: "获取部位失败",
-          image: '../../static/img/error.png',
-          duration: 1000,
-        })
-      }
+  },
+  setLayerCount:function(e) {
+    this.setData({
+      layerCount: e.detail.value
     })
   },
-
   bindPickerChange: function (e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value);
     this.setData({
       index: e.detail.value
+    })
+  },
+  change: function (e) {
+    var obj = this;
+    obj.setData({
+      inputHidden: !this.data.inputHidden
+    })
+  },
+  bindColorChange: function (e) {
+    this.setData({
+      c_index: e.detail.value
+    })
+  },
+  bindSizeChange: function (e) {
+    this.setData({
+      s_index: e.detail.value
     })
   },
   employeePickerChange: function (e) {
@@ -229,14 +267,6 @@ Page({
       });
       return false;
     }
-    if (this.data.index <= 0) {
-      wx.showToast({
-        title: '请选择工序',
-        icon: 'none',
-        duration: 1000
-      });
-      return false;
-    }
     if (this.data.eIndex == 0) {
       wx.showToast({
         title: '请选择员工',
@@ -245,91 +275,205 @@ Page({
       });
       return false;
     }
-    var orderName =  this.data.orderName;
-    var procedureNumber = this.data.procedures[this.data.index].procedureNumber;
-    var procedureName = this.data.procedures[this.data.index].procedureInfo.split("@@")[2];
-    var scanPart = '主身';
-    var partNames = this.data.partNames;
-    var isSelectPart = false;
-    for (var i = 0; i < partNames.length; i++) {
-      if (partNames[i].checked === true){
-        isSelectPart = true;
-        scanPart = partNames[i].value;
-      }
-    } 
-    var employeeNumber = this.data.employeeList[this.data.eIndex].split("@@")[0];
-    var employeeName = this.data.employeeList[this.data.eIndex].split("@@")[1];
-    if (!isSelectPart){
+    if (this.data.index <= 0) {
       wx.showToast({
-        title: '请选择部位',
+        title: '请选择工序',
         icon: 'none',
         duration: 1000
       });
       return false;
     }
-  
-    wx.request({
-      url: app.globalData.backUrl + '/erp/miniaddpieceworkonce',
-      data: {
-        orderName:orderName,
-        procedureNumber:procedureNumber,
-        scanPart:scanPart,
-        employeeNumber:employeeNumber,
-        employeeName:employeeName,
-        procedureName:procedureName,
-        groupName:app.globalData.employee.groupName
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      success: function (res) {
-        // console.log(res.data);
-        if (res.statusCode == 200 && res.data.data==0) {
-          var msg = "计件成功,工序:" + procedureName + "  件数:" + res.data.pieceCount;
+    if (this.data.inputHidden == false && this.data.layerCount.replace(/(^\s*)|(\s*$)/g, "") == '') {
+      wx.showToast({
+        title: '请输入数量',
+        icon: 'none',
+        duration: 1000
+      });
+      return false;
+    }
+    var orderName =  this.data.orderName;
+    var versionNumber =  this.data.versionNumber;
+    var procedureNumber = this.data.procedures[this.data.index].procedureNumber;
+    var procedureName = this.data.procedures[this.data.index].procedureInfo.split("@@")[2];
+    var scanPart = this.data.procedures[this.data.index].procedureInfo.split("@@")[0];
+    var employeeNumber = this.data.employeeList[this.data.eIndex].split("@@")[0];
+    var employeeName = this.data.employeeList[this.data.eIndex].split("@@")[1];
+    var userName = app.globalData.employee.employeeName;
+    var layerCount = obj.data.layerCount.replace(/(^\s*)|(\s*$)/g, "");
+    if (this.data.inputHidden == false){
+      if (this.data.c_index == 0) {
+        wx.showToast({
+          title: '请选择颜色',
+          icon: 'none',
+          duration: 1000
+        });
+        return false;
+      }
+      if (this.data.s_index == 0) {
+        wx.showToast({
+          title: '请选择尺码',
+          icon: 'none',
+          duration: 1000
+        });
+        return false;
+      }
+      wx.request({
+        url: app.globalData.backUrl + '/erp/miniaddpieceworktotal',
+        data: {
+          orderName:orderName,
+          clothesVersionNumber:versionNumber,
+          procedureNumber:procedureNumber,
+          scanPart:scanPart,
+          employeeNumber:employeeNumber,
+          employeeName:employeeName,
+          procedureName:procedureName,
+          colorName: obj.data.colorNames[obj.data.c_index],
+          sizeName: obj.data.sizeNames[obj.data.s_index],
+          layerCount: obj.data.layerCount.replace(/(^\s*)|(\s*$)/g, ""),
+          groupName:app.globalData.employee.groupName,
+          userName:userName
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: function (res) {
+          // console.log(res.data);
+          if (res.statusCode == 200 && res.data==0) {
+            var msg = "计件成功,工序:" + procedureName + "  件数:" + layerCount;
+            wx.showToast({
+              title: msg,
+              icon: 'none',
+              duration: 3000
+            })
+            obj.setData({
+              orderName:'',
+              procedures: ['请选择工序'],
+              index: 0,
+              o_index: 0,
+              orderNames: ["请选择款号"],
+              eIndex:0,
+              orderName:'',
+              versionNumber:'',
+              c_index:0,
+              colorNames: ["全部"],
+              s_index: 0,
+              sizeNames: ["全部"],
+              layerCount:''
+            })
+          }else if (res.statusCode == 200 && res.data==1) {
+            wx.showToast({
+              title: "计件失败",
+              icon: "none",
+              duration: 1000,
+            })
+          } else if (res.statusCode == 200 && res.data==2) {
+            wx.showToast({
+              title: "未开裁,无法计件",
+              icon: "none",
+              duration: 1000,
+            })
+          } else if (res.statusCode == 200 && res.data==3) {
+            wx.showToast({
+              title: "本次入数导致爆数,请核对",
+              icon: "none",
+              duration: 1000,
+            })
+          } else if (res.statusCode == 200 && res.data==5) {
+            wx.showToast({
+              title: "本次入数导致爆数,请核对",
+              icon: "none",
+              duration: 1000,
+            })
+          } else if (res.statusCode == 200 && res.data==7) {
+            wx.showToast({
+              title: "本次入数导致爆数,请核对",
+              icon: "none",
+              duration: 1000,
+            })
+          } else {
+            wx.showToast({
+              title: "计件失败",
+              icon: "none",
+              duration: 1000,
+            })
+          }
+        },fail: function (res) {
           wx.showToast({
-            title: msg,
-            icon: 'none',
-            duration: 3000
-          })
-          obj.setData({
-            orderName:'',
-            procedures: ['请选择工序'],
-            index: 0,
-            o_index: 0,
-            isHide:true,
-            orderNames: ["请选择款号"],
-            eIndex:0,
-            orderName:'',
-            versionNumber:'',
-            partNames: [{value: '主身', name: '主身', checked: 'false'},{value: '成品', name: '成品', checked: 'false'}]
-          })
-        }else if (res.statusCode == 200 && res.data.data==1) {
-          wx.showToast({
-            title: "该工序已有计件记录,无法批量计件",
-            icon: "none",
-            duration: 1000,
-          })
-        } else if (res.statusCode == 200 && res.data.data==2) {
-          wx.showToast({
-            title: "未开裁,无法计件",
-            icon: "none",
-            duration: 1000,
-          })
-        } else {
-          wx.showToast({
-            title: "计件失败",
-            icon: "none",
+            title: "服务连接失败",
+            image: '../../static/img/error.png',
             duration: 1000,
           })
         }
-      },fail: function (res) {
-        wx.showToast({
-          title: "服务连接失败",
-          image: '../../static/img/error.png',
-          duration: 1000,
-        })
-      }
-    })
+      })
+    } else {
+      wx.request({
+        url: app.globalData.backUrl + '/erp/miniaddpieceworkonce',
+        data: {
+          orderName:orderName,
+          procedureNumber:procedureNumber,
+          scanPart:scanPart,
+          employeeNumber:employeeNumber,
+          employeeName:employeeName,
+          procedureName:procedureName,
+          colorName: obj.data.colorNames[obj.data.c_index],
+          sizeName: obj.data.sizeNames[obj.data.s_index],
+          groupName:app.globalData.employee.groupName
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success: function (res) {
+          // console.log(res.data);
+          if (res.statusCode == 200 && res.data.data==0) {
+            var msg = "计件成功,工序:" + procedureName + "  件数:" + res.data.pieceCount;
+            wx.showToast({
+              title: msg,
+              icon: 'none',
+              duration: 3000
+            })
+            obj.setData({
+              orderName:'',
+              procedures: ['请选择工序'],
+              index: 0,
+              o_index: 0,
+              orderNames: ["请选择款号"],
+              eIndex:0,
+              orderName:'',
+              versionNumber:'',
+              c_index:0,
+              colorNames: ["全部"],
+              s_index: 0,
+              sizeNames: ["全部"]
+            })
+          }else if (res.statusCode == 200 && res.data.data==1) {
+            wx.showToast({
+              title: "该工序已有计件记录,无法批量计件",
+              icon: "none",
+              duration: 1000,
+            })
+          } else if (res.statusCode == 200 && res.data.data==2) {
+            wx.showToast({
+              title: "未开裁,无法计件",
+              icon: "none",
+              duration: 1000,
+            })
+          } else {
+            wx.showToast({
+              title: "计件失败",
+              icon: "none",
+              duration: 1000,
+            })
+          }
+        },fail: function (res) {
+          wx.showToast({
+            title: "服务连接失败",
+            image: '../../static/img/error.png',
+            duration: 1000,
+          })
+        }
+      })
+    }
   }
 })

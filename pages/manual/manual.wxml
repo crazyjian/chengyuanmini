@@ -1,7 +1,10 @@
 <view class="container" style="padding-top:40rpx;align-items:center;background-color:rgb(242, 242, 242)">
   <view class="section">
-  <view style="text-align: center;">☆单款的单工序由一个人完成☆</view>
-  <view style="text-align: center;">☆可由组长在这里一次性录入☆</view>
+    <view class="flex-wrp" style="display: flex;flex-direction:row;">
+      <view style="text-align: center;">批量计件</view>
+      <switch type="switch" checked color="green" bindchange="change" style="text-align: center;"></switch>
+      <view style="text-align: center;">手工上数</view>
+    </view>
     <view class='searchItem' style="margin-top:20rpx;">
       <text>单号：</text>
       <input class='searchItemInput' name='versionNumber' placeholder='请输入单号' value="{{versionNumber}}" bindinput='getClothesVersionNumber'></input>
@@ -34,6 +37,32 @@
         </view>
       </scroll-view>
     </view>
+    <view class="flex-wrp" style="display: flex;flex-direction:row;">
+      <div class='searchItem' style="margin-right:20rpx;display:flex;flex-direction:row;">
+        <text>颜色：</text>
+        <picker style="width:60%" bindchange="bindColorChange" value="{{c_index}}" range="{{colorNames}}">
+          <view class="picker">
+            {{colorNames[c_index]}}
+          </view>
+        </picker>
+      </div>
+      <div class='searchItem' style="display:flex;flex-direction:row;">
+        <text>尺码：</text>
+        <picker style="width:60%" bindchange="bindSizeChange" value="{{s_index}}" range="{{sizeNames}}">
+          <view class="picker">
+            {{sizeNames[s_index]}}
+          </view>
+        </picker>
+      </div>
+    </view>
+    <view class='searchItem'>
+      <text>员工:</text>
+      <picker style="margin-left:20rpx;width:70%" bindchange="employeePickerChange" value="{{eIndex}}" range="{{employeeList}}">
+        <view class="picker" style="margin-left:20rpx">
+          {{employeeList[eIndex]}}
+        </view>
+      </picker>
+    </view>
     <view class='searchItem'>
       <text>工序:</text>
       <picker style="margin-left:20rpx;width:70%" 
@@ -49,27 +78,11 @@
       </picker>
     </view>
 
-    <view class='searchItem'>
-      <text>员工:</text>
-      <picker style="margin-left:20rpx;width:70%" bindchange="employeePickerChange" value="{{eIndex}}" range="{{employeeList}}">
-        <view class="picker" style="margin-left:20rpx">
-          {{employeeList[eIndex]}}
-        </view>
-      </picker>
-    </view>
-    <view class="page-section">
     
-    <view class="weui-cells weui-cells_after-title" hidden='{{isHide}}'>
-      <radio-group bindchange="radioChange">
-        <label class="weui-cell weui-check__label" wx:for="{{partNames}}" wx:key="{{item.value}}">
-          <view class="partselect">
-            <view class="weui-cell__hd">
-              <radio value="{{item.value}}"/>
-            </view>
-            <view class="weui-cell__bd">{{item.name}}</view>
-          </view>
-        </label>
-      </radio-group>
+    <view class="page-section">
+    <view class='searchItem' style="margin-top:20rpx;" hidden='{{inputHidden}}'>
+      <text>数量:</text>
+      <input class='searchItemInput' placeholder='请输入件数' bindinput='setLayerCount' value='{{layerCount}}'></input>
     </view>
   </view>
     <view class='button'>
