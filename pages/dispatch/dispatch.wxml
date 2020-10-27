@@ -57,6 +57,7 @@
         </view>
       </picker>
     </view>
+ 
     <view class="table">
       <view class="tr bg-w">
         <view class="th" style="width:15%;"><checkbox  bindtap='checkAll' data-checks="{{isCheckAll}}"/></view>

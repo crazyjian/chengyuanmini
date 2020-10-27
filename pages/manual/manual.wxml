@@ -8,7 +8,7 @@
     <view class='searchItem' style="margin-top:20rpx;">
       <text>单号：</text>
       <input class='searchItemInput' name='versionNumber' placeholder='请输入单号' value="{{versionNumber}}" bindinput='getClothesVersionNumber'></input>
-      <scroll-view scroll-y="true" class="scrollview" style='z-index:{{zIndex1}};top:260rpx'>
+      <scroll-view scroll-y="true" class="scrollview" style='z-index:{{zIndex1}};top:200rpx'>
         <view  class="itemview" style="display: flex;background-color:#e2e2e2">
           <view style="width: 50%;text-align: center;">单号</view>
           <view style="width: 50%;text-align: center;">款号</view>
@@ -24,7 +24,7 @@
     <view class='searchItem' style="margin-top:20rpx;">
       <text>款号：</text>
       <input class='searchItemInput' name='orderName' placeholder='请输入款号' value="{{orderName}}" bindinput='getOrderName'></input>
-      <scroll-view scroll-y="true" class="scrollview" style='z-index:{{zIndex2}};top:360rpx'>
+      <scroll-view scroll-y="true" class="scrollview" style='z-index:{{zIndex2}};top:300rpx'>
         <view  class="itemview" style="display: flex;background-color:#e2e2e2">
           <view style="width: 50%;text-align: center;">单号</view>
           <view style="width: 50%;text-align: center;">款号</view>

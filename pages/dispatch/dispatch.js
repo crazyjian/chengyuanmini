@@ -349,7 +349,7 @@ Page({
             selectRecords: selectRecords,
             records: obj.data.records
           })
-          obj.rightPicker.clear(); 
+          obj.rightPicker.clearSelect(); 
         }else {
           wx.showToast({
             title: "提交失败",

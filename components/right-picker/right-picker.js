@@ -125,6 +125,11 @@ Component({
         list:[],
         chooseList:[]
       })
+    },
+    clearSelect() {
+      this.setData({
+        list:[]
+      })
     }
   }
 })
