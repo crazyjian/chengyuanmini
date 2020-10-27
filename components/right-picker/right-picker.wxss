@@ -73,6 +73,9 @@ page {
     margin-top: 20rpx;
     border: 2rpx solid #eaeaea;
     border-radius: 8rpx;
+    overflow:hidden; 
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 
 .picker-item-choose {
