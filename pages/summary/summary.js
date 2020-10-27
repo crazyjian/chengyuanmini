@@ -92,30 +92,14 @@ Page({
     })
   },
   getpieceworkemptoday:function() {
-    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role1' || app.globalData.employee.role == 'role3') {
-      wx.navigateTo({
-        url: "../dayPieceWork/dayPieceWork"
-      })
-    } else {
-      wx.showToast({
-        title: '对不起，您没有该操作权限',
-        icon: 'none',
-        duration: 1000
-      })
-    }
+    wx.navigateTo({
+      url: "../dayPieceWork/dayPieceWork"
+    })
   },
   getpiecework: function () {
-    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role1' || app.globalData.employee.role == 'role3') {
-      wx.navigateTo({
-        url: "../pieceWorkSearch/pieceWorkSearch"
-      })
-    } else {
-      wx.showToast({
-        title: '对不起，您没有该操作权限',
-        icon: 'none',
-        duration: 1000
-      })
-    }
+    wx.navigateTo({
+      url: "../pieceWorkSearch/pieceWorkSearch"
+    })
   },
   getDispatchDetail:function() {
     if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role2') {

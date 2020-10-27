@@ -37,7 +37,7 @@ Page({
       success: function (res){
         if (res.statusCode == 200 && res.data){
           for (var i= 0; i < res.data.groupEmployeeList.length; i++){
-            employeeList.push(res.data.groupEmployeeList[i].employeeNumber + "@@" + res.data.groupEmployeeList[i].employeeName);
+            employeeList.push(res.data.groupEmployeeList[i].employeeNumber + "@" + res.data.groupEmployeeList[i].employeeName);
           }
           obj.setData({
             employeeList: employeeList,
@@ -204,7 +204,7 @@ Page({
             procedures.push({procedureInfo:'请选择工序', procedureNumber:'-1'});
             for (let i=0; i<res.data.procedureInfoList.length;i++) {
               var info = res.data.procedureInfoList[i];
-              var infoValue = info.scanPart + "@@" + info.procedureNumber + "@@" + info.procedureName;
+              var infoValue = info.scanPart + "@" + info.procedureNumber + "@" + info.procedureName;
               procedures.push({procedureInfo: infoValue, procedureNumber: info.procedureNumber});
             }
           }
@@ -294,10 +294,10 @@ Page({
     var orderName =  this.data.orderName;
     var versionNumber =  this.data.versionNumber;
     var procedureNumber = this.data.procedures[this.data.index].procedureNumber;
-    var procedureName = this.data.procedures[this.data.index].procedureInfo.split("@@")[2];
-    var scanPart = this.data.procedures[this.data.index].procedureInfo.split("@@")[0];
-    var employeeNumber = this.data.employeeList[this.data.eIndex].split("@@")[0];
-    var employeeName = this.data.employeeList[this.data.eIndex].split("@@")[1];
+    var procedureName = this.data.procedures[this.data.index].procedureInfo.split("@")[2];
+    var scanPart = this.data.procedures[this.data.index].procedureInfo.split("@")[0];
+    var employeeNumber = this.data.employeeList[this.data.eIndex].split("@")[0];
+    var employeeName = this.data.employeeList[this.data.eIndex].split("@")[1];
     var userName = app.globalData.employee.employeeName;
     var layerCount = obj.data.layerCount.replace(/(^\s*)|(\s*$)/g, "");
     if (this.data.inputHidden == false){
