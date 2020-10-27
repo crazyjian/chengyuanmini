@@ -7,7 +7,7 @@ Page({
     selectRecords:[],
     groupNames:[],
     procedureLabelName:'请选择您的工序号',
-    procedures: [],
+    procedures: [{'name':"暂无数据","value":"暂无数据"}],
     chooseProcedures:[],
     // index:0,
     groupIndex:0,
