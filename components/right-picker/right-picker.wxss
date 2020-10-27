@@ -42,12 +42,12 @@ page {
 }
 
 .left-shade {
-    width: 30%;
+    width: 10%;
     height: 100%;
 }
 
 .right-choose {
-    width: 70%;
+    width: 90%;
     height: 100%;
     background-color: #fff;
     padding: 40rpx;
