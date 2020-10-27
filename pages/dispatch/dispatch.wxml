@@ -37,12 +37,14 @@
     </view>
     <view class='searchItem'>
       <text>工序号：</text>
-      <right-picker id='rightPicker'
+      <input class='searchItemInput' name='procedures' placeholder='请选择工序号' value="{{procedureLabelName}}" disabled="true" bindtap='showProceduresWin'style="width: 70%"
+></input>
+      <!-- <right-picker id='rightPicker'
         bind:chooseEvent='choose'
         chooseList='{{ procedures }}'
         multiple='true'
         labelName='{{procedureLabelName}}'
-      ></right-picker>
+      ></right-picker> -->
       <!-- <picker style="margin-left:20rpx;width:70%" bindchange="bindPickerChange" value="{{index}}" range="{{procedures}}">
         <view class="picker">
           {{procedures[index]}}
@@ -83,5 +85,35 @@
     <view class='button'>
       <button class='btn' bindtap='addDispatch'>提交</button>
     </view>
+  </view>
+
+  <view class='toast-box' hidden='{{isHide}}'>
+      <view class='toastbg'></view>
+      <view class='showToast' style="height:{{windowHeight}}px;overflow: hidden">
+          <view class='toast-title'>
+              <text>工序列表</text>
+          </view>
+          <view class='toast-main'>
+              <scroll-view scroll-x="true" scroll-y="true" style="height: {{windowHeight-150}}px;">  
+                <view class="table">
+                  <block wx:for="{{procedures}}">
+                    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                      <view class="td" style='width:20%'><checkbox data-index="{{index}}" checked="{{item.isSelect}}" bindtap='checkProcedure'/></view>
+                      <view class="td" style='width:80%'>{{item.value}}</view>
+                    </view>
+                    <view class="tr" wx:else>
+                      <view class="td" style='width:20%'><checkbox data-index="{{index}}" checked="{{item.isSelect}}" bindtap='checkProcedure'/></view>
+                      <view class="td" style='width:80%'>{{item.value}}</view>
+                    </view>
+                  </block>
+                </view>
+              </scroll-view>
+          </view>
+          <view class='toast-button'>
+              <view class='button1'>
+                  <button catchtap='cancel'>关闭</button>
+              </view>
+          </view>
+      </view>
   </view>
 </view>

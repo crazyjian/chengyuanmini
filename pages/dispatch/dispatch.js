@@ -6,8 +6,8 @@ Page({
     isCheckAll:false,
     selectRecords:[],
     groupNames:[],
-    procedureLabelName:'请选择您的工序号',
-    procedures: [{'name':"暂无数据","value":"暂无数据"}],
+    procedureLabelName:'',
+    procedures: [],
     chooseProcedures:[],
     // index:0,
     groupIndex:0,
@@ -15,7 +15,8 @@ Page({
     versionNumber:'',
     zIndex1:-1,
     zIndex2: -1,
-    bindSource: []//绑定到页面的数据，根据用户输入动态变化
+    bindSource: [],//绑定到页面的数据，根据用户输入动态变化
+    isHide:true
   },
   onReady: function () {
     //  页面初次渲染完成后，使用选择器选择组件实例节点，返回匹配到组件实例对象  
@@ -188,11 +189,12 @@ Page({
           var procedures = [];
           for (let i=0; i<res.data.procedureInfoList.length;i++) {
             var info = res.data.procedureInfoList[i];
-            procedures.push({ 'name': info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName, 'value': info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName});
+            procedures.push({
+              isSelect: false, // 每条记录默认没有选中
+              value:info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName});
           }
-          obj.rightPicker.clear();  // 调用自定义组件中的方法
           obj.setData({
-            procedureLabelName: '请选择您的工序号',
+            procedureLabelName: '',
             procedures: procedures,
             chooseProcedures:[]
           })
@@ -342,7 +344,7 @@ Page({
           obj.setData({
             orderName:'',
             versionNumber:'',
-            procedureLabelName: '请选择您的工序号',
+            procedureLabelName: '',
             chooseProcedures:[],
             procedures: [],
             isCheckAll: false,
@@ -373,6 +375,42 @@ Page({
       chooseProcedures: e.detail.chooseArray
     })
     console.log(this.data.chooseProcedures);
-  }
+  },
+  showProceduresWin: function (e) {
+    var obj = this;
+    this.setData({
+      windowHeight: wx.getSystemInfoSync().windowHeight - 40,
+      isHide: false
+    })
+  },
+  cancel: function (e) {
+    this.setData({
+      isHide: true
+    })
+  },
+  checkProcedure: function (e) {
+    var index = e.target.dataset.index;
+    var chooseProcedures = this.data.chooseProcedures;
+    var selected = !this.data.procedures[index].isSelect;
+    if (selected) {
+      chooseProcedures.push(this.data.procedures[index].value);
+    } else {
+      let indexId = 0;
+      for (let i = 0; i < this.data.chooseProcedures.length; i++) {
+        if (this.data.chooseProcedures[i] == this.data.procedures[index].value) {
+          indexId = i;
+          break;
+        }
+      }
+      chooseProcedures.splice(indexId, 1);
+    }
+    this.data.procedures[index].isSelect = selected;
+    this.setData({
+      chooseProcedures: chooseProcedures,
+      procedures: this.data.procedures,
+      procedureLabelName: chooseProcedures
+    })
+
+  },
 
 })
