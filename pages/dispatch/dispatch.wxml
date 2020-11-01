@@ -36,8 +36,8 @@
       </scroll-view>
     </view>
     <view class='searchItem'>
-      <text>工序号：</text>
-      <input class='searchItemInput' name='procedures' placeholder='请选择工序号' value="{{procedureLabelName}}" disabled="true" bindtap='showProceduresWin'style="width: 70%"
+      <text>工序：</text>
+      <input class='searchItemInput' name='procedures' placeholder='请选择工序' value="{{procedureLabelName}}" disabled="true" bindtap='showProceduresWin'style="width: 70%"
 ></input>
       <!-- <right-picker id='rightPicker'
         bind:chooseEvent='choose'

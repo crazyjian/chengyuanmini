@@ -321,7 +321,7 @@ Page({
     // dispatchJson.groupName = '质检';
     dispatchJson.procedureInfo = this.data.chooseProcedures;
     wx.request({
-      url: app.globalData.backUrl + '/erp/miniadddispatchbatch',
+      url: app.globalData.backUrl + '/erp/miniadddispatchbatchnew',
       data: {
         dispatchJson: JSON.stringify(dispatchJson)
       },
@@ -341,17 +341,19 @@ Page({
           for (let i = 0; i < obj.data.records.length; i++) {
             obj.data.records[i].isSelect = false;
           }
+          
+          for (let i = 0; i < obj.data.procedures.length; i++) {
+            obj.data.procedures[i].isSelect = false;
+          }
+          var procedures = obj.data.procedures;
           obj.setData({
-            orderName:'',
-            versionNumber:'',
-            procedureLabelName: '',
+            procedureLabelName: '请选择工序',
             chooseProcedures:[],
-            procedures: [],
+            procedures: procedures,
             isCheckAll: false,
             selectRecords: selectRecords,
             records: obj.data.records
           })
-          obj.rightPicker.clearSelect(); 
         }else {
           wx.showToast({
             title: "提交失败",

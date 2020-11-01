@@ -5,7 +5,10 @@ Page({
   data: {
     records:[],
     dateFrom:'',
-    dateTo:''
+    dateTo:'',
+    time:'',
+    year:'',
+    month:''
   },
   onLoad: function (option) {
     var obj = this;
@@ -15,20 +18,20 @@ Page({
     var Y = date.getFullYear();
     //获取月份  
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
-    //获取当日日期 
-    var D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     this.setData({
-      dateFrom: Y + '-' + M + '-' + D,
-      dateTo: Y + '-' + M + '-' + D
+      time: Y + '-' + M,
+      year:Y,
+      month:M
     })
+    this.search();
   },
   search:function() {
     var obj = this;
     wx.request({
       url: app.globalData.backUrl + '/erp/minigetcheckdetailbyemp',
       data: {
-        from:obj.data.dateFrom,
-        to: obj.data.dateTo,
+        year:obj.data.year,
+        month: obj.data.month,
         employeeNumber: app.globalData.employeeNumber
       },
       method: 'GET',
@@ -61,14 +64,13 @@ Page({
       }
     });
   },
-  bindFromChange: function (e) {
+  selectDataTime: function(e) {
+    console.log('点击确定选择的时间是:',e.detail.value)
+    var yearMonth = e.detail.value;
+    var year = yearMonth.substring(0,4);
+    var month = yearMonth.substring(5);
     this.setData({
-      dateFrom: e.detail.value
+      time: e.detail.value
     })
-  },
-  bindToChange: function (e) {
-    this.setData({
-      dateTo: e.detail.value
-    })
-  },
+  }
 })
