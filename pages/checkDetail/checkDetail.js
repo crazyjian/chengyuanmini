@@ -3,7 +3,26 @@ const util = require('../../utils/util.js')
 const app = getApp()
 Page({
   data: {
-    records:[],
+    records:[
+      {
+        signDate:'2020-11-01',
+        in1:'07:59',
+        out1: '12:00',
+        in2: '14:01',
+        out2: '16:59',
+        in3: '',
+        out3: ''
+      },
+      {
+        signDate: '2020-11-02',
+        in1: '08:01',
+        out1: '12:01',
+        in2: '13:31',
+        out2: '17:00',
+        in3: '19:00',
+        out3: '22:00'
+      }
+      ],
     dateFrom:'',
     dateTo:'',
     time:'',

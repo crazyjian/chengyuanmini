@@ -51,27 +51,28 @@ label{
 }
 
 .table {
-  border-top: 1px solid darkgray;
-  border-right: 1px solid darkgray;
-  border-bottom: 1px solid darkgray;
+  border: 1px solid #e4e2e2;
+  /* border-right: 1px solid darkgray; */
+  /* border-bottom: 1px solid darkgray; */
   overflow-x: auto;
 }
 .tr {
   display: flex;
   width: 100%;
-  justify-content: center;
-  height: 3rem;
+  justify-content: space-around;
+  height: 2rem;
   align-items: center;
 }
 .td {
-    width:40%;
+    width:200rpx;
     height: 100%;
     justify-content: center;
     text-align: center;
     display: flex;
     align-items: center;
-    border-top: 1px solid darkgray;
-    border-left: 1px solid darkgray;
+    border-radius: 15rpx;
+    /* border-top: 1px solid darkgray; */
+    /* border-left: 1px solid darkgray; */
 }
 .bg-w{
   background: white;
@@ -114,4 +115,10 @@ label{
   padding: 10rpx 10rpx 10rpx 10rpx;
   border-bottom: 1px solid #f1ecec;
   background-color: #f1ecec;
+}
+
+.icon {
+  width:100rpx;
+  border-radius: 15rpx;
+  text-align: center;
 }

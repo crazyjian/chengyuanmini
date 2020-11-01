@@ -28,20 +28,45 @@ module.exports = {
           <view style="padding-top:40rpx;padding-bottom:20rpx;">
             {{item.signDate}}
             <view class="table">
-              <view class="tr">
-                <view wx:if="{{item.in1 == '未签到'}}">
-                  <view class="td" style='width:33%; color:red'>{{item.in1}}</view>
+              <view class="tr" style="margin-top: 10rpx;margin-bottom: 10rpx;">
+                <view wx:if="{{!item.in1 || item.in1==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.in1}}
+                </view> 
+                <view wx:elif="{{item.in1 >= '08:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.in1}}
                 </view>
-                <view wx:else>
-                  <view class="td" style='width:33%;color=green'>{{item.in1}}</view>
+                <view wx:else class="td" style='background-color:orange'>{{item.in1}}
                 </view>
-                <view class="td" style='width:33%'>{{item.in2}}</view>
-                <view class="td" style='width:33%'>{{item.in3}}</view>
+                <view wx:if="{{!item.in2 || item.in2==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.in2}}
+                </view>
+                <view wx:elif="{{item.in2 >= '14:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.in2}}
+                </view>
+                <view wx:else class="td" style='background-color:orange'>{{item.in2}}
+                </view>
+                <view wx:if="{{!item.in3 || item.in3==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.in3}}
+                </view>
+                <view wx:elif="{{item.in3 >= '19:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.in3}}
+                </view>
+                <view wx:else class="td" style='background-color:orange'>{{item.in3}}
+                </view>              
               </view>
-              <view class="tr">
-                <view class="td" style='width:33%'>{{item.out1}}</view>
-                <view class="td" style='width:33%'>{{item.out2}}</view>
-                <view class="td" style='width:33%'>{{item.out3}}</view>
+              <view class="tr" style="margin-top: 10rpx;margin-bottom: 10rpx;">
+                <view wx:if="{{!item.out1 || item.out1==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.out1}}
+                </view>
+                <view wx:elif="{{item.out1 >= '12:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.out1}}
+                </view>
+                <view wx:else class="td" style='background-color:orange'>{{item.out1}}
+                </view>
+                <view wx:if="{{!item.out2 || item.out2==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.out2}}
+                </view>
+                <view wx:elif="{{item.out2 >= '17:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.out2}}
+                </view>
+                <view wx:else class="td" style='background-color:orange'>{{item.out2}}
+                </view>
+                <view wx:if="{{!item.out3 || item.out3==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.out3}}
+                </view>
+                <view wx:elif="{{item.out3 >= '22:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.out3}}
+                </view>
+                <view wx:else class="td" style='background-color:orange'>{{item.out3}}
+                </view>
               </view>
             </view>
           </view>
