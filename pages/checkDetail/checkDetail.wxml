@@ -29,41 +29,41 @@ module.exports = {
             {{item.signDate}}
             <view class="table">
               <view class="tr" style="margin-top: 10rpx;margin-bottom: 10rpx;">
-                <view wx:if="{{!item.in1 || item.in1==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.in1}}
+                <view wx:if="{{!item.in1 || item.in1=='未签到'}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.in1}}
                 </view> 
-                <view wx:elif="{{item.in1 >= '08:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.in1}}
+                <view wx:elif="{{item.in1 <= recordRuleList[0]}}" class="td" style='background-color:rgb(45,202,147)'>{{item.in1}}
                 </view>
                 <view wx:else class="td" style='background-color:orange'>{{item.in1}}
                 </view>
-                <view wx:if="{{!item.in2 || item.in2==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.in2}}
+                <view wx:if="{{!item.in2 || item.in2=='未签到'}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.in2}}
                 </view>
-                <view wx:elif="{{item.in2 >= '14:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.in2}}
+                <view wx:elif="{{item.in2 <= recordRuleList[2]}}" class="td" style='background-color:rgb(45,202,147)'>{{item.in2}}
                 </view>
                 <view wx:else class="td" style='background-color:orange'>{{item.in2}}
                 </view>
-                <view wx:if="{{!item.in3 || item.in3==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.in3}}
+                <view wx:if="{{!item.in3 || item.in3=='未签到'}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.in3}}
                 </view>
-                <view wx:elif="{{item.in3 >= '19:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.in3}}
+                <view wx:elif="{{item.in3 <= recordRuleList[4]}}" class="td" style='background-color:rgb(45,202,147)'>{{item.in3}}
                 </view>
                 <view wx:else class="td" style='background-color:orange'>{{item.in3}}
                 </view>              
               </view>
               <view class="tr" style="margin-top: 10rpx;margin-bottom: 10rpx;">
-                <view wx:if="{{!item.out1 || item.out1==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.out1}}
+                <view wx:if="{{!item.out1 || item.out1=='未签到'}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.out1}}
                 </view>
-                <view wx:elif="{{item.out1 >= '12:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.out1}}
+                <view wx:elif="{{item.out1 >= recordRuleList[1]}}" class="td" style='background-color:rgb(45,202,147)'>{{item.out1}}
                 </view>
                 <view wx:else class="td" style='background-color:orange'>{{item.out1}}
                 </view>
-                <view wx:if="{{!item.out2 || item.out2==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.out2}}
+                <view wx:if="{{!item.out2 || item.out2=='未签到'}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.out2}}
                 </view>
-                <view wx:elif="{{item.out2 >= '17:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.out2}}
+                <view wx:elif="{{item.out2 >= recordRuleList[3]}}" class="td" style='background-color:rgb(45,202,147)'>{{item.out2}}
                 </view>
                 <view wx:else class="td" style='background-color:orange'>{{item.out2}}
                 </view>
-                <view wx:if="{{!item.out3 || item.out3==''}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.out3}}
+                <view wx:if="{{!item.out3 || item.out3=='未签到'}}" class="td" style=' background-color:rgb(206,39,60)'>{{item.out3}}
                 </view>
-                <view wx:elif="{{item.out3 >= '22:00'}}" class="td" style='background-color:rgb(45,202,147)'>{{item.out3}}
+                <view wx:elif="{{item.out3 >= recordRuleList[5]}}" class="td" style='background-color:rgb(45,202,147)'>{{item.out3}}
                 </view>
                 <view wx:else class="td" style='background-color:orange'>{{item.out3}}
                 </view>

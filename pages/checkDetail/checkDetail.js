@@ -27,7 +27,8 @@ Page({
     dateTo:'',
     time:'',
     year:'',
-    month:''
+    month:'',
+    recordRuleList: []
   },
   onLoad: function (option) {
     var obj = this;
@@ -59,13 +60,15 @@ Page({
       },
       success: function (res) {
         if (res.statusCode == 200 && res.data) {
+          console.log(res.data.recordRuleList)
           if (res.data.checkDetailList.length == 0 || res.data.checkDetailList == null){
             obj.setData({
               records: ["无记录"]
             })
           }else {
             obj.setData({
-              records: res.data.checkDetailList
+              records: res.data.checkDetailList,
+              recordRuleList: res.data.recordRuleList
             });
           }
         }else {
