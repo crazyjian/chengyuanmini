@@ -87,12 +87,51 @@ Page({
     });
   },
   selectDataTime: function(e) {
-    console.log('点击确定选择的时间是:',e.detail.value)
+    var obj = this;
     var yearMonth = e.detail.value;
     var year = yearMonth.substring(0,4);
     var month = yearMonth.substring(5);
-    this.setData({
-      time: e.detail.value
+    wx.request({
+      url: app.globalData.backUrl + '/erp/minigetcheckdetailbyemp',
+      data: {
+        year: year,
+        month: month,
+        employeeNumber: app.globalData.employeeNumber
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        if (res.statusCode == 200 && res.data) {
+          if (res.data.checkDetailList.length == 0 || res.data.checkDetailList == null){
+            obj.setData({
+              records: ["无记录"]
+            })
+          }else {
+            obj.setData({
+              records: res.data.checkDetailList,
+              recordRuleList: res.data.recordRuleList
+            });
+          }
+        }else {
+          obj.setData({
+            records: []
+          });
+        }
+      },
+      fail:function() {
+        wx.showToast({
+          title: "服务连接失败",
+          image: '../../static/img/error.png',
+          duration: 1000,
+        })
+      }
+    });
+    obj.setData({
+      time: e.detail.value,
+      year: year,
+      month: month
     })
   }
 })

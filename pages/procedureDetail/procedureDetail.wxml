@@ -66,29 +66,29 @@
     <scroll-view scroll-x="true">  
     <view class="table">
       <view class="tr bg-w">
-        <view class="th" style='width:17%'>工序号</view>
-        <view class="th" style='width:25%'>工序名</view>
-        <view class="th" style='width:20%'>已做</view>
-        <view class="th" style='width:20%'>订单数</view>
-        <view class="th" style='width:20%'>好片数</view>
-        <view class="th" style='width:20%'>差异</view>
+        <view class="th" style='width:15%'>工序号</view>
+        <view class="th" style='width:30%'>工序名</view>
+        <view class="th" style='width:15%'>已做</view>
+        <view class="th" style='width:18%'>订单数</view>
+        <view class="th" style='width:18%'>好片数</view>
+        <view class="th" style='width:18%'>差异</view>
       </view>
       <block wx:for="{{records}}" wx:key="{{procedureCode}}">
         <view class="tr bg-g"  bindtap='detail' data-procedureNumber="{{item.procedureNumber}}" data-procedureName="{{item.procedureName}}" wx:if="{{index % 2 == 0}}">
-          <view class="td" style='width:17%'>{{item.procedureNumber}}</view>
-          <view class="td" style='width:25%'>{{item.procedureName}}</view>
-          <view class="td" style='width:20%'>{{item.productionCount}}</view>
-          <view class="td" style='width:20%'>{{item.orderCount}}</view>
-          <view class="td" style='width:20%'>{{item.cutCount}}</view>
-          <view class="td" style='width:20%'>{{item.differenceCount}}</view>
+          <view class="td" style='width:15%'>{{item.procedureNumber}}</view>
+          <view class="td" style='width:30%'>{{item.procedureName}}</view>
+          <view class="td" style='width:15%'>{{item.productionCount}}</view>
+          <view class="td" style='width:18%'>{{item.orderCount}}</view>
+          <view class="td" style='width:18%'>{{item.cutCount}}</view>
+          <view class="td" style='width:18%'>{{item.differenceCount}}</view>
         </view>
         <view class="tr" bindtap='detail' data-procedureNumber="{{item.procedureNumber}}" data-procedureName="{{item.procedureName}}" wx:else>
-          <view class="td" style='width:17%'>{{item.procedureNumber}}</view>
-          <view class="td" style='width:25%'>{{item.procedureName}}</view>
-          <view class="td" style='width:20%'>{{item.productionCount}}</view>
-          <view class="td" style='width:20%'>{{item.orderCount}}</view>
-          <view class="td" style='width:20%'>{{item.cutCount}}</view>
-          <view class="td" style='width:20%'>{{item.differenceCount}}</view>
+          <view class="td" style='width:15%'>{{item.procedureNumber}}</view>
+          <view class="td" style='width:30%'>{{item.procedureName}}</view>
+          <view class="td" style='width:15%'>{{item.productionCount}}</view>
+          <view class="td" style='width:18%'>{{item.orderCount}}</view>
+          <view class="td" style='width:18%'>{{item.cutCount}}</view>
+          <view class="td" style='width:18%'>{{item.differenceCount}}</view>
         </view>
       </block>
     </view>
