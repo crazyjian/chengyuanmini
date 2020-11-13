@@ -75,6 +75,76 @@ Page({
               // console.log(res.data);
               if (res.statusCode == 200 && res.data) {
                 if (res.data.success){
+                  var resultInfo = res.data.success;
+                  if (resultInfo.indexOf('成功') > 0 && resultInfo.indexOf('爆数') < 0 &&  resultInfo.indexOf('部位不对应') < 0 &&  resultInfo.indexOf('重复计件') < 0 &&  resultInfo.indexOf('计件失败') < 0 &&  resultInfo.indexOf('不用计件') < 0){
+                    const innerAudioContext = wx.createInnerAudioContext()
+                    innerAudioContext.autoplay = true  // 是否自动开始播放，默认为 false
+                    innerAudioContext.loop =false  // 是否循环播放，默认为 false
+                    wx.setInnerAudioOption({ // ios在静音状态下能够正常播放音效
+                      obeyMuteSwitch: false,   // 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
+                      success: function(e) {
+                        console.log(e)
+                        console.log('play success')
+                      },
+                      fail: function(e) {
+                        console.log(e)
+                        console.log('play fail')
+                      }
+                    })
+                    innerAudioContext.src = 'static/voice/success.mp3';  // 音频资源的地址
+                    innerAudioContext.play();
+                    wx.showToast({
+                      title: "计件成功",
+                      icon: 'success',
+                      duration: 1500
+                    })
+                  } else if (resultInfo.indexOf('成功') < 0){
+                    const innerAudioContext = wx.createInnerAudioContext()
+                    innerAudioContext.autoplay = true  // 是否自动开始播放，默认为 false
+                    innerAudioContext.loop =false  // 是否循环播放，默认为 false
+                    wx.setInnerAudioOption({ // ios在静音状态下能够正常播放音效
+                      obeyMuteSwitch: false,   // 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
+                      success: function(e) {
+                        console.log(e)
+                        console.log('play success')
+                      },
+                      fail: function(e) {
+                        console.log(e)
+                        console.log('play fail')
+                      }
+                    })
+                    innerAudioContext.src = 'static/voice/fail.mp3';  // 音频资源的地址
+                    innerAudioContext.play();
+                    wx.showToast({
+                      title: '计件失败',
+                      image: '../../static/img/error.png',
+                      duration: 1500
+                    })
+                  } else if (resultInfo.indexOf('成功') > 0 && (resultInfo.indexOf('爆数') > 0 ||  resultInfo.indexOf('部位不对应') > 0 ||  resultInfo.indexOf('重复计件') > 0 ||  resultInfo.indexOf('计件失败') > 0 ||  resultInfo.indexOf('不用计件') > 0)) {
+                    console.log("部分成功");
+                    const innerAudioContext = wx.createInnerAudioContext()
+                    innerAudioContext.autoplay = true  // 是否自动开始播放，默认为 false
+                    innerAudioContext.loop =false  // 是否循环播放，默认为 false
+                    wx.setInnerAudioOption({ // ios在静音状态下能够正常播放音效
+                      obeyMuteSwitch: false,   // 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
+                      success: function(e) {
+                        console.log(e)
+                        console.log('play success')
+                      },
+                      fail: function(e) {
+                        console.log(e)
+                        console.log('play fail')
+                      }
+                    })
+                    innerAudioContext.src = 'static/voice/half.mp3';  // 音频资源的地址
+                    innerAudioContext.play();
+                    wx.showToast({
+                      title: '部分成功',
+                      icon: 'none',
+                      image: '../../static/img/warn.png',
+                      duration: 1500
+                    })
+                  }
                   var producerName = '';
                   for (var i = 0; i < res.data.dispatchProcedureList.length; i++) {
                     producerName += res.data.dispatchProcedureList[i].procedureNumber + '-' + res.data.dispatchProcedureList[i].procedureName + ' ';
@@ -86,6 +156,28 @@ Page({
                     records: res.data.pieceWorkEmpList
                   });
                 } else if (res.data.fail) {
+                  const innerAudioContext = wx.createInnerAudioContext()
+                  innerAudioContext.autoplay = true  // 是否自动开始播放，默认为 false
+                  innerAudioContext.loop =false  // 是否循环播放，默认为 false
+                  wx.setInnerAudioOption({ // ios在静音状态下能够正常播放音效
+                    obeyMuteSwitch: false,   // 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
+                    success: function(e) {
+                      console.log(e)
+                      console.log('play success')
+                    },
+                    fail: function(e) {
+                      console.log(e)
+                      console.log('play fail')
+                    }
+                  })
+                  innerAudioContext.src = 'static/voice/fail.mp3';  // 音频资源的地址
+                  innerAudioContext.play();
+                  wx.showToast({
+                    title: '计件失败',
+                    icon: 'none',
+                    image: '../../static/img/error.png',
+                    duration: 1500
+                  })
                   var producerName = '';
                   for (var i = 0; i < res.data.dispatchProcedureList.length; i++) {
                     producerName += res.data.dispatchProcedureList[i].procedureNumber + '-' + res.data.dispatchProcedureList[i].procedureName + ' ';
@@ -97,6 +189,28 @@ Page({
                     records: res.data.pieceWorkEmpList
                   });
                 } else if (res.data.error){
+                  const innerAudioContext = wx.createInnerAudioContext()
+                  innerAudioContext.autoplay = true  // 是否自动开始播放，默认为 false
+                  innerAudioContext.loop =false  // 是否循环播放，默认为 false
+                  wx.setInnerAudioOption({ // ios在静音状态下能够正常播放音效
+                    obeyMuteSwitch: false,   // 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
+                    success: function(e) {
+                      console.log(e)
+                      console.log('play success')
+                    },
+                    fail: function(e) {
+                      console.log(e)
+                      console.log('play fail')
+                    }
+                  })
+                  innerAudioContext.src = 'static/voice/fail.mp3';  // 音频资源的地址
+                  innerAudioContext.play();
+                  wx.showToast({
+                    title: '计件失败',
+                    icon: 'none',
+                    image: '../../static/img/error.png',
+                    duration: 1500
+                  })
                   var producerName = '';
                   for (var i = 0; i < res.data.dispatchProcedureList.length; i++) {
                     producerName += res.data.dispatchProcedureList[i].procedureNumber + '-' + res.data.dispatchProcedureList[i].procedureName + ' ';
@@ -108,6 +222,28 @@ Page({
                     records: res.data.pieceWorkEmpList
                   });
                 }else if (res.data.procedureEmpty){
+                  const innerAudioContext = wx.createInnerAudioContext()
+                  innerAudioContext.autoplay = true  // 是否自动开始播放，默认为 false
+                  innerAudioContext.loop =false  // 是否循环播放，默认为 false
+                  wx.setInnerAudioOption({ // ios在静音状态下能够正常播放音效
+                    obeyMuteSwitch: false,   // 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
+                    success: function(e) {
+                      console.log(e)
+                      console.log('play success')
+                    },
+                    fail: function(e) {
+                      console.log(e)
+                      console.log('play fail')
+                    }
+                  })
+                  innerAudioContext.src = 'static/voice/undispatch.mp3';  // 音频资源的地址
+                  innerAudioContext.play();
+                  wx.showToast({
+                    title: '无派工信息',
+                    icon: 'none',
+                    image: '../../static/img/error.png',
+                    duration: 1500
+                  })
                   var producerName = '';
                   obj.setData({
                     isShow: true,
@@ -129,6 +265,22 @@ Page({
           });
           
         } else {
+          const innerAudioContext = wx.createInnerAudioContext()
+          innerAudioContext.autoplay = true  // 是否自动开始播放，默认为 false
+          innerAudioContext.loop =false  // 是否循环播放，默认为 false
+          wx.setInnerAudioOption({ // ios在静音状态下能够正常播放音效
+            obeyMuteSwitch: false,   // 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
+            success: function(e) {
+              console.log(e)
+              console.log('play success')
+            },
+            fail: function(e) {
+              console.log(e)
+              console.log('play fail')
+            }
+          })
+          innerAudioContext.src = 'static/voice/nocode.mp3';  // 音频资源的地址
+          innerAudioContext.play();
           wx.showToast({
             title: '二维码信息不存在',
             icon: 'none',

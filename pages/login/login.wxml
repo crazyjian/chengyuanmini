@@ -15,7 +15,7 @@
       <view class='searchItemImg'>
         <image src='../../static/img/people.png' style='display:inline' mode="aspectFit"></image>
       </view>
-      <input class='searchItemInput' name='employeeNumber' placeholder='请输入工号' style='width:80%' type='number' value='{{employeeNumber}}'></input>     
+      <input class='searchItemInput' name='employeeNumber' placeholder='请输入工号' style='width:80%' value='{{employeeNumber}}'></input>     
     </view>
     <text>密码</text>
     <view class='searchItem'>

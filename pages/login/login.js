@@ -74,7 +74,13 @@ Page({
     } else if (qrCode == '3') {
       app.globalData.backUrl = "https://dy.jingyiclothing.com";
       app.globalData.factoryName = "中山德悦服饰";
-    } else if (qrCode.toLowerCase() == '6') {
+    } else if (qrCode.toLowerCase() == 'zzcy') {
+      app.globalData.backUrl = "https://zzcy.jingyiclothing.com";
+      app.globalData.factoryName = "枣庄超越制衣";
+    } else if (qrCode.toLowerCase() == 'zszd') {
+      app.globalData.backUrl = "https://zszd.jingyiclothing.com";
+      app.globalData.factoryName = "中山筑帝制衣";
+    } else if (qrCode == '6') {
       app.globalData.backUrl = "https://swj.jingyiclothing.com";
       app.globalData.factoryName = "中山绅维纪服饰";
     } else {

@@ -1,0 +1,149 @@
+<view class="container" style="padding:50rpx;align-items:left;background-color:rgb(242, 242, 242)">
+  <view class="section">
+    <view style="height:50%">
+      <scroll-view scroll-x="true" scroll-y="true" style="height:85%">  
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th" style='width:5%'>序号</view>
+            <view class="th" style='width:10%'>ID</view>
+            <view class="th" style='width:20%'>订单</view>
+            <view class="th" style='width:20%'>版单</view>
+            <view class="th" style='width:10%'>面料颜色</view>
+            <view class="th" style='width:15%'>缸号</view>
+            <view class="th" style='width:10%'>订单颜色</view>
+            <view class="th" style='width:10%'>重量</view>
+            <view class="th" style='width:8%'>层数</view>
+            <view class="th" style='width:12%'>组别</view>
+            <view class="th" style='width:10%'>操作</view>
+          </view>
+          <block wx:for="{{looseFabrics}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td" style='width:5%'>{{index+1}}</view>
+              <view class="td" style='width:10%'>{{item.looseFabricID}}</view>
+              <view class="td" style='width:20%'>{{item.orderName}}</view>
+              <view class="td" style='width:20%'>{{item.clothesVersionNumber}}</view>
+              <view class="td" style='width:10%'>{{item.fabricColor}}</view>
+              <view class="td" style='width:15%'>{{item.jarNumber}}</view>
+              <view class="td" style='width:10%'>{{item.colorName}}</view>
+              <view class="td" style='width:10%'>{{item.weight}}</view>
+              <view class="td" style='width:8%'>{{item.layerCount}}</view>
+              <view class="td" style='width:12%'>{{item.operateType}}</view>
+               <view class="td" style='width:10%'><text style='color:#6495ED' data-loosefabricid="{{item.looseFabricID}}" data-layercount="{{item.layerCount}}" bindtap='update'>修改</text><text style="margin-left: 10rpx;color:red" data-loosefabricid="{{item.looseFabricID}}" bindtap='delete'>删除</text></view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td" style='width:5%'>{{index+1}}</view>
+              <view class="td" style='width:10%'>{{item.looseFabricID}}</view>
+              <view class="td" style='width:20%'>{{item.orderName}}</view>
+              <view class="td" style='width:20%'>{{item.clothesVersionNumber}}</view>
+              <view class="td" style='width:10%'>{{item.fabricColor}}</view>
+              <view class="td" style='width:15%'>{{item.jarNumber}}</view>
+              <view class="td" style='width:10%'>{{item.colorName}}</view>
+              <view class="td" style='width:10%'>{{item.weight}}</view>
+              <view class="td" style='width:8%'>{{item.layerCount}}</view>
+              <view class="td" style='width:12%'>{{item.operateType}}</view>
+               <view class="td" style='width:10%'><text style='color:#6495ED' data-loosefabricid="{{item.looseFabricID}}" data-layercount="{{item.layerCount}}" bindtap='update'>修改</text><text style="margin-left: 10rpx;color:red" data-loosefabricid="{{item.looseFabricID}}" bindtap='delete'>删除</text></view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+      <view style="display: flex;flex-direction:row;background: white;color: #6495ED;">
+        <view style="width:50%">重量累计：{{weightTotal}}</view>
+        <view style="width:50%">层数累计：{{layerTotal}}</view>
+      </view>
+      <view>
+    </view>
+    </view>
+  <view style="height:50%">
+    <view class="flex-wrp" style="display: flex;flex-direction:row;">
+      <div class='inputItem' style="margin-right:20rpx;display:flex;flex-direction:row;">
+        <view>版单</view>
+        <input class='searchItemInput' value="{{looseFabric.clothesVersionNumber}}" bindinput='getClothesVersionNumber'></input>
+      </div>
+      <div class='inputItem' style="display:flex;flex-direction:row;">
+        <view>订单</view>
+        <input class='searchItemInput' value="{{looseFabric.orderName}}" bindinput='getOrderName'></input>
+      </div>
+    </view>
+    <view class="flex-wrp" style="display: flex;flex-direction:row;">
+      <div class='inputItem' style="margin-right:20rpx;display:flex;flex-direction:row;">
+        <view>面色</view>
+        <input class='searchItemInput' value="{{looseFabric.fabricColor}}" bindinput='getFabricColor'></input>
+      </div>
+      <div class='inputItem' style="display:flex;flex-direction:row;">
+        <view>缸号</view>
+        <input class='searchItemInput' value="{{looseFabric.jarNumber}}" bindinput='getJarNumber'></input>
+      </div>
+    </view>
+    <view class="flex-wrp" style="display: flex;flex-direction:row;">
+      <div class='inputItem' style="margin-right:20rpx;display:flex;flex-direction:row;">
+        <view>单色</view>
+        <input class='searchItemInput' value="{{looseFabric.colorName}}" bindinput='getColorName'></input>
+      </div>
+      <div class='inputItem' style="display:flex;flex-direction:row;">
+        <view>层数</view>
+        <input class='searchItemInput' value="{{layerCount}}" bindinput='getLayerCount'  type="number"></input>
+      </div>
+    </view>
+    <view class="flex-wrp" style="display: flex;flex-direction:row;justify-content:space-between;align-items: center;">
+      <view style="width:33%">
+        <button class='btn' bindtap='hand'>手输面料</button>
+      </view>
+      <view style="width:33%">
+        <button class='btn' bindtap='scanFabric'>扫描面料</button>
+      </view>
+      <view style="width:30%">
+        <button class='btn' bindtap='comfirm'>确认</button>
+      </view>
+      
+    </view>
+    <view class="flex-wrp" style="display: flex;flex-direction:row;justify-content:center;align-items: center;">
+      <view style="width:30%;font-size:44rpx;color:#6495ED;" bindtap='next'>
+        下一步
+      </view>
+    </view>
+    </view>
+  </view>
+
+  <view class='toast-box' hidden='{{isHide}}'>
+      <view class='toastbg'></view>
+      <view class='showToast'>
+          <view class='toast-title'>
+              <text>手输面料</text>
+          </view>
+          <view class='toast-main'>
+              <view class='toast-input'>
+                  <input placeholder='请输入面料二维码' bindinput='setQrCodeValue' value='{{qrCode}}'></input>
+              </view>
+          </view>
+          <view class='toast-button'>
+              <view class='button1'>
+                  <button catchtap='cancel'>取消</button>
+              </view>
+              <view class='button2'>
+                  <button catchtap='handConfirm'>确定</button>
+              </view>
+          </view>
+      </view>
+  </view>
+  <view class='toast-box' hidden='{{isLayerHide}}'>
+      <view class='toastbg'></view>
+      <view class='showToast'>
+          <view class='toast-title'>
+              <text>修改层数</text>
+          </view>
+          <view class='toast-main'>
+              <view class='toast-input'>
+                  <input placeholder='请输入层数' bindinput='setLayerValue' value='{{layer}}'></input>
+              </view>
+          </view>
+          <view class='toast-button'>
+              <view class='button1'>
+                  <button catchtap='layerCancel'>取消</button>
+              </view>
+              <view class='button2'>
+                  <button catchtap='layerConfirm'>保存</button>
+              </view>
+          </view>
+      </view>
+  </view>
+</view>

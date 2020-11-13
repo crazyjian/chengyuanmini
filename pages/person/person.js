@@ -13,29 +13,9 @@ Page({
     this.setData({
       employeeName: app.globalData.employee.employeeName,
       employeeNumber: app.globalData.employee.employeeNumber,
-      factoryName:app.globalData.factoryName
+      factoryName:app.globalData.factoryName,
+      role: app.globalData.employee.position
     })
-    if (app.globalData.employee.role == 'root') {
-      this.setData({
-        role:'管理员',
-      })
-    } else if (app.globalData.employee.role == 'role1') {
-      this.setData({
-        role: '车工',
-      })
-    } else if (app.globalData.employee.role == 'role2') {
-      this.setData({
-        role: '生产主管',
-      })
-    } else if (app.globalData.employee.role == 'role3') {
-      this.setData({
-        role: '质检',
-      })
-    } else if (app.globalData.employee.role == 'role4') {
-      this.setData({
-        role: '抽检',
-      })
-    } 
   },
   loginOut:function() {
     wx.showModal({
@@ -58,6 +38,11 @@ Page({
   showEmployeeInfo: function () {
     wx.navigateTo({
       url: "../employee/employee"
+    })
+  },
+  getCheckDetail:function(){
+    wx.navigateTo({
+      url: "../checkDetail/checkDetail"
     })
   }
 })

@@ -48,20 +48,20 @@
     </view>
     <view class="table">
       <view class="tr bg-w">
-        <view class="th" style='width:40%'>工序</view>
-        <view class="th" style='width:40%'>员工</view>
-        <view class="th" style='width:20%'>操作</view>
+        <view class="th" style='width:50%'>工序</view>
+        <view class="th" style='width:35%'>员工</view>
+        <view class="th" style='width:15%'>操作</view>
       </view>
       <block wx:for="{{records}}" wx:key="{{dispatchID}}">
         <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-          <view class="td" style='width:40%'>{{item.procedureName}}</view>
-          <view class="td" style='width:40%'>{{item.employee}}</view>
-          <view class="td" style='width:20%'><label data-value='{{item.dispatchID}}' bindtap="delDisPatch">删除</label></view>
+          <view class="td" style='width:50%'>{{item.procedureName}}</view>
+          <view class="td" style='width:35%'>{{item.employee}}</view>
+          <view class="td" style='width:15%'><label data-value='{{item.dispatchID}}' bindtap="delDisPatch">删除</label></view>
         </view>
         <view class="tr" wx:else>
-          <view class="td" style='width:40%'>{{item.procedureName}}</view>
-          <view class="td" style='width:40%'>{{item.employee}}</view>
-          <view class="td" style='width:20%'><label data-value='{{item.dispatchID}}' bindtap="delDisPatch">删除</label></view>
+          <view class="td" style='width:50%'>{{item.procedureName}}</view>
+          <view class="td" style='width:35%'>{{item.employee}}</view>
+          <view class="td" style='width:15%'><label data-value='{{item.dispatchID}}' bindtap="delDisPatch">删除</label></view>
         </view>
       </block>
     </view>

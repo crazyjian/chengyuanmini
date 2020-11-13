@@ -8,7 +8,13 @@
       <text>工号：{{employee.employeeNumber}}</text>
     </view>
     <view class='searchItem'>
-      <text>部门：{{employee.groupName}}</text>
+      <text>部门：{{employee.department}}</text>
+    </view>
+    <view class='searchItem'>
+      <text>组名：{{employee.groupName}}</text>
+    </view>
+    <view class='searchItem'>
+      <text>职位：{{employee.position}}</text>
     </view>
   </view>
 </view>

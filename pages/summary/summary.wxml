@@ -50,17 +50,14 @@
     <view class="textView largeTitle" bindtap='getDispatchDetail'>
       排产明细
     </view>
-    <view class="textView largeTitle" bindtap='getInspectionDetail'>
+    <!-- <view class="textView largeTitle" bindtap='getInspectionDetail'>
       质检明细
     </view>
     <view class="textView largeTitle" bindtap='getSampleinspectionDetail'>
       抽检明细
-    </view>
+    </view> -->
     <view class="textView largeTitle" bindtap='getProcedureDetail'>
       工序平衡
-    </view>
-    <view class="textView largeTitle" bindtap='getCheckDetail'>
-      考勤明细
     </view>
   </view>
   </view>

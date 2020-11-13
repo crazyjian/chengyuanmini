@@ -17,6 +17,21 @@
         </view>
       </view>
     </view>
+    <view class="textView largeTitle" bindtap='getCheckDetail'>
+      <view class="flex-row" style="justify-content:space-between">
+        <view class="flex-item" style="flex-direction:row;width:90%">
+          <view class='searchItemImg' style='width:10%'>
+            <image src='../../static/img/checkIcon.png' style='display:inline;' mode="aspectFit"></image>
+          </view>
+          <view style='margin-left:20rpx'>考勤详情</view>
+        </view>
+        <view class="flex-item" style='text-align:right;width:10%'>
+         <view class='searchItemImg' style='width:80%'>
+            <image src='../../static/img/right.png' style='display:inline;' mode="aspectFit"></image>
+          </view>
+        </view>
+      </view>
+    </view>
     <view class="textView largeTitle" bindtap='showEmployeeInfo'>
       <view class="flex-row" style="justify-content:space-between">
         <view class="flex-item" style="flex-direction:row;width:90%">
