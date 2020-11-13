@@ -59,16 +59,16 @@
         "text": "排行"
       },
       {
-        "selectedIconPath": "static/img/operate.png",
-        "iconPath": "static/img/operate.png",
-        "pagePath": "pages/index/index",
-        "text": "操作"
-      },
-      {
         "selectedIconPath": "static/img/total.png",
         "iconPath": "static/img/total.png",
         "pagePath": "pages/summary/summary",
         "text": "统计"
+      },
+      {
+        "selectedIconPath": "static/img/operate.png",
+        "iconPath": "static/img/operate.png",
+        "pagePath": "pages/index/index",
+        "text": "操作"
       },
       {
         "selectedIconPath": "static/img/cut.png",

@@ -74,7 +74,7 @@ Page({
     } else if (qrCode == '3') {
       app.globalData.backUrl = "https://dy.jingyiclothing.com";
       app.globalData.factoryName = "中山德悦服饰";
-    }  else if (qrCode == '6') {
+    } else if (qrCode == '6') {
       app.globalData.backUrl = "https://swj.jingyiclothing.com";
       app.globalData.factoryName = "中山绅维纪服饰";
     } else {
