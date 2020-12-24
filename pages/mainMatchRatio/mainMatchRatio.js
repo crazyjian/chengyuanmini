@@ -10,7 +10,10 @@ Page({
     matchRatios: [{ "sizeName": "","ratio":""}],
     sizeNames:["请选择"],
     s_index:[0],
-    partNames:[]
+    partNames:[],
+    thisPieceUsage:0,
+    pieceUsage:0,
+    weightTotal:0
   },
   onLoad: function (option) {
     var obj = this;
@@ -39,6 +42,22 @@ Page({
       success(res) {
         obj.setData({
           s_index: res.data,
+        })
+      }
+    });
+    wx.getStorage({
+      key: 'pieceUsage',
+      success(res) {
+        obj.setData({
+          pieceUsage: res.data,
+        })
+      }
+    });
+    wx.getStorage({
+      key: 'weightTotal',
+      success(res) {
+        obj.setData({
+          weightTotal: res.data,
         })
       }
     });
@@ -229,6 +248,11 @@ Page({
   },
   generate:function() {
     var matchRatios = this.data.matchRatios;
+    var weightTotal = this.data.weightTotal;
+    var numTotal = this.data.numTotal;
+    var pieceUsage = this.data.pieceUsage;
+    console.log(numTotal);
+    console.log(pieceUsage);
     let partNames = this.data.partNames.filter(it => it.selected).map(it => it.name);
     var flag = false;
     for (var i = 0; i < matchRatios.length;i++) {
@@ -278,6 +302,14 @@ Page({
         success: function (res) {
           // console.log(res.data);
           if (res.statusCode == 200 && res.data.tailorList) {
+            wx.setStorage({
+              key: "thisPieceUsage",
+              data: weightTotal/numTotal
+            });
+            wx.setStorage({
+              key: "pieceUsage",
+              data: pieceUsage
+            });
             wx.navigateTo({
               url: "../mainTailorSave/mainTailorSave?tailorList=" + encodeURIComponent(JSON.stringify(res.data.tailorList))
             })

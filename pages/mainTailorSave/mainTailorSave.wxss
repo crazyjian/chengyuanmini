@@ -24,6 +24,7 @@ label {
   color: #FFF;
   font-weight: bold;
   border-radius: 20rpx;
+  margin-bottom: 10rpx;
 }
 
 .title {
@@ -39,6 +40,14 @@ label {
  
 .button2 {
     width: 50%;
+}
+
+.button3 {
+  background-color: #6495ED;
+  color: #6495ED;
+  font-weight: bold;
+  border-radius: 0rpx;
+  width: 100%;
 }
 
 .button1 button {

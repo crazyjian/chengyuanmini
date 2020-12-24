@@ -296,6 +296,15 @@ Page({
                       obj.setData({
                         records: res.data.pieceWorkEmpList
                       });
+                    } else if (res.data.fixed) {
+                      wx.showToast({
+                        title: '款号已锁定,无法计件',
+                        icon: 'none',
+                        duration: 1000
+                      });
+                      obj.setData({
+                        records: res.data.pieceWorkEmpList
+                      });
                     }
                     
                   }

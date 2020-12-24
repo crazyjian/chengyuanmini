@@ -24,6 +24,7 @@ label {
   color: #FFF;
   font-weight: bold;
   border-radius: 20rpx;
+  margin-bottom: 10rpx;
 }
 
 .title {

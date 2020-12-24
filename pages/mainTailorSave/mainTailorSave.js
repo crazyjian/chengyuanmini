@@ -7,7 +7,10 @@ Page({
     initCount:'',
     updateCount:'',
     isHide:true,
+    resultHide:true,
     index:'',
+    thisPieceUsage:0,
+    pieceUsage:0
   },
   onLoad: function (option) {
     var obj = this;
@@ -18,6 +21,24 @@ Page({
     obj.setData({
       tailorList: tailorList
     })
+    wx.getStorage({
+      key: 'thisPieceUsage',
+      success(res) {
+        obj.setData({
+          thisPieceUsage: res.data,
+        })
+      }
+    });
+    wx.getStorage({
+      key: 'pieceUsage',
+      success(res) {
+        obj.setData({
+          pieceUsage: res.data,
+        })
+      }
+    });
+    console.log(obj.data.pieceUsage);
+    console.log(obj.data.thisPieceUsage);
   },
   delete:function(e) {
     var index = e.target.dataset.index;
@@ -79,6 +100,7 @@ Page({
   save:function() {
     var tailorList = JSON.stringify(this.data.tailorList);
     var groupName = app.globalData.employee.groupName;
+    var obj = this;
     wx.request({
       url: app.globalData.backUrl + '/erp/minisavemaintailordata',
       data: {
@@ -93,6 +115,9 @@ Page({
         // console.log(res.data);
         if (res.statusCode == 200) {
           if (res.data == 0) {
+            obj.setData({
+              resultHide:false
+            })
             wx.showToast({
               title: "保存成功",
               icon: 'success',
@@ -106,6 +131,14 @@ Page({
                   key: "layerTotal",
                   data: 0
                 });
+                // wx.setStorage({
+                //   key: "thisPieceUsage",
+                //   data: 0
+                // });
+                // wx.setStorage({
+                //   key: "pieceUsage",
+                //   data: 0
+                // });
                 wx.setStorage({
                   key: "weightTotal",
                   data: 0
@@ -118,11 +151,6 @@ Page({
                   key: "s_index",
                   data: [0]
                 });
-                setTimeout(function () {
-                  wx.switchTab({
-                    url: "../tailor/tailor"
-                  })
-                }, 1000)
               }
             })
           }else {
@@ -148,5 +176,14 @@ Page({
         })
       }
     });
+  },
+  confirmResult:function(){
+    var obj = this;
+    obj.setData({
+      resultHide:true
+    })
+    wx.switchTab({
+      url: "../tailor/tailor"
+    })
   }
 })

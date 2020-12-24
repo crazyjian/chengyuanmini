@@ -1,0 +1,19 @@
+<view class="container" style="padding-top:40rpx;align-items:center;background-color:rgb(242, 242, 242)">
+  
+  <view class="section">
+    <block wx:for='{{messages}}' wx:for-index='index1' wx:for-item='item'>
+      <view class="weui-panel">
+        <view class="weui-panel__hd">{{item.title}}</view>
+        <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text">
+            <rich-text nodes="{{item.messageBodyOne}}"></rich-text>
+            <view class="weui-media-box__info">
+              <view class="weui-media-box__info__meta">创建者</view>
+              <view class="weui-media-box__info__meta">{{item.createUser}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

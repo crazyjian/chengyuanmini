@@ -1,5 +1,20 @@
+<wxs module="we">
+ var toFixedFour = function (value) {
+ return value.toFixed(4);
+}
+var toFixedTwo = function (value) {
+ return value.toFixed(2);
+}
+module.exports = {
+  toFixedTwo :toFixedTwo,
+  toFixedFour:toFixedFour
+}
+</wxs>
 <view class="container" style="padding:50rpx;align-items:left;background-color:rgb(242, 242, 242)">
   <view class="section">
+      <view style="margin-top:10rpx">
+          <button class='btn' bindtap='save'>保存</button>
+      </view>
       <scroll-view scroll-x="true">  
         <view class="table">
           <view class="tr bg-w">
@@ -54,9 +69,6 @@
           </block>
         </view>
       </scroll-view>
-      <view style="margin-top:100rpx">
-        <button class='btn' bindtap='save'>保存</button>
-      </view>
     </view>
     <view class='toast-box' hidden='{{isHide}}'>
       <view class='toastbg'></view>
@@ -80,6 +92,30 @@
               </view>
               <view class='button2'>
                   <button catchtap='confirm'>确定</button>
+              </view>
+          </view>
+      </view>
+  </view>
+
+  <view class='toast-box' hidden='{{resultHide}}'>
+      <view class='toastbg'></view>
+      <view class='showToast'>
+        <view class='toast-title'>
+              <text>单耗报告</text>
+        </view>
+        <view class='toast-main'>
+            <view class='toast-input' style='display: flex;flex-direction:row;' >
+              <view style="width: 50%;">计划单耗:</view>
+              <input readonly='true' value='{{pieceUsage}}'></input>
+            </view>
+            <view class='toast-input' style='display: flex;flex-direction:row;' >
+              <view style="width: 50%;">本床单耗:</view>
+              <input readonly='true' value='{{we.toFixedFour(thisPieceUsage)}}'></input>
+            </view>
+        </view>
+        <view class='toast-button'>
+              <view class='button3'>
+                  <button catchtap='confirmResult'>知道了</button>
               </view>
           </view>
       </view>

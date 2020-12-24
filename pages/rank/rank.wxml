@@ -5,22 +5,41 @@
 </view>
 <swiper current="{{currentData}}" class='swiper' duration="300" bindchange="bindchange" style='height:{{widHeight}}'>
   <swiper-item>
-    <scroll-view class="scrollView" scroll-y="true">
-      <view class="weui-panel">
-        <view class="weui-panel__hd">还没想好干啥!</view>
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <!-- <h4 class="weui-media-box__title">标题一</h4> -->
-            <view class="weui-media-box__desc">还没想好干啥!</view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta">创建</view>
-              <view class="weui-media-box__info__meta">行政部</view>
-              <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">通知</view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </scroll-view>
+    <div class="weui-cell weui-cell_access" bindtap='showPrivateSummary'>
+        <div class="weui-cell__bd">
+            <span style="vertical-align: middle">私信</span>
+            <span class="weui-badge" style="margin-left: 5px;">{{privateCount}}</span>
+        </div>
+        <div class="weui-cell__ft">详细信息</div>
+    </div>
+    <div class="weui-cell weui-cell_access" bindtap='showNoticeSummary'>
+        <div class="weui-cell__bd">
+            <span style="vertical-align: middle">通知</span>
+            <span class="weui-badge" style="margin-left: 5px;">{{noticeCount}}</span>
+        </div>
+        <div class="weui-cell__ft">详细信息</div>
+    </div>
+    <div class="weui-cell weui-cell_access" bindtap='showCutSummary'>
+        <div class="weui-cell__bd">
+            <span style="vertical-align: middle">裁床消息</span>
+            <span class="weui-badge" style="margin-left: 5px;">{{cutCount}}</span>
+        </div>
+        <div class="weui-cell__ft">详细信息</div>
+    </div>
+    <div class="weui-cell weui-cell_access" bindtap='showSewSummary'>
+        <div class="weui-cell__bd">
+            <span style="vertical-align: middle">车缝消息</span>
+            <span class="weui-badge" style="margin-left: 5px;">{{sewCount}}</span>
+        </div>
+        <div class="weui-cell__ft">详细信息</div>
+    </div>
+    <div class="weui-cell weui-cell_access" bindtap='showFinishSummary'>
+        <div class="weui-cell__bd">
+            <span style="vertical-align: middle">后整消息</span>
+            <span class="weui-badge" style="margin-left: 5px;">{{finishCount}}</span>
+        </div>
+        <div class="weui-cell__ft">详细信息</div>
+    </div>
   </swiper-item>
   <swiper-item>
     <block wx:for='{{rankData}}' wx:for-index='index1' wx:for-item='item'>

@@ -249,6 +249,39 @@ Page({
                     pieceInfo: res.data.procedureEmpty,
                     records: res.data.pieceWorkEmpList
                   });
+                } else if (res.data.fixed){
+                  const innerAudioContext = wx.createInnerAudioContext()
+                  innerAudioContext.autoplay = true  // 是否自动开始播放，默认为 false
+                  innerAudioContext.loop =false  // 是否循环播放，默认为 false
+                  wx.setInnerAudioOption({ // ios在静音状态下能够正常播放音效
+                    obeyMuteSwitch: false,   // 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
+                    success: function(e) {
+                      console.log(e)
+                      console.log('play success')
+                    },
+                    fail: function(e) {
+                      console.log(e)
+                      console.log('play fail')
+                    }
+                  })
+                  innerAudioContext.src = 'static/voice/fail.mp3';  // 音频资源的地址
+                  innerAudioContext.play();
+                  wx.showToast({
+                    title: '款号已锁定,无法计件',
+                    icon: 'none',
+                    image: '../../static/img/error.png',
+                    duration: 1500
+                  })
+                  var producerName = '';
+                  for (var i = 0; i < res.data.dispatchProcedureList.length; i++) {
+                    producerName += res.data.dispatchProcedureList[i].procedureNumber + '-' + res.data.dispatchProcedureList[i].procedureName + ' ';
+                  }
+                  obj.setData({
+                    isShow: true,
+                    producerName: producerName,
+                    pieceInfo: res.data.error,
+                    records: res.data.pieceWorkEmpList
+                  });
                 }
                 
               }

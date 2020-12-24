@@ -8,6 +8,7 @@ Page({
     layerCount:'',
     weightTotal:0,
     layerTotal:0,
+    pieceUsage:0,
     isHide: true,
     isLayerHide:true,
     qrCode:'',
@@ -37,6 +38,14 @@ Page({
       success(res) {
         obj.setData({
           layerTotal: res.data,
+        })
+      }
+    });
+    wx.getStorage({
+      key: 'pieceUsage',
+      success(res) {
+        obj.setData({
+          pieceUsage: res.data,
         })
       }
     });
@@ -99,7 +108,7 @@ Page({
 
             if (obj.data.looseFabrics.length > 0 && obj.data.looseFabrics[0].orderName != res.data.looseFabric.orderName) {
               wx.showToast({
-                title: "请扫描相同订单信息",
+                title: "请扫描相同订单面料",
                 icon: 'none',
                 duration: 1000,
               })
@@ -167,6 +176,7 @@ Page({
             // console.log(res.data);
             if (res.statusCode == 200) {
               if (res.data.looseFabric) {
+                console.log(res.data.pieceUsage);
                 var currentDate = new Date();
                 var looseTime = new Date(res.data.looseFabric.looseTime);
                 var diff = currentDate.getTime() - looseTime.getTime();
@@ -198,6 +208,7 @@ Page({
                   if(flag) {
                     obj.setData({
                       looseFabric: res.data.looseFabric,
+                      pieceUsage: res.data.pieceUsage
                     })
                   }else {
                     wx.showToast({
@@ -291,6 +302,7 @@ Page({
       looseFabrics.push(looseFabric);
       var weightTotal = 0;
       var layerTotal = 0;
+      var pieceUsage = this.data.pieceUsage;
 
       for(var i=0;i<looseFabrics.length;i++) {
         weightTotal = weightTotal + looseFabrics[i].weight;
@@ -314,6 +326,10 @@ Page({
       wx.setStorage({
         key: "weightTotal",
         data: weightTotal
+      });
+      wx.setStorage({
+        key: "pieceUsage",
+        data: pieceUsage
       });
     }
   },

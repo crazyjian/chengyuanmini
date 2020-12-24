@@ -38,7 +38,10 @@
     "pages/fabricInShelf/fabricInShelf",
     "pages/fabricOutShelf/fabricOutShelf",
     "pages/fabricReturnShelf/fabricReturnShelf",
-    "pages/fabricSearch/fabricSearch"
+    "pages/fabricSearch/fabricSearch",
+    "pages/noticeSummary/noticeSummary",
+    "pages/privateMessage/privateMessage",
+    "pages/cutSummary/cutSummary"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -59,10 +62,10 @@
         "text": "排行"
       },
       {
-        "selectedIconPath": "static/img/total.png",
-        "iconPath": "static/img/total.png",
-        "pagePath": "pages/summary/summary",
-        "text": "统计"
+        "selectedIconPath": "static/img/cut.png",
+        "iconPath": "static/img/cut.png",
+        "pagePath": "pages/tailor/tailor",
+        "text": "裁剪"
       },
       {
         "selectedIconPath": "static/img/operate.png",
@@ -71,10 +74,10 @@
         "text": "操作"
       },
       {
-        "selectedIconPath": "static/img/cut.png",
-        "iconPath": "static/img/cut.png",
-        "pagePath": "pages/tailor/tailor",
-        "text": "裁剪"
+        "selectedIconPath": "static/img/total.png",
+        "iconPath": "static/img/total.png",
+        "pagePath": "pages/summary/summary",
+        "text": "统计"
       },
       {
         "selectedIconPath": "static/img/people-bottom.png",

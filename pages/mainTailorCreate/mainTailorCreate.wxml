@@ -1,3 +1,15 @@
+<wxs module="we">
+ var toFixedFour = function (value) {
+ return value.toFixed(4);
+}
+var toFixedTwo = function (value) {
+ return value.toFixed(2);
+}
+module.exports = {
+  toFixedTwo :toFixedTwo,
+  toFixedFour:toFixedFour
+}
+</wxs>
 <view class="container" style="padding:50rpx;align-items:left;background-color:rgb(242, 242, 242)">
   <view class="section">
     <view style="height:50%">
@@ -47,7 +59,7 @@
         </view>
       </scroll-view>
       <view style="display: flex;flex-direction:row;background: white;color: #6495ED;">
-        <view style="width:50%">重量累计：{{weightTotal}}</view>
+        <view style="width:50%">重量累计：{{we.toFixedTwo(weightTotal)}}</view>
         <view style="width:50%">层数累计：{{layerTotal}}</view>
       </view>
       <view>

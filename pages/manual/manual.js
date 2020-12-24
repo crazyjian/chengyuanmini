@@ -301,22 +301,22 @@ Page({
     var userName = app.globalData.employee.employeeName;
     var layerCount = obj.data.layerCount.replace(/(^\s*)|(\s*$)/g, "");
     if (this.data.inputHidden == false){
-      if (this.data.c_index == 0) {
-        wx.showToast({
-          title: '请选择颜色',
-          icon: 'none',
-          duration: 1000
-        });
-        return false;
-      }
-      if (this.data.s_index == 0) {
-        wx.showToast({
-          title: '请选择尺码',
-          icon: 'none',
-          duration: 1000
-        });
-        return false;
-      }
+      // if (this.data.c_index == 0) {
+      //   wx.showToast({
+      //     title: '请选择颜色',
+      //     icon: 'none',
+      //     duration: 1000
+      //   });
+      //   return false;
+      // }
+      // if (this.data.s_index == 0) {
+      //   wx.showToast({
+      //     title: '请选择尺码',
+      //     icon: 'none',
+      //     duration: 1000
+      //   });
+      //   return false;
+      // }
       wx.request({
         url: app.globalData.backUrl + '/erp/miniaddpieceworktotal',
         data: {
@@ -385,9 +385,21 @@ Page({
               icon: "none",
               duration: 1000,
             })
+          } else if (res.statusCode == 200 && res.data==6) {
+            wx.showToast({
+              title: "款号已锁定,无法入数",
+              icon: "none",
+              duration: 1000,
+            })
           } else if (res.statusCode == 200 && res.data==7) {
             wx.showToast({
               title: "本次入数导致爆数,请核对",
+              icon: "none",
+              duration: 1000,
+            })
+          } else if (res.statusCode == 200 && res.data==10) {
+            wx.showToast({
+              title: "工厂不支持手机入数",
               icon: "none",
               duration: 1000,
             })
@@ -456,6 +468,18 @@ Page({
           } else if (res.statusCode == 200 && res.data.data==2) {
             wx.showToast({
               title: "未开裁,无法计件",
+              icon: "none",
+              duration: 1000,
+            })
+          } else if (res.statusCode == 200 && res.data.data==6) {
+            wx.showToast({
+              title: "款号已锁定",
+              icon: "none",
+              duration: 1000,
+            })
+          } else if (res.statusCode == 200 && res.data.data==10) {
+            wx.showToast({
+              title: "工厂不支持手机入数",
               icon: "none",
               duration: 1000,
             })
