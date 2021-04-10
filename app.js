@@ -71,6 +71,7 @@ App({
     employeeNumber:1,
     backUrl:"",
     factoryName:"",
+    secondFactory:"",
     statusBarHeight:0,
     titleBarHeight:0,
     employee:{role:'root'},

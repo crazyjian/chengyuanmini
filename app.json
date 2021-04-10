@@ -41,7 +41,8 @@
     "pages/fabricSearch/fabricSearch",
     "pages/noticeSummary/noticeSummary",
     "pages/privateMessage/privateMessage",
-    "pages/cutSummary/cutSummary"
+    "pages/cutSummary/cutSummary",
+    "pages/groupPieceWork/groupPieceWork"
   ],
   "window": {
     "backgroundTextStyle": "light",

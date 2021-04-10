@@ -13,7 +13,8 @@ Page({
     urlCode:'',
     employeeNumber:'',
     passWord:'',
-    isDisabled:false
+    isDisabled:false,
+    secondFactory:''
   },
   onLoad: function (option) {
     var that = this;
@@ -39,6 +40,14 @@ Page({
       success(res) {
         that.setData({
           passWord: res.data
+        })
+      }
+    });
+    wx.getStorage({
+      key: 'secondFactory',
+      success(res) {
+        that.setData({
+          secondFactory: res.data
         })
       }
     });
@@ -74,11 +83,11 @@ Page({
     } else if (qrCode == '3') {
       app.globalData.backUrl = "https://dy.jingyiclothing.com";
       app.globalData.factoryName = "中山德悦服饰";
-    } else if (qrCode == '6') {
+    } else if (qrCode == '4') {
       app.globalData.backUrl = "https://swj.jingyiclothing.com";
       app.globalData.factoryName = "中山绅维纪服饰";
     } else {
-      app.globalData.backUrl = "http://192.168.2.175:8080";
+      app.globalData.backUrl = "http://192.168.2.208:8080";
       app.globalData.factoryName = "";
     }
     var employeeNumber = e.detail.value.employeeNumber; // 获取当前表单元素输入框内容
@@ -127,7 +136,9 @@ Page({
             })
           } else {
             app.globalData.employee = res.data.employee;
+            var secondFactory = res.data.employee.factoryName;
             app.globalData.employeeNumber = employeeNumber;
+            app.globalData.secondFactory = secondFactory;
             wx.setStorage({
               key: "urlCode",
               data: qrCode
@@ -135,6 +146,10 @@ Page({
             wx.setStorage({
               key: "employeeNumber",
               data: employeeNumber
+            });
+            wx.setStorage({
+              key: "secondFactory",
+              data: secondFactory
             });
             wx.setStorage({
               key: "passWord",

@@ -59,6 +59,9 @@
     <view class="textView largeTitle" bindtap='getProcedureDetail'>
       工序平衡
     </view>
+    <view class="textView largeTitle" bindtap='getGroupPieceWork'>
+      产能汇总
+    </view>
   </view>
   </view>
 </view>

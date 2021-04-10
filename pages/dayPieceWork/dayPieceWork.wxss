@@ -20,7 +20,7 @@ text{
   display: flex;
   width: 100%;
   justify-content: center;
-  height: 4rem;
+  height: 8rem;
   align-items: center;
 }
 .td {

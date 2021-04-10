@@ -11,9 +11,11 @@ Page({
     pieceUsage:0,
     isHide: true,
     isLayerHide:true,
+    isWeightHide:true,
     qrCode:'',
     updateLooseFabricID:'',
-    layer:''
+    layer:'',
+    weight:''
   },
   onLoad: function (option) {
     var obj = this;
@@ -305,7 +307,7 @@ Page({
       var pieceUsage = this.data.pieceUsage;
 
       for(var i=0;i<looseFabrics.length;i++) {
-        weightTotal = weightTotal + looseFabrics[i].weight;
+        weightTotal = Number(Number(weightTotal) + Number(looseFabrics[i].weight));
         layerTotal = layerTotal + parseInt(looseFabrics[i].layerCount);
       }
       this.setData({
@@ -342,15 +344,35 @@ Page({
       isLayerHide:false
     })
   },
+  updateWeight:function(e) {
+    var looseFabricID = e.currentTarget.dataset.loosefabricid;
+    var weight = e.currentTarget.dataset.weight;
+    this.setData({
+      updateLooseFabricID: looseFabricID,
+      weight: weight,
+      isWeightHide:false
+    })
+  },
   layerCancel: function (e) {
     this.setData({
       isLayerHide: true,
       layer: ''
     })
   },
+  weightCancel: function (e) {
+    this.setData({
+      isWeightHide: true,
+      weight: ''
+    })
+  },
   setLayerValue: function (e) {
     this.setData({
       layer: e.detail.value
+    })
+  },
+  setWeightValue: function (e) {
+    this.setData({
+      weight: e.detail.value
     })
   },
   layerConfirm:function(e) {
@@ -388,6 +410,43 @@ Page({
     wx.setStorage({
       key: "layerTotal",
       data: layerTotal
+    });
+  },
+  weightConfirm:function(e) {
+    var weight = this.data.weight;
+    if(weight=="") {
+      wx.showToast({
+        title: "请输入重量",
+        image: '../../static/img/error.png',
+        duration: 1000,
+      })
+      return;
+    }
+    var looseFabricID = this.data.updateLooseFabricID;
+    var looseFabrics = this.data.looseFabrics;
+    var weightTotal = this.data.weightTotal;
+    var oldWeight = 0;
+    for (var i = 0; i < looseFabrics.length; i++) {
+      if (looseFabrics[i].looseFabricID == looseFabricID) {
+        oldWeight = looseFabrics[i].weight;
+        looseFabrics[i].weight = weight;
+        break;
+      }
+    }
+    weightTotal = Number(Number(weightTotal) - Number(oldWeight) + Number(weight));
+    this.setData({
+      looseFabrics: looseFabrics,
+      weightTotal: weightTotal,
+      isWeightHide: true,
+      weight: ''
+    })
+    wx.setStorage({
+      key: "looseFabrics",
+      data: looseFabrics
+    });
+    wx.setStorage({
+      key: "layerTotal",
+      data: weightTotal
     });
   },
   delete:function(e) {

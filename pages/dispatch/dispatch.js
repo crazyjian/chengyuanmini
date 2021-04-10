@@ -315,9 +315,9 @@ Page({
       return false;
     } 
     var dispatchJson = {};
-    dispatchJson.orderName = this.data.orderName;
-    dispatchJson.emp = this.data.selectRecords;
-    dispatchJson.groupName = app.globalData.employee.groupName;
+    dispatchJson.orderName = obj.data.orderName;
+    dispatchJson.emp = obj.data.selectRecords;
+    dispatchJson.groupName = obj.data.groupNames[obj.data.groupIndex]
     // dispatchJson.groupName = '质检';
     dispatchJson.procedureInfo = this.data.chooseProcedures;
     wx.request({
