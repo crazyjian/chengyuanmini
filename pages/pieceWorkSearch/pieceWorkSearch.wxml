@@ -92,7 +92,7 @@ module.exports = {
     <view class='button'>
       <button class='btn' disabled="{{isDisabled}}" bindtap='search'>查询</button>
     </view>
-    <scroll-view scroll-x="true">  
+    <scroll-view scroll-x="true">
       <view class="table" hidden="{{oneHide}}">
         <view class="tr bg-w">
           <view class="th" style='width:25%'>款号</view>
