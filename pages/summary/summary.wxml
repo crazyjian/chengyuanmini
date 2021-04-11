@@ -47,9 +47,9 @@
     <view class="flex-row" style="justify-content:space-between;margin-top:30rpx">
       <view style="font-weight:bold;">其他明细</view>
     </view>
-    <view class="textView largeTitle" bindtap='getDispatchDetail'>
+    <!-- <view class="textView largeTitle" bindtap='getDispatchDetail'>
       排产明细
-    </view>
+    </view> -->
     <!-- <view class="textView largeTitle" bindtap='getInspectionDetail'>
       质检明细
     </view>

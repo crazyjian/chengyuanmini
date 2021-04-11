@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": " 重置工序",
+  "usingComponents": {
+    "right-picker": "../../components/right-picker/right-picker"
+  }
+}

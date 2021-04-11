@@ -56,6 +56,9 @@
               <text>工序列表</text>
           </view>
           <view class='toast-main'>
+            <view class='title' style="margin-top:0rpx;">
+              <text wx:if="{{noProcedureInfo}}">没有订单工序，请联系IE</text>
+            </view>
               <scroll-view scroll-x="true" scroll-y="true" style="height: {{windowHeight-150}}px;">  
                 <view class="tableWin">
                   <block wx:for="{{procedures}}">

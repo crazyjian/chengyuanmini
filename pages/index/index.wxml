@@ -7,9 +7,13 @@
         <text>扫件</text>
       </view>
       <view class="flex-item">
+        <image class='itemImg' src='../../static/img/init.png' mode="aspectFit" bindtap='initDispatch'></image>
+        <text>重置</text>
+      </view>
+      <!-- <view class="flex-item">
         <image class='itemImg' src='../../static/img/paigong.png' mode="aspectFit" bindtap='dispatch'></image>
         <text>派工</text>
-      </view>
+      </view> -->
       <view class="flex-item">
         <image class='itemImg' src='../../static/img/check.png' mode="aspectFit" bindtap='inspection'></image>
         <text>中查</text>

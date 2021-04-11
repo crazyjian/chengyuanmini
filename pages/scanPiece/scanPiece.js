@@ -15,7 +15,8 @@ Page({
     isHideWin:true,
     chooseProcedures:[],
     procedures: [],
-    tailorQcodeID:''
+    tailorQcodeID:'',
+    noProcedureInfo:false
   },
   onLoad: function (option) {
     var obj = this;
@@ -284,9 +285,14 @@ Page({
                               isSelect: false, // 每条记录默认没有选中
                               value:info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName});
                           }
+                          var noProcedureInfo = false;
+                          if(procedures.length==0) {
+                            noProcedureInfo = true;
+                          }
                           obj.setData({
                             procedures: procedures,
-                            chooseProcedures:[]
+                            chooseProcedures:[],
+                            noProcedureInfo:noProcedureInfo
                           })
                         }
                       },
@@ -695,9 +701,14 @@ Page({
                             isSelect: false, // 每条记录默认没有选中
                             value:info.scanPart + "-" + info.procedureNumber + "-" + info.procedureName});
                         }
+                        var noProcedureInfo = false;
+                          if(procedures.length==0) {
+                            noProcedureInfo = true;
+                          }
                         obj.setData({
                           procedures: procedures,
-                          chooseProcedures:[]
+                          chooseProcedures:[],
+                          noProcedureInfo:noProcedureInfo
                         })
                       }
                     },
