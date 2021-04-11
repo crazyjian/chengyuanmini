@@ -480,8 +480,8 @@ Page({
             data: {
               'orderName': obj.data.orderName,
               'clothesVersionNumber':obj.data.clothesVersionNumber,
-              'groupName':app.globalData.groupName,
-              'employeeName':app.globalData.employeeName,
+              'groupName':app.globalData.employee.groupName,
+              'employeeName':app.globalData.employee.employeeName,
               'employeeNumber':app.globalData.employeeNumber,
               'bedNumber': obj.data.bedNumber,
               'partName': obj.data.partName,
