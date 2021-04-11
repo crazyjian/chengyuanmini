@@ -66,6 +66,25 @@ Page({
       })
     }
   },
+  scanDelete: function (e) {
+    if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role2'|| app.globalData.employee.role == 'role6') {
+      wx.scanCode({
+        onlyFromCamera: true,
+        success(res) {
+          // console.log(res);
+          wx.navigateTo({
+            url: "../scanDelete/scanDelete?qrCode=" + res.result
+          })
+        }
+      })
+    }else {
+      wx.showToast({
+        title: '对不起，您没有该操作权限',
+        icon: 'none',
+        duration: 1000
+      })
+    }
+  },
   inspection: function (e) {
     var obj = this;
     if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role6' || app.globalData.employee.role == 'role2' || app.globalData.employee.role == 'role3') {

@@ -1,0 +1,41 @@
+<view class="container" style="padding:50rpx;align-items:left;background-color:rgb(242, 242, 242)">
+  
+  <view class="section">
+    <view class="flex-wrp" style="flex-direction:row;margin-top:15px;">
+      <label>订单号：{{orderName}}</label>
+    </view>
+    <view class="flex-wrp" style="flex-direction:row;">
+      <label>床号：{{bedNumber}}</label>
+      <label>扎号：{{packageNumber}}扎</label>
+    </view>
+    <view class='title'>{{info}}</view>
+    <scroll-view scroll-x="true"> 
+    <view class="table">
+      <view class="tr bg-w">
+        <view class="th" style="width:10%;"><checkbox  bindtap='checkAll' data-checks="{{isCheckAll}}"/></view>
+        <view class="th" style='width:45%'>工序</view>
+        <view class="th" style='width:15%'>员工</view>
+        <view class="th" style='width:30%'>时间</view>
+      </view>
+      <block wx:for="{{records}}" wx:key="{{procedureCode}}">
+        <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+          <view class="td" style="width:10%;"><checkbox data-index="{{index}}" checked="{{item.isSelect}}" bindtap='check'/></view>
+          <view class="td" style='width:45%' data-index="{{index}}" bindtap='check'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:15%' data-index="{{index}}" bindtap='check'>{{item.employeeName}}</view>
+          <view class="td" style='width:30%' data-index="{{index}}" bindtap='check'>{{item.updateTime}}</view>
+        </view>
+        <view class="tr" wx:else>
+          <view class="td" style="width:10%;"><checkbox data-index="{{index}}" checked="{{item.isSelect}}" bindtap='check'/></view>
+          <view class="td" style='width:45%' data-index="{{index}}" bindtap='check'>{{item.procedureNumber+'-'+item.procedureName}}</view>
+          <view class="td" style='width:15%' data-index="{{index}}" bindtap='check'>{{item.employeeName}}</view>
+          <view class="td" style='width:30%' data-index="{{index}}" bindtap='check'>{{item.updateTime}}</view>
+        </view>
+      </block>
+    </view>
+    </scroll-view>
+    <view class='button'>
+      <button class='btn' bindtap='batchDel'>删除</button>
+    </view>
+  </view>
+
+</view>

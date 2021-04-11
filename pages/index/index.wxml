@@ -38,6 +38,10 @@
         <image class='itemImg' src='../../static/img/manual.png' mode="aspectFit" bindtap='manual'></image>
         <text>上数</text>
       </view>
+      <view class="flex-item">
+        <image class='itemImg' src='../../static/img/delete.png' mode="aspectFit" bindtap='scanDelete'></image>
+        <text>扫描删除</text>
+      </view>
     </view>
   </view>
   <view class='toast-box' hidden='{{isHide}}'>

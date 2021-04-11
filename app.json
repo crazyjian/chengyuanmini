@@ -6,6 +6,8 @@
     "pages/scanPiece/scanPiece",
     "pages/hand/hand",
     "pages/dispatch/dispatch",
+    "pages/initDispatch/initDispatch",
+    "pages/scanDelete/scanDelete",
     "pages/inspection/inspection",
     "pages/sampleinspection/sampleinspection",
     "pages/summary/summary",
