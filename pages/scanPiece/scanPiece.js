@@ -480,8 +480,8 @@ Page({
             data: {
               'orderName': obj.data.orderName,
               'clothesVersionNumber':obj.data.clothesVersionNumber,
-              'groupName':app.globalData.groupName,
-              'employeeName':app.globalData.employeeName,
+              'groupName':app.globalData.employee.groupName,
+              'employeeName':app.globalData.employee.employeeName,
               'employeeNumber':app.globalData.employeeNumber,
               'bedNumber': obj.data.bedNumber,
               'partName': obj.data.partName,
@@ -496,7 +496,7 @@ Page({
               'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
             success: function (res) {
-              // console.log(res.data);
+              console.log(res.data);
               if (res.statusCode == 200 && res.data) {
                 obj.setData({
                   chooseProcedures:[],
