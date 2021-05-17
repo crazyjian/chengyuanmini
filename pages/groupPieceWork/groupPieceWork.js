@@ -12,7 +12,29 @@ Page({
     groupNames:["全部"],
     groupIndex:0,
     pieceCountTotal:0,
-    bindSource: []
+    bindSource: [],
+    getListLoading:false,
+    tableColumns: [{
+      title: "组名",
+      key: "groupName",
+      }, {
+          title: "单号",
+          key: "clothesVersionNumber",
+          width: "300rpx"
+      }, {
+          title: "款号",
+          key: "orderName",
+          width: "400rpx"
+      }, {
+          title: "工序名",
+          key: "procedureName",
+      }, {
+          title: "工序号",
+          key: "procedureNumber",
+      }, {
+          title: "数量",
+          key: "pieceCount"
+      }]
   },
   onLoad: function (option) {
     var obj = this;
