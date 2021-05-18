@@ -26,7 +26,41 @@ Page({
     twoHide: true,
     threeHide: true,
     windowHeight: 0,
-    isDisabled:false
+    isDisabled:false,
+    getListLoading:false,
+    tableColumns: [
+      {
+        title: "款号",
+        key: "orderName",
+        width: "300rpx"
+      },
+      {
+          title: "工序号",
+          key: "procedureNumber",
+      }, {
+          title: "工序名",
+          key: "procedureName"
+      }, {
+          title: "数量",
+          key: "pieceCount"
+      }, {
+          title: "单价",
+          key: "price",
+      }, {
+          title: "工资",
+          key: "salary",
+          render:function(value,item,index,data) {
+            return 1
+          }
+      }, {
+          title: "单价2",
+          key: "priceTwo"
+      }, {
+        title: "工资2",
+        key: "salaryTwo"
+      }
+    ]
+
   },
   onLoad: function (option) {
     var obj = this;
@@ -171,6 +205,8 @@ Page({
     })
   },
   search:function() {
+    wx.showLoading({title: "查询中"});
+
     var obj = this;
     obj.setData({  
       isDisabled: true
@@ -219,36 +255,147 @@ Page({
           }
           if (obj.data.t_index == 0){
             obj.setData({
-              records: res.data.miniDetailQueryList,
-              pieceCountTotal: pieceCountTotal,
-              salaryTotal: salaryTotal,
-              salaryTotal2: salaryTotal2,
-              salaryTotalSum: salaryTotal+salaryTotal2,
-              oneHide: false,
-              twoHide: true,
-              threeHide: true
+              tableColumns: [
+                {
+                  title: "款号",
+                  key: "orderName",
+                  width: "300rpx"
+                },
+                {
+                    title: "工序号",
+                    key: "procedureNumber",
+                }, {
+                    title: "工序名",
+                    key: "procedureName"
+                }, {
+                    title: "数量",
+                    key: "pieceCount"
+                }, {
+                    title: "单价",
+                    key: "price",
+                    render:function(value,item,index,data) {
+                      return value.toFixed(4)
+                    }
+                }, {
+                    title: "工资",
+                    key: "salary",
+                    render:function(value,item,index,data) {
+                      return value.toFixed(2)
+                    }
+                }, {
+                    title: "单价2",
+                    key: "priceTwo",
+                    render:function(value,item,index,data) {
+                      return value.toFixed(4)
+                    }
+                }, {
+                  title: "工资2",
+                  key: "salaryTwo",
+                  render:function(value,item,index,data) {
+                    return value.toFixed(2)
+                  }
+                }
+              ]
             });
           } else if (obj.data.t_index == 1){
             obj.setData({
-              records: res.data.miniDetailQueryList,
-              pieceCountTotal: pieceCountTotal,
-              salaryTotal: salaryTotal,
-              salaryTotal2: salaryTotal2,
-              salaryTotalSum: salaryTotal+salaryTotal2,
-              oneHide: true,
-              twoHide: false,
-              threeHide: true
+              tableColumns: [
+                {
+                  title: "款号",
+                  key: "orderName",
+                  width: "300rpx"
+                },
+                {
+                    title: "工序号",
+                    key: "procedureNumber",
+                }, {
+                    title: "工序名",
+                    key: "procedureName"
+                }, {
+                    title: "数量",
+                    key: "pieceCount"
+                }, {
+                    title: "单价",
+                    key: "price",
+                    render:function(value,item,index,data) {
+                      return value.toFixed(4)
+                    }
+                }, {
+                    title: "工资",
+                    key: "salary",
+                    render:function(value,item,index,data) {
+                      return value.toFixed(2)
+                    }
+                }, {
+                    title: "单价2",
+                    key: "priceTwo",
+                    render:function(value,item,index,data) {
+                      return value.toFixed(4)
+                    }
+                }, {
+                  title: "工资2",
+                  key: "salaryTwo",
+                  render:function(value,item,index,data) {
+                    return value.toFixed(2)
+                  }
+                }, {
+                  title: "日期",
+                  key: "stringGeneralDate"
+                }
+              ]
             });
           } else {
             obj.setData({
-              records: res.data.miniDetailQueryList,
-              pieceCountTotal: pieceCountTotal,
-              salaryTotal: salaryTotal,
-              salaryTotal2: salaryTotal2,
-              salaryTotalSum: salaryTotal+salaryTotal2,
-              oneHide: true,
-              twoHide: true,
-              threeHide: false
+              tableColumns: [
+                {
+                  title: "款号",
+                  key: "orderName",
+                  width: "300rpx"
+                },
+                {
+                    title: "工序号",
+                    key: "procedureNumber",
+                }, {
+                    title: "工序名",
+                    key: "procedureName"
+                }, {
+                    title: "数量",
+                    key: "pieceCount"
+                }, {
+                    title: "单价",
+                    key: "price",
+                    render:function(value,item,index,data) {
+                      return value.toFixed(4)
+                    }
+                }, {
+                    title: "工资",
+                    key: "salary",
+                    render:function(value,item,index,data) {
+                      return value.toFixed(2)
+                    }
+                }, {
+                    title: "单价2",
+                    key: "priceTwo",
+                    render:function(value,item,index,data) {
+                      return value.toFixed(4)
+                    }
+                }, {
+                  title: "工资2",
+                  key: "salaryTwo",
+                  render:function(value,item,index,data) {
+                    return value.toFixed(2)
+                  }
+                }, {
+                  title: "日期",
+                  key: "stringGeneralDate"
+                }, {
+                  title: "颜色",
+                  key: "colorName"
+                }, {
+                  title: "尺码",
+                  key: "sizeName"
+                }
+              ]
             });
           }
           obj.setData({
@@ -275,6 +422,9 @@ Page({
           image: '../../static/img/error.png',
           duration: 1000,
         })
+      },
+      complete: () => {
+        wx.hideLoading()
       }
     });
   },
