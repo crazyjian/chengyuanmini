@@ -5,7 +5,42 @@ Page({
     procedureNumber:'',
     procedureName:'',
     records:[],
-    person:[]
+    person:[],
+    getListLoading:false,
+    tableColumns: [
+      {
+          title: "颜色",
+          key: "color",
+      }, {
+          title: "尺码",
+          key: "size"
+      }, {
+          title: "已做",
+          key: "productionCount"
+      }, {
+          title: "订单量",
+          key: "orderCount",
+      }, {
+          title: "好片数",
+          key: "cutCount",
+      }, {
+          title: "差异",
+          key: "leakCount"
+      }],
+      personColumns: [
+        {
+            title: "组名",
+            key: "groupName",
+        }, {
+            title: "工号",
+            key: "employeeNumber"
+        }, {
+            title: "姓名",
+            key: "employeeName"
+        }, {
+            title: "数量",
+            key: "productionCount",
+        }]
   },
   onLoad: function (option) {
     var obj = this;
