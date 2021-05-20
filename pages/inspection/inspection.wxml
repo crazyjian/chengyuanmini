@@ -13,7 +13,7 @@
       <label style="margin-right:20rpx;">颜色：{{colorName}}</label>
       <label>件数：{{layerCount}}件</label>
     </view>
-    <view class='searchItem'>
+    <!-- <view class='searchItem'>
       <text>问题</text>
       <picker style="margin-left:20rpx;width:70%" bindchange="bindPickerChange" value="{{index}}" range="{{wrong}}" range-key	="{{'wrongDescription'}}">
         <view class="picker">
@@ -27,7 +27,7 @@
     </view>
     <view class='button'>
       <button class='btn' bindtap='{{btnFunction}}'>{{btnText}}</button>
-    </view>
+    </view> -->
     <scroll-view scroll-x="true">
     <view class="table">
       <view class="tr bg-w">
