@@ -10,7 +10,28 @@ Page({
     dateFrom: '开始日期',
     dateTo: '结束日期',
     g_index:0,
-    groupNames:["请选择分组"]
+    groupNames:["请选择分组"],
+    getListLoading:false,
+    tableColumns: [
+      {
+          title: "工序号",
+          key: "procedureNumber",
+      }, {
+          title: "工序名",
+          key: "procedureName"
+      }, {
+          title: "已做",
+          key: "productionCount"
+      }, {
+          title: "订单数",
+          key: "orderCount",
+      }, {
+          title: "好片数",
+          key: "cutCount",
+      }, {
+          title: "差异",
+          key: "differenceCount"
+      }]
   },
   onLoad: function (option) {
     var obj = this;
@@ -189,8 +210,8 @@ Page({
     })
   },
   detail:function(e) {
-    var procedureNumber = e.currentTarget.dataset.procedurenumber;
-    var procedureName = e.currentTarget.dataset.procedurename;
+    var procedureNumber = e.detail.value.item.procedureNumber;
+    var procedureName = e.detail.value.item.procedureName;
     var groupName = this.data.groupNames[this.data.g_index];
     if (this.data.g_index == 0) {
       groupName = "";
