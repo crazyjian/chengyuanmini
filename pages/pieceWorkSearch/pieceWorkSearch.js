@@ -237,16 +237,18 @@ Page({
           for (var i = 0; i<res.data.miniDetailQueryList.length;i++) {
             var miniPrice = 0;
             var miniPriceTwo = 0;
+            var subsidy = 0;
             if (res.data.orderProcedureList){
               for (var j = 0; j<res.data.orderProcedureList.length;j++){
                 if (res.data.miniDetailQueryList[i].orderName == res.data.orderProcedureList[j].orderName && res.data.miniDetailQueryList[i].procedureNumber == res.data.orderProcedureList[j].procedureNumber){
                   miniPrice = res.data.orderProcedureList[j].piecePrice;
-                  miniPriceTwo = res.data.orderProcedureList[j].piecePriceTwo + (res.data.orderProcedureList[j].piecePrice + res.data.orderProcedureList[j].piecePriceTwo)*res.data.orderProcedureList[j].subsidy;
+                  miniPriceTwo = res.data.orderProcedureList[j].piecePriceTwo;
+                  subsidy = res.data.orderProcedureList[j].subsidy;
                 }
               }
             }
             res.data.miniDetailQueryList[i].price = miniPrice;
-            res.data.miniDetailQueryList[i].priceTwo = miniPriceTwo;
+            res.data.miniDetailQueryList[i].priceTwo = miniPriceTwo + subsidy * miniPrice;
             res.data.miniDetailQueryList[i].salary = res.data.miniDetailQueryList[i].pieceCount * miniPrice;
             res.data.miniDetailQueryList[i].salaryTwo = res.data.miniDetailQueryList[i].pieceCount * miniPriceTwo;
             pieceCountTotal += res.data.miniDetailQueryList[i].pieceCount;

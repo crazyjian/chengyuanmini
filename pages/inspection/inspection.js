@@ -33,7 +33,6 @@ Page({
       success: function (res) {
         // console.log(res.data);
         if (res.statusCode == 200 && res.data.tailor) {
-          var array = res.data.split('-');
           //访问正常
           var orderName = res.data.tailor.orderName;
           var clothesVersionNumber = res.data.tailor.clothesVersionNumber;
@@ -69,35 +68,6 @@ Page({
           inpsectionJson.employeeNumber = employeeNumber;
           obj.setData({
             inpsectionJson: inpsectionJson
-          })
-          wx.request({
-            url: app.globalData.backUrl + '/erp/minigetwrongbyordername',
-            data: {
-              orderName: orderName
-            },
-            method: 'GET',
-            header: {
-              'content-type': 'application/x-www-form-urlencoded' // 默认值
-            },
-            success: function (res) {
-              // console.log(res.data);
-              if (res.statusCode == 200) {
-                var wrong = [];
-                wrong.push({ "wrongCode": 0, "wrongDescription": "请选择问题"});
-                for (var i = 0; i < res.data.wrongByOrderName.length;i++) {
-                  wrong.push({ 'wrongCode': res.data.wrongByOrderName[i].wrongCode, 'wrongDescription': res.data.wrongByOrderName[i].wrongCode+'-'+ res.data.wrongByOrderName[i].wrongDescription});
-                }
-                //访问正常
-                obj.setData({
-                  wrong: wrong
-                });
-
-
-              }
-            },
-            fail: function (res) {
-              // console.log(res)
-            }
           })
 
           wx.request({
