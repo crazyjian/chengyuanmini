@@ -9,8 +9,15 @@ Page({
     qrCode:''
   },
   //事件处理函数
-  
+  onShow: function () {
+    this.setData({
+      factoryName:app.globalData.factoryName
+    })
+  },
   onLoad: function (option) {
+    this.setData({
+      factoryName:app.globalData.factoryName
+    })
     wx.showTabBar();
   },
   scanCode: function (e) {

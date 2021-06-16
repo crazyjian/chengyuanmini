@@ -4,16 +4,16 @@
     <view class="flex-wrp" style="flex-direction:row;">
       <view class="flex-item">
         <image class='itemImg' src='../../static/img/scan_index.png' mode="aspectFit" bindtap='scanCode'></image>
-        <text>扫件</text>
+        <text>扫件{{factoryModel}}</text>
       </view>
-      <view class="flex-item">
+      <view class="flex-item" wx:if="{{factoryName!='中山翔胜制衣'}}">
         <image class='itemImg' src='../../static/img/init.png' mode="aspectFit" bindtap='initDispatch'></image>
         <text>重置</text>
       </view>
-      <!-- <view class="flex-item">
+      <view class="flex-item" wx:else>
         <image class='itemImg' src='../../static/img/paigong.png' mode="aspectFit" bindtap='dispatch'></image>
         <text>派工</text>
-      </view> -->
+      </view>
       <view class="flex-item">
         <image class='itemImg' src='../../static/img/check.png' mode="aspectFit" bindtap='inspection'></image>
         <text>中查</text>
