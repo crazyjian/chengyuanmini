@@ -20,9 +20,15 @@ Page({
         onlyFromCamera: true,
         success(res) {
           // console.log(res);
-          wx.redirectTo({
-            url: "../scanPiece/scanPiece?qrCode=" + res.result
-          })
+          if("中山翔胜制衣" === app.globalData.factoryName) {
+            wx.redirectTo({
+              url: "../scanPieceOld/scanPieceOld?qrCode=" + res.result
+            })
+          }else {
+            wx.redirectTo({
+              url: "../scanPiece/scanPiece?qrCode=" + res.result
+            })
+          }
         },
         // fail(res) {
         //   wx.showToast({
@@ -190,9 +196,15 @@ Page({
       isHide: true,
       qrCode: ''
     })
-    wx.redirectTo({
-      url: "../hand/hand?qrCode=" + qrCode
-    })
+    if("中山翔胜制衣" === app.globalData.factoryName) {
+      wx.redirectTo({
+        url: "../handOld/handOld?qrCode=" + qrCode
+      })
+    }else {
+      wx.redirectTo({
+        url: "../hand/hand?qrCode=" + qrCode
+      })
+    }
   },
   part: function (e) {
     if (app.globalData.employee.role == 'root' || app.globalData.employee.role == 'role6' || app.globalData.employee.role == 'role2' || app.globalData.employee.role == 'role7') {
