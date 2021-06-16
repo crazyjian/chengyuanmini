@@ -93,7 +93,7 @@ module.exports = {
       <button class='btn' disabled="{{isDisabled}}" bindtap='search'>查询</button>
     </view>
 
-    <table class="basic-table" scrollX="{{true}}" columns="{{tableColumns}}" dataList="{{records}}" getListLoading="{{getListLoading}}" tableHeight="900rpx"/>
+    <table class="basic-table" scrollX="{{true}}" columns="{{tableColumns}}" dataList="{{records}}" getListLoading="{{getListLoading}}" tableHeight="900rpx"     rowKey="orderName"/>
     
     <view>
       总计  件数:{{pieceCountTotal}}件   工资:{{we.toFixedTwo(salaryTotal)}}元  补贴:{{we.toFixedTwo(salaryTotal2)}}元   总工资:{{we.toFixedTwo(salaryTotalSum)}}元
